@@ -1,79 +1,95 @@
 import React, { useState } from 'react';
 import Paper from '@material-ui/core/Paper';
-
 import {
+  SearchState,
+  IntegratedFiltering,
+  IntegratedSelection,
   SelectionState,
   PagingState,
   IntegratedPaging,
-  IntegratedSelection,
   SortingState,
   IntegratedSorting,
-  SearchState
-
+  TableColumnVisibility,
 } from '@devexpress/dx-react-grid';
-
 
 import {
   Grid,
   Table,
-  TableHeaderRow,
-  TableSelection,
-  PagingPanel,
+  Toolbar,
   SearchPanel,
-  Toolbar
+  TableHeaderRow,
+  VirtualTable,
+  TableSelection,  
+  PagingPanel,  
+  ColumnChooser,
 } from '@devexpress/dx-react-grid-material-ui';
 
 
+export default (props) => {
 
+  const [searchValue, setSearchState] = useState('');
+  const [selection, setSelection] = useState([]);
+  const {rows, columns } = props;
+  const [sorting, setSorting] = useState([]);
+  const [pageSizes] = useState([5, 10, 15, 0]);
+  const [pageSize, setPageSize] = useState(5);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [hiddenColumnNames, setHiddenColumnNames] = useState([]);
+  
+  return (
 
+<div>
+<span>
+  Total rows selected:
+  {' '}
+  {selection.length}
+</span>
+<Paper>
+  <Grid
+    rows={rows}
+    columns={columns}
+  >
+  <SearchState
+    value={searchValue}
+    onValueChange={setSearchState}
+  />
 
+    <SelectionState
+      selection={selection}
+      onSelectionChange={setSelection}
+    />
+    <PagingState
+      defaultCurrentPage={0}
+      
+      currentPage={currentPage}
+      onCurrentPageChange={setCurrentPage}
+      pageSize={pageSize}
+      onPageSizeChange={setPageSize}      
+    />
 
-export function DevDataTable(props) {
-    
-    const [selection, setSelection] = useState([]);
-    if (props.isLoading) {
-        return (
-            <h3>Loading...</h3>
-        )
-    }
-    return (
-        <div>
-          <span>
-            Total rows selected:
-            {' '}
-            {selection.length}
-          </span>
-          <Paper>
-            <Grid
-              rows={props.rows}
-              columns={props.columns}
-            >
-            <SortingState
-                defaultSorting={[{ columnName: 'product', direction: 'asc' }]}
-            />
-            <SearchState defaultValue="Market" />
-            <IntegratedSorting />                
-              <PagingState
-                defaultCurrentPage={0}
-                pageSize={6}
-              />
-              <SelectionState
-                selection={selection}
-                onSelectionChange={setSelection}
-              />
-              <IntegratedPaging />
-              <IntegratedSelection />
-              <Table />
-              <TableHeaderRow showSortingControls/>
-              <TableSelection showSelectAll />
-              <PagingPanel />
-              <Toolbar />
-              <SearchPanel />              
-              
-            </Grid>
-          </Paper>
-        </div>
-      );    
-}
+      <SortingState
+          sorting={sorting}
+          onSortingChange={setSorting}
+        />
+        <IntegratedSorting />
 
-
+    <IntegratedSelection />
+    <VirtualTable />              
+    <TableColumnVisibility
+          hiddenColumnNames={hiddenColumnNames}
+          onHiddenColumnNamesChange={setHiddenColumnNames}
+        />    
+    <IntegratedFiltering />      
+    <IntegratedPaging />
+    <Table />
+    <TableHeaderRow showSortingControls/>
+    <TableSelection showSelectAll />
+    <PagingPanel pageSizes={pageSizes}/>
+    <Toolbar />
+    <SearchPanel />    
+    <ColumnChooser />
+  </Grid>
+</Paper>
+</div>    
+  );
+};

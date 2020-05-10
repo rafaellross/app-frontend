@@ -1,5 +1,5 @@
 
-const api = "http://localhost/app/api/api"
+const api = "http://127.0.0.1:8000/api"
 
 
 // Generate a unique token for storing your bookshelf data on the backend server.

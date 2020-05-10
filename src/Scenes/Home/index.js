@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { DevDataTable } from '../../Components/DataTable/DevDataTable'
+import  DevDataTable from '../../Components/DataTable/DevDataTable'
 import * as API from '../../Api'
 
 class Home extends Component {
