@@ -28,9 +28,9 @@ class App extends Component {
         
         return (
           <div className="App">
-            {/*
+            
               <NavBar/>            
-            */}
+            
             
             
             <Route exact path="/" component={Home}/>      

@@ -1,72 +1,80 @@
-import React, { Component } from 'react'
-import  DevDataTable from '../../Components/DataTable/DevDataTable'
-import * as API from '../../Api'
+import React, { Component } from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar';
+import Container from '@material-ui/core/Container';
+import { Paper } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import 'typeface-roboto';
+
+import Grid from '@material-ui/core/Grid';
+
+const styles = theme => ({
+    root: {
+        display: 'flex',
+        '& > *': {
+          margin: theme.spacing(1),
+        },
+      },
+
+      large: {
+        width: theme.spacing(20),
+        height: theme.spacing(20),
+        fontSize: theme.spacing(20),        
+        
+                        
+      },
+      paper: {
+          height: theme.spacing(60),
+          paddingTop: theme.spacing(10),   
+          marginTop: theme.spacing(5),   
+          textAlign: 'center',
+          
+      },
+      buttons: {
+        width: theme.spacing(40),        
+        marginTop: theme.spacing(10),  
+      }
+});
+
+
+
 
 class Home extends Component {
 
-    constructor(props) {
-        super(props)
-    
-        this.state = {
-            isLoading: true,
-            rows: [],
-            columns: [
-                    
-                { title: '#', name: 'id'},
-                { title: 'Code', name: 'code' },
-                { title: 'Description', name: 'description'},
-                { title: 'Address', name: 'address'},
-                {
-                    name: 'inactive',
-                    title: 'Active Job?',                
-                },
-            
-                {
-                    name: 'edit',
-                    title: 'Edit',
-                } ,
-                {
-                    name: 'fire_register',
-                    title: 'Fire Register',
-                } ,
-                           
-            
-                
-            ]         
-                 
-        }
-    }
-
-    componentDidMount() {
-
-        
-        let isLoading = true
-        
-        API.getAll('jobs')
-        .then((data) => {      
-            this.setState(() => ({
-                rows: data,
-                isLoading: false
-            }))                
-                
-        })    
-        
-        
-    }
     render() {
-
-        if (this.state.isLoading) {
-            return (
-                <h3>Loading...</h3>
-            )
-        }
-
-        return (
+        
+        return (            
             <div>
-                <DevDataTable rows={this.state.rows} isLoading={this.state.isLoading} columns={this.state.columns}/>
+                <React.Fragment>                
+                <Container maxWidth="sm">
+                    <Paper className={this.props.classes.paper} elevation={3}>      
+                            <Grid container spacing={1}>
+                                <Grid item xs={12}>
+                                    <Container maxWidth="lg">
+                                    <Avatar className={this.props.classes.large}>H</Avatar>
+                                    </Container>
+                                </Grid>
+                                
+                                <Grid item xs={12}>
+                                    <Typography variant="h3" component="h2">
+                                        Welcome User!
+                                    </Typography>                            
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group" orientation="vertical" className={this.props.classes.buttons}>
+                                        <Button size="large">Start Employee Application</Button>
+                                        <Button size="large">Include New Time Sheet</Button>                                
+                                    </ButtonGroup>                           
+                                </Grid>                            
+                            </Grid>                     
+                    </Paper>                    
+                </Container>
+                </React.Fragment>                
             </div>
         )
     }
 }
 
-export default Home
+export default withStyles(styles)(Home)
