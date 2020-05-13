@@ -32,31 +32,33 @@ function dialogDisableEmployee(id) {
 export class Employees extends Component {
     constructor(props) {
         super(props)
-    
+        this.toggleColumn = this.toggleColumn.bind(this);
         this.state = {
             showInactive: false,
             selectedCompany: 'A',
+            selectedJob: 'A',
             openDialogDisable: false,
+            jobs: [],
             columns: [
                     
-                { title: '#', field: 'id', width: 5},
-                { title: 'Name', field: 'name', render: rowData => <span>{Helpers.capitaliseString(rowData.name.toLowerCase())}</span> },
-                { title: 'D.O.B', field: 'dob', type: 'date' },
-                { title: 'Phone', field: 'phone' },
-                { title: 'RDO', field: 'rdo_bal' },
-                { title: 'PLD', field: 'pld' },            
-                { title: 'Annual Leave Balance', field: 'anl' },                            
+                { hidden: true, title: '#', field: 'id', width: 5},
+                { hidden: false, title: 'Name', field: 'name', render: rowData => <span>{Helpers.capitaliseString(rowData.name.toLowerCase())}</span> },
+                { hidden: false, title: 'D.O.B', field: 'dob', type: 'date' },
+                { hidden: false, title: 'Phone', field: 'phone' },
+                { hidden: false, title: 'RDO', field: 'rdo_bal' },
+                { hidden: false, title: 'PLD', field: 'pld' },            
+                { hidden: false, title: 'Annual Leave Balance', field: 'anl' },                            
                 { 
-                    title: 'Role', 
+                    hidden: false, title: 'Role', 
                     field: 'location',
                     render: rowData => <span>{this.getRole(rowData.location)}</span>
                     
                 },    
-                { title: 'Apprentice Year', field: 'apprentice_year' },                                                            
-                { title: 'Apprentice Rollover', field: 'anniversary_dt', type: 'date' },                                                                            
+                { hidden: false, title: 'Apprentice Year', field: 'apprentice_year' },                                                            
+                { hidden: false, title: 'Apprentice Rollover', field: 'anniversary_dt', type: 'date' },                                                                            
                 {
                     field: 'inactive',
-                    title: 'Active?',  
+                    hidden: false, title: 'Active?',  
                     export: false,              
                     render: rowData => (
                         <Switch
@@ -69,10 +71,10 @@ export class Employees extends Component {
                     )                    
                 
                 },
-                { title: 'Job', field: 'job_code' },                                                            
+                { hidden: false, title: 'Job', field: 'job_code' },                                                            
                 {
                     field: 'edit',
-                    title: 'Edit',
+                    hidden: false, title: 'Edit',
                     export: false,
                     render: rowData => (
                         <div>
@@ -88,6 +90,18 @@ export class Employees extends Component {
         }
     }
     
+    toggleColumn(columnToggle) {
+        
+        console.log(columnToggle, 'chegou')
+        
+        
+        let fields = this.state.columns.map((column) => column.field !== columnToggle ? column :     
+        Object.assign({}, column, {hidden: !column.hidden, export: column.export}));        
+        this.setState((prevState, props) => ({
+            columns: fields
+        }))                
+    }
+
     toggleInactives() {        
         this.setState((prevState, props) => ({
             showInactive: !prevState.showInactive            
@@ -138,9 +152,14 @@ export class Employees extends Component {
         .then((data) => {            
             this.setState(() => ({
                 data: this.filterEmployees(data),
-                loading: false
+                loading: false,
+                jobs: this.getJobs(data)
           }))                    
         })    
+    }
+
+    getJobs(data) {
+        return [... new Set(data.map(employee => employee.job_code))].sort()
     }
 
     filterCompany(data) {
@@ -162,11 +181,26 @@ export class Employees extends Component {
         }
     }
 
+
+    filterJob(data) {
+        console.log('Filter Job', this.state.selectedJob);
+        if (this.state.selectedJob === 'A') {
+            console.log('Returned all Jobs');
+            return data;
+        } else {
+            console.log('Returned Job', this.state.selectedJob);
+            return data.filter(employee => employee.job_code === this.state.selectedJob)
+        }        
+    }
+
+
+
     filterEmployees(data) {
 
         let filterInactives = this.filterInactives(data);
         let filterCompany = this.filterCompany(filterInactives);
-        return filterCompany; 
+        let filterJob = this.filterJob(filterCompany);
+        return filterJob; 
     }
 
     update(model){
@@ -187,7 +221,15 @@ export class Employees extends Component {
         }))   
         
         this.loadData('employees')
+    }
 
+    changeJob(job) {
+        console.log('Method change job: ', job);
+        this.setState(() => ({
+            selectedJob: job
+        }))   
+        
+        this.loadData('employees')
     }
 
 
@@ -213,8 +255,26 @@ export class Employees extends Component {
                                         <MenuItem value='M'>Maintenance</MenuItem>
                                         </Select>
                                     </FormControl>
-        
-        const toolBar = <div>{buttons}{showInactive}{selectCompany}</div>
+
+        const selectJob =     <FormControl style={{width: 200}} >
+                                        <InputLabel id="demo-simple-select-label">Select Job</InputLabel>
+                                        <Select
+                                        labelId="select-job-label"                                        
+                                        id="select-job-label"                                        
+                                        onChange={(e) => this.changeJob(e.target.value)}
+                                        value={this.state.selectedJob}
+                                        >
+                                        <MenuItem value="A">All</MenuItem>
+                                        {this.state.jobs.map(job => {
+                                           return (<MenuItem key={job} value={job}>{job}</MenuItem>)
+                                        })}
+                                        
+
+                                        </Select>
+                                    </FormControl>
+
+
+        const toolBar = <div>{buttons}{showInactive}{selectCompany}{selectJob}</div>
 
         const dialog = 
             
@@ -245,7 +305,7 @@ export class Employees extends Component {
 
         return (
             <div>
-                <DataTable toolBar={toolBar} style={{maxWidth: '90%', marginLeft: '5%'}} columns={this.state.columns} table={"employees"} title="Employees" data={this.state.data} isLoading={this.state.loading}/>
+                <DataTable toggleColumn={this.toggleColumn} toolBar={toolBar} style={{maxWidth: '90%', marginLeft: '5%'}} columns={this.state.columns} table={"employees"} title="Employees" data={this.state.data} isLoading={this.state.loading}/>
                 {dialog}
             </div>
         )

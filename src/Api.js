@@ -1,5 +1,5 @@
 
-const api = "http://127.0.0.1:8000/api"
+const api = "http://127.0.0.1:7000/api"
 
 
 // Generate a unique token for storing your bookshelf data on the backend server.
@@ -32,7 +32,7 @@ export const update = (table, model) =>
       ...headers,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ model })
+    body: JSON.stringify( model )
   }).then(res => res.json())
 
 
