@@ -89,7 +89,7 @@ class User extends Component {
             API.save('users', state)
             .then((user) => {            
                 console.log(user)
-                //this.props.history.goBack()
+                this.props.history.goBack()
             })
             
     }

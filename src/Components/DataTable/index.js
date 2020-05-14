@@ -21,7 +21,7 @@ class DataTable extends Component {
 
     render() {
       return (
-        <div>
+        <div style={{marginTop: 10}}>
 
           <MaterialTable
           style={this.props.style}
@@ -60,7 +60,7 @@ class DataTable extends Component {
               {
                 icon: 'print',
                 tooltip: 'Print Selecteds',
-                onClick: (event, data) => alert("You printed " + data.length)
+                onClick: (event, data) => console.log(data)
               },
 
               {

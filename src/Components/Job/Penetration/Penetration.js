@@ -25,8 +25,10 @@ const styles = theme => ({
   },
   paper : {
       width: '40%',
-      marginLeft: '30%',
-      padding: 10
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      padding: 40,      
+      marginBottom: 40
   },
   button: {
     display: 'flex',
@@ -82,6 +84,7 @@ class Penetration extends Component {
                     install_dt: penetration.install_dt,
                     job_id: penetration.job_id,
                     manufacturer: penetration.manufacturer,
+                    fire_photo: penetration.fire_photo,
                     //Loading
                     isLoading: false
         
@@ -156,7 +159,7 @@ class Penetration extends Component {
     
     return (
         <div>            
-        <Typography variant="h3" component="h2" className={this.props.classes.paper} style={{textAlign: 'center'}}>
+        <Typography variant="h3" component="h2" style={{textAlign: 'center', marginTop: 20, marginBottom: 10}}>
             {this.props.action}
         </Typography>
 
@@ -172,20 +175,22 @@ class Penetration extends Component {
                     <TextField required label="Manufacturer" value={this.state.manufacturer} variant="outlined" InputLabelProps={{ shrink: true}} name="manufacturer" onChange={(e) => this.handleChange(e)}/>                                                            
                     <Divider light />
                     <div>
-                        <img src={this.state.fire_photo}/>
+                        <img src={this.state.fire_photo} style={{maxWidth: '100%'}}/>
                     </div>                    
                     <DropzoneArea
                         filesLimit={1}
                         onChange={this.handleUploadPhoto.bind(this)}
                         onDelete={this.handleDeletePhoto.bind(this)}
                     />
-                    <div>
+                    
+                    <div style={{marginTop: 20}}>
+                        
                         <ButtonGroup aria-label="outlined primary button group" style={{width: '80%', marginLeft: '10%'}}>
                             <Button variant="contained" color="secondary" style={{width: '50%', padding: '10px'}} onClick={() => this.props.history.goBack()}>Cancel</Button>                    
                             <Button variant="contained" color="primary" style={{width: '50%', padding: 10}} onClick={() => this.handleSave(this.state)}>Save</Button>
                         </ButtonGroup>
                     </div>
-                    </div>
+                </div>
                 </form>
             </Paper> 
             

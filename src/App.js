@@ -19,7 +19,7 @@ import EditJob from './Scenes/Jobs/edit';
 import { Penetrations } from './Scenes/Jobs/Penetrations';
 import AddPenetration from './Scenes/Jobs/Penetrations/add';
 import EditPenetration from './Scenes/Jobs/Penetrations/edit';
-
+import './App.css';
 
 
 

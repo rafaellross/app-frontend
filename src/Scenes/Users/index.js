@@ -84,6 +84,7 @@ export class Users extends Component {
     }
 
     toggleInactives() {        
+        console.log('toggle')
         this.setState((prevState, props) => ({
             showInactive: !prevState.showInactive            
         }))                
@@ -92,10 +93,11 @@ export class Users extends Component {
     }    
 
     filterInactives(data) {
-        if (this.state.showInactive) {
+        if (this.state.showInactive) {            
             return data;
         } else {
             return data.filter(user => user.enabled)
+            
         }
     }
 
@@ -117,7 +119,7 @@ export class Users extends Component {
         let users = this.state.data.map((user) => user.id !== id ? user :     
         Object.assign({}, user, {enabled: !user.enabled, password: user.password, password_confirmation: user.password}));        
         this.setState(() => ({
-            data: users            
+            data: this.filterInactives(users)            
         }))                
         
         API.update('users', users.filter(user => user.id === id)[0])
