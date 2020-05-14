@@ -15,7 +15,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 export class Users extends Component {
     constructor(props) {
         super(props)
-    
+        this.toggleColumn = this.toggleColumn.bind(this);
         this.state = {
             showInactive: false,
             columns: [
@@ -99,6 +99,18 @@ export class Users extends Component {
         }
     }
 
+    toggleColumn(columnToggle) {
+        
+        console.log(columnToggle, 'chegou')
+        
+        
+        let fields = this.state.columns.map((column) => column.field !== columnToggle ? column :     
+        Object.assign({}, column, {hidden: !column.hidden, export: column.export}));        
+        this.setState((prevState, props) => ({
+            columns: fields
+        }))                
+    }
+
 
     enableDisableUser(id) {
         
@@ -125,7 +137,7 @@ export class Users extends Component {
 
         return (
             <div>
-                <DataTable toolBar={toolBar} style={{maxWidth: '80%', marginLeft: '10%', padding: 10}} columns={this.state.columns} table={"users"} title="Users" data={this.state.data} isLoading={this.state.loading}/>
+                <DataTable toggleColumn={this.toggleColumn} toolBar={toolBar} style={{maxWidth: '80%', marginLeft: '10%', padding: 10}} columns={this.state.columns} table={"users"} title="Users" data={this.state.data} isLoading={this.state.loading}/>
             </div>
         )
     }

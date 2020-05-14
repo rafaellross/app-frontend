@@ -36,10 +36,10 @@ export const update = (table, model) =>
   }).then(res => res.json())
 
 
-  export const save = (table, model) =>
-
-  fetch(`${api}/${table}${model.id ? `/${model.id}` : ''}`, {
-    method: model.id ? 'PUT' : 'POST',
+  export const save = (table, model, store = false) =>
+  
+  fetch(`${api}/${table}${model.id && !store ? `/${model.id}` : ''}`, {
+    method: model.id && !store ? 'PUT' : 'POST',
     headers: {
       ...headers,
       'Content-Type': 'application/json'
@@ -57,3 +57,5 @@ export const search = (query) =>
     body: JSON.stringify({ query })
   }).then(res => res.json())
     .then(data => data)
+
+
