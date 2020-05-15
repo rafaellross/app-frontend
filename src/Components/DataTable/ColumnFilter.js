@@ -34,7 +34,7 @@ export default function ColumnFilter(props) {
           {props.columns && (props.columns.map(column =>
             <MenuItem key={column.field}>
                 <FormControlLabel
-                    control={<Checkbox checked={!column.hidden} onChange={(e) => props.handleToggle(e.target.name)} name={column.field} />}
+                    control={<Checkbox checked={!column.hidden} onChange={async (e) =>  props.handleToggle(e.target.name)} name={column.field} />}
                     label={column.title}
                 />          
                 </MenuItem>

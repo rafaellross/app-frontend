@@ -13,14 +13,20 @@ class DataTable extends Component {
   }
 
 
-    handleToggle(column) {
-      this.props.toggleColumn(column)
+   async handleToggle(column) {
+      await this.props.toggleColumn(column)
       
 
     }
 
     render() {
+      if(this.props.loading || !this.props.data) {
+        return <h3 style={{textAlign: 'center'}}>Loading...</h3>
+    } else {
+
+    
       return (
+
         <div style={{marginTop: 10}}>
 
           <MaterialTable
@@ -33,6 +39,8 @@ class DataTable extends Component {
             exportButton: true,
             pageSizeOptions: [30, 60, 120, 240, 1000],
             pageSize: 30,
+            maxBodyHeight: '80vh',
+            padding: 'dense'
 
           }}
 
@@ -73,11 +81,15 @@ class DataTable extends Component {
               
 
           ]}
+
+          detailPanel={this.props.detailPanel}
+          onRowClick={(event, rowData, togglePanel) => this.togglePanel.bind(this)}
         />
         </div>
 
       )
     }
+  }
   }
 
   DataTable.propTypes = {

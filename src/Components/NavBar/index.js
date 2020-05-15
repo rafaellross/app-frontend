@@ -146,7 +146,7 @@ class NavBar extends Component {
                       </Drawer>
 
                     <Typography variant="h6">
-                    <Avatar src="img/brand.ico"/>
+                    <Avatar src="/img/brand.ico"/>
 
                     </Typography>
                     {auth && (

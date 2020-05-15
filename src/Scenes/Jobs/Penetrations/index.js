@@ -1,15 +1,17 @@
 import React, { Component } from 'react'
 import DataTable from '../../../Components/DataTable'
 import * as API from '../../../Api'
-import Fireplace from '@material-ui/icons/Fireplace';
 
 import Edit from '@material-ui/icons/Edit';
+import Image from '@material-ui/icons/Image';
+import HighlightOff from '@material-ui/icons/HighlightOff';
+
 import { Link } from 'react-router-dom'
-import Switch from '@material-ui/core/Switch';
+
 import Button from '@material-ui/core/Button';
 
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Tooltip from '@material-ui/core/Tooltip';
 import SplitButton from '../../../Components/Shared/SplitButton';
 import AddMultiplePenetrations from '../../../Components/Job/Penetration/AddMultiplePenetrations';
 
@@ -23,7 +25,7 @@ export class Penetrations extends Component {
             modalAdd: false,
             columns: [
                     
-                { title: '#', field: 'id', type: 'numeric'},
+                { title: '#', field: 'id', type: 'numeric', searchable: false},
                 { title: 'Drawing', field: 'drawing' },
                 { title: 'Fire Seal Ref.', field: 'fire_seal_ref'},
                 { title: 'Fire Resistance Level (FRL)', field: 'fire_resist_level'},
@@ -39,6 +41,15 @@ export class Penetrations extends Component {
                         </div>
                         )
                 } ,                           
+                {
+                    field: 'fire_photo',
+                    title: 'Photo',
+                    render: rowData => (
+                        <div>
+                              {rowData.photo_path ? <Tooltip title="This penetration has a photo" aria-label="photo"><Image/></Tooltip> : <Tooltip title="No Photo" aria-label="photo"><HighlightOff/></Tooltip>}                      
+                        </div>
+                        )
+                } ,                           
     
                 
             ],        
@@ -46,8 +57,8 @@ export class Penetrations extends Component {
     
     }
     
-    loadData (table) {
-        API.getAll(table, this.props.match.params.job)
+ async loadData (table) {
+        await API.getAll(table, this.props.match.params.job)
         .then((data) => {            
             this.setState(() => ({
                 data: data,
@@ -76,6 +87,25 @@ export class Penetrations extends Component {
     }
 
     render() {
+        const detailPanel=[
+            {
+              tooltip: 'Show Photo',              
+              render: rowData => {
+                return (
+                  <div
+                    style={{
+                      fontSize: 100,
+                      textAlign: 'center',                      
+                    }}
+                  >
+                    {rowData.photo_path ? <img src={"http://192.168.1.102:7000" +rowData.photo_path}/> : <h3>No Photo</h3>}  
+                    
+                  </div>
+                )
+              },
+            },
+          ]
+
         const buttons = <ButtonGroup aria-label="outlined primary button group" style={{minWidth: 200+'px', marginLeft: 1+'px'}}>
                             <SplitButton 
                                 title={"Add Penetrations"} 
@@ -86,12 +116,16 @@ export class Penetrations extends Component {
                         </ButtonGroup>
         
         const toolBar = <div>{buttons}</div>
+        if(this.state.loading || !this.state.data) {
+            return <h3 style={{textAlign: 'center'}}>Loading...</h3>
+        } else {
+            return (
+                <div>
+                    <DataTable detailPanel={this.state.data ? detailPanel : {}} toggleColumn={this.toggleColumn} toolBar={toolBar} style={{maxWidth: '80%', marginLeft: '10%', padding: 10}} columns={this.state.columns} table={"fire_identifications"} title="Penetrations" data={this.state.data} isLoading={this.state.loading}/>
+                </div>
+            )    
+        }
 
-        return (
-            <div>
-                <DataTable toggleColumn={this.toggleColumn} toolBar={toolBar} style={{maxWidth: '80%', marginLeft: '10%', padding: 10}} columns={this.state.columns} table={"fire_identifications"} title="Penetrations" data={this.state.data} isLoading={this.state.loading}/>
-            </div>
-        )
     }
 }
 

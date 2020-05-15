@@ -1,5 +1,5 @@
 
-const api = "http://127.0.0.1:7000/api"
+const api = "http://192.168.1.102:7000/api"
 
 
 // Generate a unique token for storing your bookshelf data on the backend server.
@@ -9,7 +9,8 @@ if (!token)
 
 const headers = {
   'Accept': 'application/json',
-  'Authorization': token
+  'Authorization': token,
+  'mode': 'no-cors'
 }
 
 export const get = (table, id) =>
@@ -20,12 +21,12 @@ export const get = (table, id) =>
 
 
 
-export const getAll = (table, query) =>
-  fetch(`${api}/${table}${query ? `/${query}` : ''}`, { headers })
+export const getAll = async  (table, query) => 
+ fetch(`${api}/${table}${query ? `/${query}` : ''}`, { headers })
     .then(res => res.json())
     .then(data => data)
 
-export const update = (table, model) =>
+export const update = async (table, model) =>
   fetch(`${api}/${table}/${model.id}`, {
     method: 'PUT',
     headers: {
@@ -36,7 +37,7 @@ export const update = (table, model) =>
   }).then(res => res.json())
 
 
-  export const save = (table, model, store = false) =>
+  export const save = async (table, model, store = false) =>
   
   fetch(`${api}/${table}${model.id && !store ? `/${model.id}` : ''}`, {
     method: model.id && !store ? 'PUT' : 'POST',
@@ -47,7 +48,7 @@ export const update = (table, model) =>
     body: JSON.stringify( model )
   }).then(res => res.json())
 
-export const search = (query) =>
+export const search = async  (query) =>
   fetch(`${api}/search`, {
     method: 'POST',
     headers: {
