@@ -87,10 +87,53 @@ const stylesTable = StyleSheet.create({
     }
 })
 
+const projects = {
+      name: '608 Tonkin St Cronulla (Richard Crooks)',
+      date: new Date().toLocaleDateString()
+}
 
-export default function FireRegister(props)  {
 
-           
+
+export class FireRegister extends Component {
+
+    constructor(props) {
+        super(props)
+    
+        this.state = {
+            project : {
+                name: '',
+                date: new Date().toLocaleDateString()
+          },
+
+          penetrations: [],
+          isLoading: true
+                       
+        }
+    }
+
+    componentDidMount() {
+        API.getAll('fire_identification', this.props.match.params.id)
+        .then((penetrations) => {          
+            this.setState(() => ({
+                penetrations: penetrations,
+                isLoading: false,
+                project: {
+                    name: penetrations[0].description,
+                    date: new Date().toLocaleDateString()
+                }    
+            }))  
+        })           
+    
+    }
+    
+    
+
+
+    render() {
+        const project = this.state.project
+        if (!this.state.isLoading) {
+
+        
         return (
             <PDFViewer width={'100%'} height={900}>
             <Document>
@@ -101,7 +144,7 @@ export default function FireRegister(props)  {
                         </View>
                         <View debug={debug} style={stylesHeader.row}>
                             <Text style={stylesHeader.rowsTitle}>Project Name:</Text>                    
-                            <Text style={stylesHeader.rowsDetail}>{props.project}</Text>  
+                            <Text style={stylesHeader.rowsDetail}>{project.name}</Text>  
                             <Text style={stylesHeader.logo}></Text>                      
                         </View>
                         <View debug={debug} style={stylesHeader.row}>
@@ -121,7 +164,7 @@ export default function FireRegister(props)  {
                         </View>
                         <View debug={debug} style={stylesHeader.row}>
                             <Text style={stylesHeader.rowsTitle}>Date:</Text>                    
-                            <Text style={stylesHeader.rowsDetail}>{props.date}</Text>                    
+                            <Text style={stylesHeader.rowsDetail}>{project.date}</Text>                    
                             <Text style={[stylesHeader.logo, {borderBottom: 1}]}></Text>                      
                             <Image style={{ position: 'absolute', right: 20, top: -55, width: '100px' }} src="/img/logo.jpg"/>
                         </View>                            
@@ -138,11 +181,11 @@ export default function FireRegister(props)  {
                         </View>        
                     </View>        
                     <View>
-                    <Table data={props.data}>
+                    <Table data={this.state.penetrations}>
                             <TableBody>
                                 <DataTableCell getContent={(r) => r.fire_number} style={stylesTable.cell} weighting={0.70}/>
                                 <DataTableCell getContent={(r) => r.drawing} style={stylesTable.cell}/>
-                                <DataTableCell getContent={(r) => r.photo_path ? <Image style={stylesTable.photo} src={r.photo_path}/> : ''}/>
+                                <DataTableCell getContent={(r) => <Image style={stylesTable.photo} src={r.fire_photo}/>}/>
                                 <DataTableCell getContent={(r) => r.fire_resist_level} style={stylesTable.cell}/>
                                 <DataTableCell getContent={(r) => r.install_by} style={stylesTable.cell}/>
                                 <DataTableCell getContent={(r) => r.formated_date} style={stylesTable.cell}/>
@@ -154,6 +197,11 @@ export default function FireRegister(props)  {
             </Document>
             </PDFViewer>
         
-        );
+        )
+        } else {
+            return (<h1>Loading...</h1>)
+        }
+    }
 }
 
+export default FireRegister

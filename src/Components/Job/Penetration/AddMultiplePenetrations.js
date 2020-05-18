@@ -4,6 +4,12 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import { withRouter } from "react-router-dom";
+import {DropzoneArea} from 'material-ui-dropzone'
+import Image from 'material-ui-image';
+import TextField from '@material-ui/core/TextField';
+import { Typography, Divider } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -50,7 +56,26 @@ export default function AddMultiplePenetrations() {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            
+          <form className={""} noValidate autoComplete="off">
+                <div>
+                    <TextField required label="Fire Seal Reference" value={""} variant="outlined" InputLabelProps={{ shrink: true}} name="fire_seal_ref" onChange={(e) => this.handleChange(e)}/>
+                    <TextField required label="Drawing" value={""} variant="outlined" InputLabelProps={{ shrink: true}} name="drawing" onChange={(e) => this.handleChange(e)}/>
+                    <TextField required label="Fire Resistance Level (FRL)" value={""} variant="outlined" InputLabelProps={{ shrink: true}} name="fire_resist_level" onChange={(e) => this.handleChange(e)}/>                    
+                    <TextField type="date" required label="Installed Date" value={""} variant="outlined" InputLabelProps={{ shrink: true}} name="install_dt" onChange={(e) => this.handleChange(e)}/>                    
+                    <TextField required label="Installed By" value={""} variant="outlined" InputLabelProps={{ shrink: true}} name="install_by" onChange={(e) => this.handleChange(e)}/>                                                            
+                    <TextField required label="Manufacturer" value={""} variant="outlined" InputLabelProps={{ shrink: true}} name="manufacturer" onChange={(e) => this.handleChange(e)}/>                                                            
+                    <Divider light />
+                    
+                    <div style={{marginTop: 20}}>
+                        
+                        <ButtonGroup aria-label="outlined primary button group" style={{width: '80%', marginLeft: '10%'}}>
+                            <Button variant="contained" color="secondary" style={{width: '50%', padding: '10px'}} onClick={() => 'props.history.goBack()'}>Cancel</Button>                    
+                            <Button variant="contained" color="primary" style={{width: '50%', padding: 10}} onClick={() => console.log('this.handleSave(this.state)')}>Save</Button>
+                        </ButtonGroup>
+                    </div>
+                </div>
+                </form>
+
 
           </div>
         </Fade>

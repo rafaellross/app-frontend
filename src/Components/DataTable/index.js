@@ -68,7 +68,7 @@ class DataTable extends Component {
               {
                 icon: 'print',
                 tooltip: 'Print Selecteds',
-                onClick: (event, data) => console.log(data)
+                onClick: (event, data) => this.props.handlePrint(data)
               },
 
               {
@@ -83,7 +83,7 @@ class DataTable extends Component {
           ]}
 
           detailPanel={this.props.detailPanel}
-          onRowClick={(event, rowData, togglePanel) => this.togglePanel.bind(this)}
+          onRowClick={(event, rowData, togglePanel) => {try{ togglePanel() } catch {console.log('no data')}}}
         />
         </div>
 
