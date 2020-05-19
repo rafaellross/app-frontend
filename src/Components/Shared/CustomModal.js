@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
     width: '80%',
+    height: '80%',
     marginLeft: '10%',
     marginRight: 'auto'
   },
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CustomModal(props) {
   const classes = useStyles();
-  
+  console.log("Props from modal:", props)
 
   return (
     <div>
@@ -32,19 +33,17 @@ export default function CustomModal(props) {
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         className={classes.modal}
-        open={props.open || false}
+        open={props.open}
         onClose={props.handleClose}
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
           timeout: 500,
         }}
-      >
-        <Fade in={props.open || false}>
+      >        
           <div className={classes.paper}>
             {props.children}
-          </div>
-        </Fade>
+          </div>        
       </Modal>
     </div>
   );

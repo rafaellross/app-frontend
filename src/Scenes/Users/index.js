@@ -138,9 +138,9 @@ export class Users extends Component {
         const toolBar = <div>{buttons}{showInactive}</div>
 
         return (
-            <div>
+            <React.Fragment>                
                 <DataTable toggleColumn={this.toggleColumn} toolBar={toolBar} style={{maxWidth: '80%', marginLeft: '10%', padding: 10}} columns={this.state.columns} table={"users"} title="Users" data={this.state.data} isLoading={this.state.loading}/>
-            </div>
+            </React.Fragment>                
         )
     }
 }

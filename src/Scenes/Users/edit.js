@@ -8,11 +8,9 @@ import { useParams } from "react-router-dom";
 function EditUser() {
         let { id } = useParams();
         return (            
-            <div>
-                <h3>Edit User</h3>
+            <React.Fragment>                
                 <User action="Edit User" user_id={id}/>                            
-
-            </div>
+            </React.Fragment>
         )
     }
 

@@ -8,9 +8,9 @@ import User from '../../Components/User'
 function AddUser() {
 
         return (            
-            <div>                
+            <React.Fragment>                           
                 <User action="Add User"/>                            
-            </div>
+            </React.Fragment>                
             
         )
     }

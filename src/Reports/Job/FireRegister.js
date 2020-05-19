@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Page, Text, View, Document, StyleSheet, PDFViewer, Image } from '@react-pdf/renderer';
+import React, { Component, Suspense } from 'react';
+import { Page, Text, View, Document, StyleSheet, Image, PDFViewer } from '@react-pdf/renderer';
 import * as API from '../../Api';
 import {Table, TableCell, TableHeader, TableBody, DataTableCell} from '@david.kucsai/react-pdf-table'
 
@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
 });
 
 
+const CustomPDFViewer = React.lazy(() => import ('@react-pdf/renderer'));
 
 //Creates style for report's header
 
@@ -88,11 +89,14 @@ const stylesTable = StyleSheet.create({
 })
 
 
-export default function FireRegister(props)  {
 
-           
+export class FireRegister extends Component {
+
+    render() {
+        const {data, project} = this.props;
+
         return (
-            <PDFViewer width={'100%'} height={900}>
+                        
             <Document>
                 <Page size="A4" style={styles.page} debug={debug} orientation="landscape">
                     <View fixed>            
@@ -101,7 +105,7 @@ export default function FireRegister(props)  {
                         </View>
                         <View debug={debug} style={stylesHeader.row}>
                             <Text style={stylesHeader.rowsTitle}>Project Name:</Text>                    
-                            <Text style={stylesHeader.rowsDetail}>{props.project}</Text>  
+                            <Text style={stylesHeader.rowsDetail}>{project.description}</Text>  
                             <Text style={stylesHeader.logo}></Text>                      
                         </View>
                         <View debug={debug} style={stylesHeader.row}>
@@ -121,7 +125,7 @@ export default function FireRegister(props)  {
                         </View>
                         <View debug={debug} style={stylesHeader.row}>
                             <Text style={stylesHeader.rowsTitle}>Date:</Text>                    
-                            <Text style={stylesHeader.rowsDetail}>{props.date}</Text>                    
+                            <Text style={stylesHeader.rowsDetail}>{new Date().toLocaleDateString()}</Text>                    
                             <Text style={[stylesHeader.logo, {borderBottom: 1}]}></Text>                      
                             <Image style={{ position: 'absolute', right: 20, top: -55, width: '100px' }} src="/img/logo.jpg"/>
                         </View>                            
@@ -138,7 +142,7 @@ export default function FireRegister(props)  {
                         </View>        
                     </View>        
                     <View>
-                    <Table data={props.data}>
+                    <Table data={data}>
                             <TableBody>
                                 <DataTableCell getContent={(r) => r.fire_number} style={stylesTable.cell} weighting={0.70}/>
                                 <DataTableCell getContent={(r) => r.drawing} style={stylesTable.cell}/>
@@ -152,8 +156,12 @@ export default function FireRegister(props)  {
                     </View>
                 </Page>
             </Document>
-            </PDFViewer>
-        
-        );
+            
+                   
+            
+     
+        )
+    }
 }
 
+export default FireRegister

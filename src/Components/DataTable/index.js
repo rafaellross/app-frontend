@@ -68,7 +68,8 @@ class DataTable extends Component {
               {
                 icon: 'print',
                 tooltip: 'Print Selecteds',
-                onClick: (event, data) => this.props.handlePrint(data)
+                onClick: (event, data) => this.props.handlePrint ? this.props.handlePrint(data) : console.log('No Print Handler'),
+                hidden: this.props.handlePrint ? false : true
               },
 
               {
