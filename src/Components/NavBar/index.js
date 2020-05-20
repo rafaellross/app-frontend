@@ -26,6 +26,10 @@ import AccountTree from '@material-ui/icons/AccountTree';
 import Settings from '@material-ui/icons/Settings';
 import Assignment from '@material-ui/icons/Assignment';
 import HowToReg from '@material-ui/icons/HowToReg';
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
+
+
+
 
 import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import deepPurple from '@material-ui/core/colors/deepPurple';
@@ -76,6 +80,12 @@ class NavBar extends Component {
                 title: "Employees",
                 path: "/employees",
                 icon: <HowToReg />
+              },
+
+              {
+                title: "Quality Assurance (QA)",
+                path: "/qa",
+                icon: <AssignmentTurnedInIcon />
               },
 
               {

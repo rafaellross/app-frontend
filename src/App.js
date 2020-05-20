@@ -20,6 +20,8 @@ import { Penetrations } from './Scenes/Jobs/Penetrations';
 import AddPenetration from './Scenes/Jobs/Penetrations/add';
 import EditPenetration from './Scenes/Jobs/Penetrations/edit';
 import './App.css';
+import { Qas } from './Scenes/Qa';
+import { QaReport } from './Reports/Qa/QaReport';
 
 
 
@@ -44,6 +46,10 @@ class App extends Component {
             <Route exact path="/jobs" component={Jobs}/>    
             <Route exact path="/jobs/add" component={AddJob}/>    
             <Route exact path="/jobs/edit/:id" component={EditJob}/>    
+            
+            <Route exact path="/qa" component={Qas}/>    
+            <Route exact path="/qa/report/:id" component={QaReport}/>    
+
 
             <Route exact path="/jobs/penetrations/:job" component={Penetrations}/>    
             <Route exact path="/jobs/penetrations/:job/add" component={AddPenetration}/>    

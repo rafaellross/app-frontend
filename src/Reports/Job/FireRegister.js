@@ -1,5 +1,7 @@
 import React, { Component, Suspense } from 'react';
 import { Page, Text, View, Document, StyleSheet, Image, PDFViewer } from '@react-pdf/renderer';
+
+
 import * as API from '../../Api';
 import {Table, TableCell, TableHeader, TableBody, DataTableCell} from '@david.kucsai/react-pdf-table'
 

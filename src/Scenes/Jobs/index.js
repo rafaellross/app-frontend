@@ -29,7 +29,7 @@ export class Jobs extends Component {
                     title: 'Active Job?',                
                     render: rowData => (
                             <Switch
-                                checked={rowData.inactive === 1 || rowData.inactive ? false : true}
+                                checked={rowData.inactive === "1" ? false : true}
                                 onChange={() => this.enableDisableJob(rowData.id)}
                                 color="primary"
                                     name="checkedB"
@@ -81,7 +81,7 @@ export class Jobs extends Component {
         if (this.state.showInactive) {
             return data;
         } else {
-            return data.filter(job => !job.inactive)
+            return data.filter(job => job.inactive === "0")
         }
     }
 
