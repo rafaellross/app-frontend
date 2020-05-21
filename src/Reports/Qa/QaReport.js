@@ -83,7 +83,9 @@ const stylesTable = StyleSheet.create({
     },
     cell: {
         textAlign: 'center',
-        fontSize: '10pt',
+        fontSize: 9,
+        paddingTop: 2,
+        paddingBottom: 2
         
     },
 
@@ -129,12 +131,14 @@ export class QaReport extends Component {
     render() {
         const data = this.state.data;
         if (!this.state.isLoading) {
-
+        
+        const widthSmallCols = 0.09;
+        const widthLargeCols = 0.33;
         
         return (
             <PDFViewer width={'100%'} height={900}>
-            {data.map(qa => (
-                <Document>
+            {data.qas.map(qa => (
+                <Document key={qa.id}>
                     <Page size="A4" style={styles.page} debug={debug} orientation="landscape">
                         <View fixed>            
                             <Image style={{ position: 'absolute', right: '25%', top: '10%', width: '50%', opacity: 0.3 }} src="/img/logo.jpg"/>
@@ -154,40 +158,87 @@ export class QaReport extends Component {
                                 <Text style={[stylesHeader.rowsDetail, {width: 165, borderLeft: 0, height:50, fontSize: 10, paddingTop: 5}]}>{qa.customer}</Text>                                  
                                 <Text style={[stylesHeader.rowsDetail, {width: 78, textAlign: "left", paddingLeft: 5, borderRight: 0, height:50 }]}>Unit/Area No:</Text>                    
                                 <Text style={[stylesHeader.rowsDetail, {width: 90, borderLeft: 0, height:50, fontSize: 10, paddingTop: 5}]}>{qa.unit_area}</Text>                                  
-                                <Text style={[stylesHeader.rowsDetail, {width: 80, textAlign: "left", paddingLeft: 5, borderRight: 0}]}>Site Manager:</Text>                    
-                                <Text style={[stylesHeader.rowsDetail, {width: 80, borderLeft: 0, fontSize: 10, paddingTop: 5}]}>{qa.site_manager}</Text>                                                                  
-                            </View>
+                                <Text style={[stylesHeader.rowsDetail, {width: 80, textAlign: "left", paddingLeft: 5, borderRight: 0, borderLeft: 0, borderBottom: 0}]}>Site Manager:</Text>                    
+                                <Text style={[stylesHeader.rowsDetail, {position: 'absolute', right: '12%', width: 75, borderLeft: 0, fontSize: 10, paddingTop: 5, borderBottom: 0}]}>{qa.site_manager}</Text>                                                                  
+                                <Text style={[stylesHeader.rowsDetail, {position: 'absolute', right: '0%', width: 95, textAlign: "left", paddingLeft: 5, borderLeft: 0, borderBottom: 0}]}>Distribution</Text>                    
+                                <Text style={[stylesHeader.rowsDetail, {position: 'absolute', right: '21.6%', top: '60%', width: 78, textAlign: "left", paddingLeft: 5, borderRight: 0, borderLeft: 0, borderTop: 0}]}>Foreman:</Text>                    
+                                <Text style={[stylesHeader.rowsDetail, {position: 'absolute', right: '12%', top: '60%',width: 78, borderLeft: 0, fontSize: 8, paddingTop: 5, borderTop: 0, borderRight: 0}]}>{qa.foreman}</Text>                                                                  
+
+                                <Text style={[stylesHeader.rowsDetail, {position: 'absolute', right: '6.4%', top: '39%', width: 45, textAlign: "left", paddingLeft: 2, borderBottom: 0, fontSize: 10}]}>Builder</Text>                                                    
+                                <Text style={[stylesHeader.rowsDetail, {position: 'absolute', right: '0%', top: '39%', width: 50, textAlign: "left", paddingLeft: 2, borderLeft: 0, borderBottom: 0, fontSize: 10}]}>Reg Auth.</Text>                                                                                    
+                                <Text style={[stylesHeader.rowsDetail, {position: 'absolute', right: '6.4%', top: '60%', width: 45, textAlign: "left", paddingTop: 5, paddingLeft: 2, borderTop: 0, fontSize: 10}]}>Client</Text>                                                                                    
+                                <Text style={[stylesHeader.rowsDetail, {position: 'absolute', right: '0%', top: '60%', width: 52, textAlign: "left", paddingTop: 5, paddingLeft: 2, borderTop: 0, fontSize: 10}]}>Engineer</Text>                                                                                    
+
+                            </View>                            
                             <View debug={debug} style={stylesHeader.row}>
-                                <Text style={[stylesHeader.rowsDetail, {width: 50, textAlign: "left", paddingLeft: 5, borderRight: 0, height:50 }]}>Project:</Text>                    
-                                <Text style={[stylesHeader.rowsDetail, {width: 90, borderLeft: 0, height:50, fontSize: 10}]}>{qa.job}</Text>                                  
+                                <Text style={[stylesHeader.rowsDetail, {width: 785, textAlign: "left", paddingLeft: 5}]}>Location: {qa.location}</Text>                                                                                                  
                             </View>
-                            <View style={{marginTop: 15}}>
-                            <TableHeader >
-                                    <TableCell  weighting={0.70}>Reference</TableCell>
-                                    <TableCell >Drawing</TableCell>
-                                    <TableCell >Photo</TableCell>
-                                    <TableCell  >FRL</TableCell>
-                                    <TableCell >Installed By</TableCell>
-                                    <TableCell >Installation Date</TableCell>
-                                    <TableCell >Manufacturer</TableCell>
+                            <View>
+                            <TableHeader>
+                                    <TableCell style={{textAlign: 'center', fontSize: 10}}  weighting={widthLargeCols}>Activity</TableCell>
+                                    <TableCell style={{textAlign: 'center', fontSize: 10}}  weighting={widthSmallCols}>A/T</TableCell>
+                                    <TableCell style={{textAlign: 'center', fontSize: 10}}  weighting={widthLargeCols}>Criteria Requirements</TableCell>
+                                    <TableCell style={{textAlign: 'center', fontSize: 10}}  weighting={widthSmallCols}>Reference</TableCell>
+                                    <TableCell style={{textAlign: 'center', fontSize: 10}}  weighting={widthSmallCols}>Yes / No</TableCell>
+                                    <TableCell style={{textAlign: 'center', fontSize: 10}}  weighting={widthSmallCols}>Installed By</TableCell>
+                                    <TableCell style={{textAlign: 'center', fontSize: 10}}  weighting={widthSmallCols}>Checked By</TableCell>
+                                    <TableCell style={{textAlign: 'center', fontSize: 10}}  weighting={widthSmallCols}>Date</TableCell>
                             </TableHeader>        
                             </View>        
                         </View>        
                         <View>
-                            {/*
-                        <Table data={data}>
+                            
+                        <Table data={data.activities}>
                                 <TableBody>
-                                    <DataTableCell getContent={(r) => r.fire_number} style={stylesTable.cell} weighting={0.70}/>
-                                    <DataTableCell getContent={(r) => r.drawing} style={stylesTable.cell}/>
-                                    <DataTableCell getContent={(r) => <Image style={stylesTable.photo} src={r.fire_photo}/>}/>
-                                    <DataTableCell getContent={(r) => r.fire_resist_level} style={stylesTable.cell}/>
-                                    <DataTableCell getContent={(r) => r.install_by} style={stylesTable.cell}/>
-                                    <DataTableCell getContent={(r) => r.formated_date} style={stylesTable.cell}/>
-                                    <DataTableCell getContent={(r) => r.manufacturer} style={stylesTable.cell}/>                                
+                                    <DataTableCell getContent={(r) => `(${r.order}) ${r.description}`} style={[stylesTable.cell, {textAlign: 'left', paddingLeft: 2}]}   weighting={widthLargeCols}/>
+                                    <DataTableCell getContent={(r) => r.at} style={stylesTable.cell}            weighting={widthSmallCols}/>                                    
+                                    <DataTableCell getContent={(r) => r.requirements} style={[stylesTable.cell, {textAlign: 'left', paddingLeft: 2}]}  weighting={widthLargeCols}/>
+                                    <DataTableCell getContent={(r) => r.reference} style={stylesTable.cell}     weighting={widthSmallCols}/>
+                                    <DataTableCell getContent={(r) => r.yes_no} style={stylesTable.cell}        weighting={widthSmallCols}/>
+                                    <DataTableCell getContent={(r) => r.installed_by} style={stylesTable.cell}  weighting={widthSmallCols}/>                                
+                                    <DataTableCell getContent={(r) => r.checked_by} style={stylesTable.cell}    weighting={widthSmallCols}/>                                
+                                    <DataTableCell getContent={(r) => r.activity_date} style={stylesTable.cell} weighting={widthSmallCols}/>                                
                                 </TableBody>
-                            </Table>  
-                            */}              
+                            </Table>                                   
                         </View>
+                        <View debug={debug} style={stylesHeader.row}>
+                                <Text style={[stylesHeader.rowsDetail, {width: 785, textAlign: "center", paddingLeft: 5, fontSize: 10}]}>Random=R Verify=V Hold=H Submit=S Inspect=I Witness Points=W Comments=C Notification Point=N</Text>                                                                                                  
+                        </View>
+                        <View debug={debug}>
+                                <Text style={[stylesHeader.rowsDetail, {width: 785, textAlign: "left", paddingLeft: 5, fontSize: 10, borderBottom: 0}]}>COMMENTS</Text>                                                                                                                                  
+                        </View>
+                        <View debug={debug}>
+                                <Text wrap={true} style={[stylesHeader.rowsDetail, {width: 785, textAlign: "left", paddingLeft: 5, fontSize: 9, height: 100, borderBottom: 0, borderTop: 0}]}>{qa.comments}</Text>                                                                                                                                  
+                        </View>
+                        <View debug={debug}>
+                                <Text style={[stylesHeader.rowsDetail, {width: 785, textAlign: "left", paddingLeft: 5, fontSize: 10, borderBottom: 0}]}>Approved By</Text>                                                                                                                                  
+                        </View>
+                        <View style={{flexDirection: 'row'}}>
+                                    <Text style={[stylesHeader.rowsDetail, {width: (785/4), textAlign: "left", paddingLeft: 5, fontSize: 10, borderBottom: 0}]}>Name: {qa.approved_name_1} </Text>                                                                                                                                  
+                                    <Text style={[stylesHeader.rowsDetail, {width: (785/4), textAlign: "left", paddingLeft: 5, fontSize: 10, borderBottom: 0}]}>Company: {qa.approved_company_1} </Text>                                                                                                                                  
+                                    <Text style={[stylesHeader.rowsDetail, {width: 785/4, textAlign: "left", paddingLeft: 5, fontSize: 10, borderBottom: 0}]}>Position: {qa.approved_position_1}</Text>                                                                                                                                  
+                                    <Text style={[stylesHeader.rowsDetail, {width: 785/4, textAlign: "left", paddingLeft: 5, fontSize: 10, borderBottom: 0}]}>Signature:</Text>                                                                                                                                  
+                                    <Image style={{ position: 'absolute', right: '5%', top: '9%', width: 100}} src={qa.approved_sign_1}/>
+                        </View>
+                        <View style={{flexDirection: 'row'}}>
+                                    <Text style={[stylesHeader.rowsDetail, {width: (785/4), textAlign: "left", paddingLeft: 5, fontSize: 10, borderBottom: 0}]}>Name:</Text>                                                                                                                                  
+                                    <Text style={[stylesHeader.rowsDetail, {width: (785/4), textAlign: "left", paddingLeft: 5, fontSize: 10, borderBottom: 0}]}>Company:</Text>                                                                                                                                  
+                                    <Text style={[stylesHeader.rowsDetail, {width: 785/4, textAlign: "left", paddingLeft: 5, fontSize: 10, borderBottom: 0}]}>Position:</Text>                                                                                                                                  
+                                    <Text style={[stylesHeader.rowsDetail, {width: 785/4, textAlign: "left", paddingLeft: 5, fontSize: 10, borderBottom: 0}]}>Signature:</Text>                                                                                                                                  
+                        </View>
+                        <View style={{flexDirection: 'row'}}>
+                                    <Text style={[stylesHeader.rowsDetail, {width: (785/4), textAlign: "left", paddingLeft: 5, fontSize: 10, borderBottom: 0}]}>Name:</Text>                                                                                                                                  
+                                    <Text style={[stylesHeader.rowsDetail, {width: (785/4), textAlign: "left", paddingLeft: 5, fontSize: 10, borderBottom: 0}]}>Company:</Text>                                                                                                                                  
+                                    <Text style={[stylesHeader.rowsDetail, {width: 785/4, textAlign: "left", paddingLeft: 5, fontSize: 10, borderBottom: 0}]}>Position:</Text>                                                                                                                                  
+                                    <Text style={[stylesHeader.rowsDetail, {width: 785/4, textAlign: "left", paddingLeft: 5, fontSize: 10, borderBottom: 0}]}>Signature:</Text>                                                                                                                                  
+                        </View>
+                        <View style={{flexDirection: 'row', borderBottom: 1}}>
+                                    <Text style={[stylesHeader.rowsDetail, {width: (785/4), textAlign: "left", paddingLeft: 5, fontSize: 10, borderBottom: 0}]}>Name:</Text>                                                                                                                                  
+                                    <Text style={[stylesHeader.rowsDetail, {width: (785/4), textAlign: "left", paddingLeft: 5, fontSize: 10, borderBottom: 0}]}>Company:</Text>                                                                                                                                  
+                                    <Text style={[stylesHeader.rowsDetail, {width: 785/4, textAlign: "left", paddingLeft: 5, fontSize: 10, borderBottom: 0}]}>Position:</Text>                                                                                                                                  
+                                    <Text style={[stylesHeader.rowsDetail, {width: 785/4, textAlign: "left", paddingLeft: 5, fontSize: 10, borderBottom: 0}]}>Signature:</Text>                                                                                                                                  
+                        </View>
+
                     </Page>
                 </Document>
 
