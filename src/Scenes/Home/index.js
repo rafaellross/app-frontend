@@ -65,7 +65,7 @@ class Home extends Component {
                                 <Grid item xs={12}>
                                     <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group" orientation="vertical" className={this.props.classes.buttons}>
                                         <Button size="large">Start Employee Application</Button>
-                                        <Button size="large">Include New Time Sheet</Button>                                
+                                        <Button size="large">Include New Time Sheet - Test</Button>                                
                                     </ButtonGroup>                           
                                 </Grid>                            
                             </Grid>                     

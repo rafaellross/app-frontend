@@ -129,7 +129,7 @@ export class Qas extends Component {
 
     render() {
         const buttons = <ButtonGroup aria-label="outlined primary button group" style={{minWidth: 200+'px', marginLeft: 10+'px'}}>
-                            <Button variant="contained" color="primary" style={{width: '100%', padding: '10px'}} component={Link} to="/jobs/add">Add</Button>
+                            <Button variant="contained" color="primary" style={{width: '100%', padding: '10px'}} component={Link} to="/qa/add">Add</Button>
                         </ButtonGroup>
 
         const showInactive = <FormControlLabel value="inactives" control={<Switch checked={this.state.showInactive} onChange={(e) => this.toggleInactives(e)} color="primary" name="checkedB" inputProps={{ 'aria-label': 'primary checkbox' }}/>} label="Show Inactives" labelPlacement="bottom" />;
