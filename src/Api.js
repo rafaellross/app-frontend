@@ -1,4 +1,3 @@
-
 const api = "/api"
 
 
@@ -9,7 +8,7 @@ if (!token)
 
 const headers = {
   'Accept': 'application/json',
-  'Authorization': token,
+  'Authorization': `Bearer ${token}`,
   'mode': 'no-cors'
 }
 
@@ -60,3 +59,17 @@ export const search = async  (query) =>
     .then(data => data)
 
 
+
+    export const login = async  (credentials) =>
+    fetch(`${api}/login`, {
+      method: 'POST',
+      headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify( credentials )
+    }).then(res => res.json())
+      .then(data => data)
+  
+  
+  

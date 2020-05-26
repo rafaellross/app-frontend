@@ -9,7 +9,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import Typography from '@material-ui/core/Typography';
-
+import * as API from '../../Api';
 
 const classes = {
   root: {    
@@ -42,15 +42,21 @@ class Login extends Component {
 
      onSubmit(e){
         e.preventDefault();
+
+
+
         const {email , password} = this.state ;
-        axios.post('http://127.0.0.1:8000/api/login', {
-            email,
-            password
-          })
-          .then(response=> {
-            console.log(response.data);
+        API.login({            
+          email,
+          password
+        })        
+        .then(response=> {
+            
+            localStorage.setItem('token', response.success.token);
+            localStorage.setItem('session_user', JSON.stringify(response.user));
+            console.log(response);
             this.setState({err: false});
-            this.props.history.push("home") ;
+            //this.props.history.push("home") ;
 
           })
           .catch(error=> {            

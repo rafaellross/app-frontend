@@ -28,12 +28,24 @@ import Assignment from '@material-ui/icons/Assignment';
 import HowToReg from '@material-ui/icons/HowToReg';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 
+import { createStyles, createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 
-
-
-import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import deepPurple from '@material-ui/core/colors/deepPurple';
 import orange from '@material-ui/core/colors/orange';
+
+
+
+import { Theme } from '@material-ui/core/styles';
+
+
+
+
+
+
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormGroup from '@material-ui/core/FormGroup';
+
 
 
 
@@ -49,6 +61,75 @@ const theme = createMuiTheme({
   },
 });
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      flexGrow: 1,
+    },
+    menuButton: {
+      marginRight: theme.spacing(2),
+    },
+    title: {
+      flexGrow: 1,
+    },
+  }),
+);
+
+
+function UserInfo(props) {
+
+  
+  
+  const classes = useStyles();
+  const [auth, setAuth] = React.useState(true);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleChange = (event) => {
+    setAuth(event.target.checked);
+  };
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  return (
+    
+    <div>
+    <IconButton
+      aria-label="account of current user"
+      aria-controls="menu-appbar"
+      aria-haspopup="true"
+      onClick={handleMenu}
+      color="inherit"
+    >
+      <AccountCircle />
+    </IconButton>
+    <Menu
+      id="menu-appbar"
+      anchorEl={anchorEl}
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      keepMounted
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      open={open}
+      onClose={handleClose}
+    >
+      <MenuItem onClick={handleClose}>Profile</MenuItem>
+      <MenuItem onClick={handleClose}>My account</MenuItem>
+    </Menu>
+  </div>
+     
+  )
+}
 
 
 class NavBar extends Component {
@@ -117,80 +198,61 @@ class NavBar extends Component {
 
     }
 
+    componentDidMount() {
+      if(localStorage.session_user) {
+        this.setState({
+          auth: true
+        });        
+      }
+      
+    }
+    
+
     render() {
-        const { auth } = true;
+        const { auth } = this.state.auth;
 
         return (
           <ThemeProvider theme={theme}>
                 <AppBar position="static">
                     <Toolbar>
-                    <IconButton edge="start" color="inherit" aria-label="menu" onClick={this.toggleDrawer}>
-                        <MenuIcon/>
-                    </IconButton>
-
-                      <Drawer anchor="left" open={this.state.open} onClose={console.log("close")} ModalProps={{ onBackdropClick: this.toggleDrawer }}>
-                      <div
-                        role="presentation"
-                        onClick={console.log('click')}
-                        onKeyDown={console.log('key down')}
-                      >
-                        <List>
-                          {this.state.drawerItems.map((item) => (
-                            <ListItem button key={item.title}>
-                              <ListItemIcon>{item.icon}</ListItemIcon>
-                              <Link onClick={this.toggleDrawer} to={item.path} style={{color: 'inherit', textDecoration: 'inherit', fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif'}}>{item.title}</Link>
-
-                            </ListItem>
-                          ))}
-                        </List>
-                        <Divider />
-                        <List>
-                          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                            <ListItem button key={text}>
-                              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                              <ListItemText primary={text} />
-                            </ListItem>
-                          ))}
-                        </List>
-                      </div>
-                      </Drawer>
-
-                    <Typography variant="h6">
-                    <Avatar src="/img/brand.ico"/>
-
-                    </Typography>
-                    {auth && (
-                        <div>
-                        <IconButton
-                            aria-label="account of current user"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            onClick={console.log('handleMenu')}
-                            color="inherit"
+                      <IconButton edge="start" color="inherit" aria-label="menu" onClick={this.toggleDrawer}>
+                          <MenuIcon/>
+                      </IconButton>
+                        <Drawer anchor="left" open={this.state.open} onClose={console.log("close")} ModalProps={{ onBackdropClick: this.toggleDrawer }}>
+                        <div
+                          role="presentation"
+                          onClick={console.log('click')}
+                          onKeyDown={console.log('key down')}
                         >
-                            <AccountCircle />
-                        </IconButton>
-                        <Menu
-                            id="menu-appbar"
-                            anchorEl={false}
-                            anchorOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
-                            }}
-                            open={this.state.open}
-                            onClose={console.log('')}
-                        >
-                            <MenuItem onClick={console.log('')}>Profile</MenuItem>
-                            <MenuItem onClick={console.log('')}>My account</MenuItem>
-                        </Menu>
+                          <List>
+                            {this.state.drawerItems.map((item) => (
+                              <ListItem button key={item.title}>
+                                <ListItemIcon>{item.icon}</ListItemIcon>
+                                <Link onClick={this.toggleDrawer} to={item.path} style={{color: 'inherit', textDecoration: 'inherit', fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif'}}>{item.title}</Link>
+
+                              </ListItem>
+                            ))}
+                          </List>
+                          <Divider />
+                          <List>
+                            {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                              <ListItem button key={text}>
+                                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                                <ListItemText primary={text} />
+                              </ListItem>
+                            ))}
+                          </List>
                         </div>
-                    )}
+                        </Drawer>
+                      <Typography variant="h6">
+                        <Avatar src="/img/brand.ico"/>
+                      </Typography>
+                      <div>
+                        <UserInfo auth={this.state.auth}/>
+                      </div>
+                      
                     </Toolbar>
+                    
                 </AppBar>
           </ThemeProvider>
         )
