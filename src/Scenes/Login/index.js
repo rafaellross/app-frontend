@@ -43,8 +43,6 @@ class Login extends Component {
      onSubmit(e){
         e.preventDefault();
 
-
-
         const {email , password} = this.state ;
         API.login({            
           email,
@@ -53,10 +51,10 @@ class Login extends Component {
         .then(response=> {
             
             localStorage.setItem('token', response.success.token);
-            localStorage.setItem('session_user', JSON.stringify(response.user));
+            localStorage.setItem('user', JSON.stringify(response.user));
             console.log(response);
             this.setState({err: false});
-            //this.props.history.push("home") ;
+            window.location.replace("/");
 
           })
           .catch(error=> {            

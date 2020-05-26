@@ -33,23 +33,7 @@ import { createStyles, createMuiTheme, makeStyles, ThemeProvider } from '@materi
 import deepPurple from '@material-ui/core/colors/deepPurple';
 import orange from '@material-ui/core/colors/orange';
 
-
-
 import { Theme } from '@material-ui/core/styles';
-
-
-
-
-
-
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
-
-
-
-
-
 
 
 const theme = createMuiTheme({
@@ -78,17 +62,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function UserInfo(props) {
 
-  
-  
   const classes = useStyles();
-  const [auth, setAuth] = React.useState(true);
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
-  const handleChange = (event) => {
-    setAuth(event.target.checked);
-  };
-
+  
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -96,39 +75,49 @@ function UserInfo(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  return (
+
+  const handleLogOut = () => {
+    props.handleLogOut();
+    setAnchorEl(null);
     
-    <div>
-    <IconButton
-      aria-label="account of current user"
-      aria-controls="menu-appbar"
-      aria-haspopup="true"
-      onClick={handleMenu}
-      color="inherit"
-    >
-      <AccountCircle />
-    </IconButton>
-    <Menu
-      id="menu-appbar"
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      keepMounted
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      open={open}
-      onClose={handleClose}
-    >
-      <MenuItem onClick={handleClose}>Profile</MenuItem>
-      <MenuItem onClick={handleClose}>My account</MenuItem>
-    </Menu>
-  </div>
-     
-  )
+  };
+
+  if(props.auth)
+    return (
+      
+      <div>
+        <IconButton
+          aria-label="account of current user"
+          aria-controls="menu-appbar"
+          aria-haspopup="true"
+          onClick={handleMenu}
+          color="inherit"
+        >
+          <AccountCircle />
+        </IconButton>
+        <Menu
+          id="menu-appbar"
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          open={open}
+          onClose={handleClose}
+        >
+          <MenuItem onClick={handleClose}>Profile</MenuItem>
+          <MenuItem onClick={handleClose}>My account</MenuItem>
+          <MenuItem onClick={handleLogOut}>Log Out</MenuItem>
+        </Menu>
+      </div>      
+    )
+
+    return null
 }
 
 
@@ -185,8 +174,7 @@ class NavBar extends Component {
 
             ]
         }
-        //{['Home', 'Users', 'Employees', 'Jobs', 'Parameters', 'Time Sheets'].map((text, index) => (
-
+        this.handleLogOut = this.handleLogOut.bind(this);
         this.toggleDrawer = this.toggleDrawer.bind(this);
     }
 
@@ -199,7 +187,7 @@ class NavBar extends Component {
     }
 
     componentDidMount() {
-      if(localStorage.session_user) {
+      if(localStorage.token) {
         this.setState({
           auth: true
         });        
@@ -207,6 +195,12 @@ class NavBar extends Component {
       
     }
     
+    handleLogOut() {
+      localStorage.removeItem('user');
+      localStorage.removeItem('token'); 
+      const {history} = this.props
+      window.location.replace("/login");
+    }
 
     render() {
         const { auth } = this.state.auth;
@@ -248,7 +242,7 @@ class NavBar extends Component {
                         <Avatar src="/img/brand.ico"/>
                       </Typography>
                       <div>
-                        <UserInfo auth={this.state.auth}/>
+                        <UserInfo auth={this.state.auth} handleLogOut={this.handleLogOut.bind(this)}/>
                       </div>
                       
                     </Toolbar>

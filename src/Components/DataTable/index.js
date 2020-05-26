@@ -5,7 +5,7 @@ import ColumnFilter from './ColumnFilter';
 import PropTypes from 'prop-types';
 
 
-class DataTable extends Component {
+class DataTable extends React.PureComponent {
 
   constructor(props) {
     super(props);

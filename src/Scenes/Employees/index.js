@@ -54,15 +54,14 @@ export class Employees extends Component {
                     render: rowData => <span>{this.getRole(rowData.location)}</span>
                     
                 },    
-                { hidden: false, title: 'Apprentice Year', field: 'apprentice_year' },                                                            
-                { hidden: false, title: 'Apprentice Rollover', field: 'anniversary_dt', type: 'date' },                                                                            
+                { hidden: false, title: 'Job', field: 'job_code' },                      
                 {
                     field: 'inactive',
                     hidden: false, title: 'Active?',  
                     export: false,              
                     render: rowData => (
                         <Switch
-                                checked={rowData.inactive === 1 || rowData.inactive ? false : true}
+                                checked={rowData.inactive === "1" ? false : true}
                                 onChange={() => this.enableDisableEmployee(rowData.id)}
                                 color="primary"
                                 name="checkedB"
@@ -70,8 +69,10 @@ export class Employees extends Component {
                             />                        
                     )                    
                 
-                },
-                { hidden: false, title: 'Job', field: 'job_code' },                                                            
+                },                                                                      
+
+                { hidden: false, title: 'Apprentice Year', field: 'apprentice_year' },                                                            
+                { hidden: false, title: 'Apprentice Rollover', field: 'anniversary_dt', type: 'date' },                                                                            
                 {
                     field: 'edit',
                     hidden: false, title: 'Edit',
@@ -102,11 +103,24 @@ export class Employees extends Component {
         }))                
     }
 
-    toggleInactives() {        
+    toggleInactives() {     
+
+        //Change show Inactive flag
         this.setState((prevState, props) => ({
-            showInactive: !prevState.showInactive            
-        }))                
-        this.loadData('employees')
+            showInactive: !prevState.showInactive                         
+        }),() => {
+
+            //Toggling from false to true
+            if (this.state.showInactive) {
+                this.loadData(`employees?filter=${this.state.showInactive}`)       
+            } else {
+                this.setState((prevState, props) => ({
+                    data: this.filterEmployees(prevState.data)
+                }))                
+            }        
+
+        } )                
+
 
     }
 
@@ -118,7 +132,7 @@ export class Employees extends Component {
     enableDisableEmployee(id) {
               
         let employees = this.state.data.map((employee) => employee.id !== id ? employee :     
-        Object.assign({}, employee, {inactive: !employee.inactive}));        
+        Object.assign({}, employee, {inactive: !Boolean(employee.inactive)}));        
         this.setState(() => ({
             data: this.filterEmployees(employees)
         }))                
@@ -176,8 +190,8 @@ export class Employees extends Component {
     filterInactives(data) {
         if (this.state.showInactive) {
             return data;
-        } else {
-            return data.filter(employee => !employee.inactive)
+        } else {            
+            return data.filter(employee => employee.inactive === "0")
         }
     }
 
@@ -212,7 +226,7 @@ export class Employees extends Component {
     }
 
     componentDidMount(){
-        this.loadData('employees')
+        this.loadData(`employees?filter=${this.state.showInactive}`)
     }
 
     changeCompany(company) {
