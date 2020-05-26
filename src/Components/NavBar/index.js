@@ -239,7 +239,7 @@ class NavBar extends Component {
                         </div>
                         </Drawer>
                       <Typography variant="h6">
-                        <Avatar src="/img/brand.ico"/>
+                        <Avatar src={`{${process.env.PUBLIC_URL}/img/brand.ico`}/>
                       </Typography>
                       <div>
                         <UserInfo auth={this.state.auth} handleLogOut={this.handleLogOut.bind(this)}/>
