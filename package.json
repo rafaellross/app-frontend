@@ -24,6 +24,7 @@
     "react-pdf": "^4.1.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.4.1",
+    "react-signature-canvas": "^1.0.3",
     "react-window": "^1.8.5",
     "styled-components": "^5.1.0",
     "typeface-roboto": "0.0.75",
@@ -36,7 +37,6 @@
     "eject": "react-scripts eject"
   },
   "proxy": "https://smartplumbingsolutions.com.au/development/rest-api/",
-  "homepage": "https://smartplumbingsolutions.com.au/development/frontend",
   "eslintConfig": {
     "extends": "react-app"
   },

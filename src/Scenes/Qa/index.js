@@ -12,19 +12,6 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 
-/*
-            SELECT  qa.id, 
-                    users.name as username, 
-                    tp.title as qa_type, 
-                    jobs.description as job, 
-                    qa.customer, 
-                    qa.site_manager, 
-                    qa.updated_at 
-
-*/
-
-
-
 export class Qas extends Component {
     constructor(props) {
         super(props)
