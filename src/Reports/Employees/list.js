@@ -2,7 +2,7 @@ import React from 'react';
 import { Page, Text, View, Document, StyleSheet, PDFViewer, Image } from '@react-pdf/renderer';
 
 import {Table, TableCell, TableHeader, TableBody, DataTableCell} from '@david.kucsai/react-pdf-table'
-import { PDFDownloadLink } from '@react-pdf/renderer';
+
 
 const debug = false
 

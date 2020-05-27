@@ -28,12 +28,12 @@ import Assignment from '@material-ui/icons/Assignment';
 import HowToReg from '@material-ui/icons/HowToReg';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 
-import { createStyles, createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 import deepPurple from '@material-ui/core/colors/deepPurple';
 import orange from '@material-ui/core/colors/orange';
 
-import { Theme } from '@material-ui/core/styles';
+
 
 
 const theme = createMuiTheme({
@@ -45,24 +45,8 @@ const theme = createMuiTheme({
   },
 });
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      flexGrow: 1,
-    },
-    menuButton: {
-      marginRight: theme.spacing(2),
-    },
-    title: {
-      flexGrow: 1,
-    },
-  }),
-);
-
 
 function UserInfo(props) {
-
-  const classes = useStyles();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -197,13 +181,11 @@ class NavBar extends Component {
     
     handleLogOut() {
       localStorage.removeItem('user');
-      localStorage.removeItem('token'); 
-      const {history} = this.props
+      localStorage.removeItem('token');       
       window.location.replace("/login");
     }
 
-    render() {
-        const { auth } = this.state.auth;
+    render() {        
 
         return (
           <ThemeProvider theme={theme}>
@@ -239,7 +221,7 @@ class NavBar extends Component {
                         </div>
                         </Drawer>
                       <Typography variant="h6">
-                        <Avatar src="/img/brand.ico"/>
+                        <Avatar src="/src/brand.ico"/>
                       </Typography>
                       <div>
                         <UserInfo auth={this.state.auth} handleLogOut={this.handleLogOut.bind(this)}/>

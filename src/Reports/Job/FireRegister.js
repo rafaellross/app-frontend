@@ -1,8 +1,8 @@
-import React, { Component, Suspense } from 'react';
-import { Page, Text, View, Document, StyleSheet, Image, PDFViewer } from '@react-pdf/renderer';
+import React, { Component } from 'react';
+import { Page, Text, View, Document, StyleSheet, Image } from '@react-pdf/renderer';
 
 
-import * as API from '../../Api';
+
 import {Table, TableCell, TableHeader, TableBody, DataTableCell} from '@david.kucsai/react-pdf-table'
 
 
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
 });
 
 
-const CustomPDFViewer = React.lazy(() => import ('@react-pdf/renderer'));
+//const CustomPDFViewer = React.lazy(() => import ('@react-pdf/renderer'));
 
 //Creates style for report's header
 

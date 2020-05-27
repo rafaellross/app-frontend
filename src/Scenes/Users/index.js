@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import DataTable from '../../Components/DataTable'
 import * as API from '../../Api'
-import IconButton from '@material-ui/core/IconButton';
-import Block from '@material-ui/icons/Block';
+
 import Edit from '@material-ui/icons/Edit';
 import { Link } from 'react-router-dom';
 import Switch from '@material-ui/core/Switch';

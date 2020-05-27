@@ -1,5 +1,5 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
+
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
@@ -15,15 +15,10 @@ const options = ['Create a merge commit', 'Squash and merge', 'Rebase and merge'
 export default function SplitButton(props) {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const [selectedIndex] = React.useState(1);
 
   const handleClick = () => {
     console.info(`You clicked ${options[selectedIndex]}`);
-  };
-
-  const handleMenuItemClick = (event, index) => {
-    setSelectedIndex(index);
-    
   };
 
   const handleToggle = () => {

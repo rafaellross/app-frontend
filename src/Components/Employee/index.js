@@ -6,7 +6,7 @@ import 'typeface-roboto';
 import { Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import { Link, Redirect, withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 import * as API from '../../Api';
 
@@ -137,7 +137,7 @@ class Employee extends Component {
 
                     <TextField id="phone" label="Phone" variant="outlined" value={this.state.phone ? this.state.phone : '' } InputLabelProps={{ shrink: true}} name="phone" onChange={(e) => this.handleChange(e)}/>
                     
-                    <TextField id="bonus" label="Bonus" name="bonus" type="number" variant="outlined" value={this.state.bonus ? this.state.bonus : ''} InputLabelProps={{ shrink: true}} name="bonus" onChange={(e) => this.handleChange(e)}/>
+                    <TextField id="bonus" label="Bonus" name="bonus" type="number" variant="outlined" value={this.state.bonus ? this.state.bonus : ''} InputLabelProps={{ shrink: true}} onChange={(e) => this.handleChange(e)}/>
 
                     <TextField id="bonus_type" select label="Bonus Type" value={this.state.bonus_type ? this.state.bonus_type : ''} 
                     variant="outlined" name="bonus_type" onChange={(e) => this.handleChange(e)}>
@@ -145,10 +145,10 @@ class Employee extends Component {
                         <option key={'F'} value={'F'}>Foremen</option>
                         <option key={'L'} value={'L'}>Leading Hand</option>          
                     </TextField>
-                    <TextField id="car_allowance" label="Car Allowance" name="car_allowance" type="number" variant="outlined" value={this.state.car_allowance ? this.state.car_allowance : ''} InputLabelProps={{ shrink: true}} name="car_allowance" onChange={(e) => this.handleChange(e)}/>
-                    <TextField id="rdo_bal" label="RDO Balance" name="rdo_bal" type="number" variant="outlined" value={this.state.rdo_bal ? this.state.rdo_bal : ''} InputLabelProps={{ shrink: true}} name="rdo_bal" onChange={(e) => this.handleChange(e)}/>
-                    <TextField id="pld_bal" label="PLD Balance" name="pld_bal" type="number" variant="outlined" value={this.state.pld ? this.state.pld : ''} InputLabelProps={{ shrink: true}} name="pld" onChange={(e) => this.handleChange(e)}/>
-                    <TextField id="anl_bal" label="Annual Leave Balance" name="anl_bal" type="number" variant="outlined" value={this.state.anl ? this.state.anl : ''} InputLabelProps={{ shrink: true}} name="anl" onChange={(e) => this.handleChange(e)}/>
+                    <TextField id="car_allowance" label="Car Allowance" name="car_allowance" type="number" variant="outlined" value={this.state.car_allowance ? this.state.car_allowance : ''} InputLabelProps={{ shrink: true}}onChange={(e) => this.handleChange(e)}/>
+                    <TextField id="rdo_bal" label="RDO Balance" name="rdo_bal" type="number" variant="outlined" value={this.state.rdo_bal ? this.state.rdo_bal : ''} InputLabelProps={{ shrink: true}} onChange={(e) => this.handleChange(e)}/>
+                    <TextField id="pld_bal" label="PLD Balance" name="pld_bal" type="number" variant="outlined" value={this.state.pld ? this.state.pld : ''} InputLabelProps={{ shrink: true}} onChange={(e) => this.handleChange(e)}/>
+                    <TextField id="anl_bal" label="Annual Leave Balance" name="anl_bal" type="number" variant="outlined" value={this.state.anl ? this.state.anl : ''} InputLabelProps={{ shrink: true}} onChange={(e) => this.handleChange(e)}/>
                     <TextField id="anniversary_dt" label="Apprentice Anniversary Date" type="date" variant="outlined" value={this.state.anniversary_dt === null ? '' : this.state.anniversary_dt} InputLabelProps={{ shrink: true}} name="anniversary_dt" onChange={(e) => this.handleChange(e)}/>
                     <TextField id="apprentice_year" select label="Apprentice Year" value={this.state.apprentice_year === null ? '' : this.state.apprentice_year}
                     variant="outlined" name="apprentice_year" onChange={(e) => this.handleChange(e)}>

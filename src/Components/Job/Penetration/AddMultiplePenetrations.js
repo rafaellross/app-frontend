@@ -5,11 +5,8 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import { withRouter } from "react-router-dom";
-import {DropzoneArea} from 'material-ui-dropzone'
-import Image from 'material-ui-image';
 import TextField from '@material-ui/core/TextField';
-import { Typography, Divider } from '@material-ui/core';
+import { Divider } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   modal: {

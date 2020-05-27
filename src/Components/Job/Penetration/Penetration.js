@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { withRouter } from "react-router-dom";
 import {DropzoneArea} from 'material-ui-dropzone'
-import Image from 'material-ui-image';
+
 
 
 import * as API from '../../../Api';
@@ -68,7 +68,7 @@ class Penetration extends Component {
         
 
         const peno_id = this.props.match.params.id;
-        const job_id = this.props.match.params.job;
+        
 
         
         if (peno_id) {
@@ -122,8 +122,6 @@ class Penetration extends Component {
         
     
     }
-
-
     handleUploadPhoto(acceptedFiles){
 
                 acceptedFiles.forEach((file) => {
@@ -175,7 +173,7 @@ class Penetration extends Component {
                     <TextField required label="Manufacturer" value={this.state.manufacturer} variant="outlined" InputLabelProps={{ shrink: true}} name="manufacturer" onChange={(e) => this.handleChange(e)}/>                                                            
                     <Divider light />
                     <div>
-                        <img src={this.state.fire_photo} style={{maxWidth: '100%'}}/>
+                        <img src={this.state.fire_photo} style={{maxWidth: '100%'}} alt=""/>
                     </div>                    
                     <DropzoneArea
                         filesLimit={1}

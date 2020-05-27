@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import { Route } from 'react-router-dom'
-import { Link, withRouter, Redirect, MemoryRouter as Router } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import NavBar from './Components/NavBar';
 import  Home from './Scenes/Home'
 import Jobs from './Scenes/Jobs';
@@ -10,7 +10,7 @@ import Employees from './Scenes/Employees';
 import EditEmployee from './Scenes/Employees/edit';
 import AddEmployee from './Scenes/Employees/add';
 
-import Pdf from './Reports/PDF';
+
 import ListEmployees from './Reports/Employees/list';
 import FireRegister from './Reports/Job/FireRegister';
 import AddUser from './Scenes/Users/add';
@@ -62,37 +62,36 @@ class App extends Component {
             <NavBar {...this.props}/>            
             
          
-              <Route exact path={`${process.env.PUBLIC_URL}/login`} component={Login}/>  
+              <Route exact path={`/login`} component={Login}/>  
 
               <PrivateRoute exact path="/" component={Home}/>      
               
 
-              <PrivateRoute exact path={`${process.env.PUBLIC_URL}/jobs`} component={Jobs}/>    
-              <PrivateRoute exact path={`${process.env.PUBLIC_URL}/jobs/add`} component={AddJob}/>    
-              <PrivateRoute exact path={`${process.env.PUBLIC_URL}/jobs/edit/:id`} component={EditJob}/>    
+              <PrivateRoute exact path={`/jobs`} component={Jobs}/>    
+              <PrivateRoute exact path={`/jobs/add`} component={AddJob}/>    
+              <PrivateRoute exact path={`/jobs/edit/:id`} component={EditJob}/>    
               
-              <PrivateRoute exact path={`${process.env.PUBLIC_URL}/qa`} component={Qas}/>    
-              <PrivateRoute exact path={`${process.env.PUBLIC_URL}/qa/add`} component={AddQa}/>    
-              <PrivateRoute exact path={`${process.env.PUBLIC_URL}/qa/report/:id`} component={QaReport}/>    
+              <PrivateRoute exact path={`/qa`} component={Qas}/>    
+              <PrivateRoute exact path={`/qa/add`} component={AddQa}/>    
+              <PrivateRoute exact path={`/qa/report/:id`} component={QaReport}/>    
 
 
-              <PrivateRoute exact path={`${process.env.PUBLIC_URL}/jobs/penetrations/:job`} component={Penetrations}/>    
-              <PrivateRoute exact path={`${process.env.PUBLIC_URL}//jobs/penetrations/:job/add`} component={AddPenetration}/>    
-              <PrivateRoute exact path={`${process.env.PUBLIC_URL}/jobs/penetrations/:job/edit/:id`} component={EditPenetration}/>    
+              <PrivateRoute exact path={`/jobs/penetrations/:job`} component={Penetrations}/>    
+              <PrivateRoute exact path={`//jobs/penetrations/:job/add`} component={AddPenetration}/>    
+              <PrivateRoute exact path={`/jobs/penetrations/:job/edit/:id`} component={EditPenetration}/>    
 
 
-              <PrivateRoute exact path={`${process.env.PUBLIC_URL}/users`}component={Users}/>    
-              <PrivateRoute exact path={`${process.env.PUBLIC_URL}/users/add`} component={AddUser}/>    
-              <PrivateRoute exact path={`${process.env.PUBLIC_URL}/users/edit/:id`} component={EditUser}/>    
+              <PrivateRoute exact path={`/users`}component={Users}/>    
+              <PrivateRoute exact path={`/users/add`} component={AddUser}/>    
+              <PrivateRoute exact path={`/users/edit/:id`} component={EditUser}/>    
 
-              <PrivateRoute exact path={`${process.env.PUBLIC_URL}/employees`} component={Employees}/>    
-              <PrivateRoute exact path={`${process.env.PUBLIC_URL}/employees/add`} component={AddEmployee}/>   
-              <PrivateRoute exact path={`${process.env.PUBLIC_URL}/employees/:id`} component={EditEmployee}/>   
+              <PrivateRoute exact path={`/employees`} component={Employees}/>    
+              <PrivateRoute exact path={`/employees/add`} component={AddEmployee}/>   
+              <PrivateRoute exact path={`/employees/:id`} component={EditEmployee}/>   
 
-              <PrivateRoute exact path={`${process.env.PUBLIC_URL}/reports/employees`} component={ListEmployees}/>   
-              <PrivateRoute exact path={`${process.env.PUBLIC_URL}/reports/jobs/fire/:id`} component={FireRegister}/>   
-
-              <PrivateRoute exact path={`${process.env.PUBLIC_URL}/pdf`} component={Pdf}/>                     
+              <PrivateRoute exact path={`/reports/employees`} component={ListEmployees}/>   
+              <PrivateRoute exact path={`/reports/jobs/fire/:id`} component={FireRegister}/>   
+              
 
 
           </div>

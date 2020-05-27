@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { Page, Text, View, Document, StyleSheet } from 'react-pdf';
+import { Page, Document } from 'react-pdf';
 
 export default class Pdf extends Component {
     constructor(props) {

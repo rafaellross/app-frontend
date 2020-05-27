@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import DataTable from '../../Components/DataTable'
 import * as API from '../../Api'
 import * as Helpers from '../../Helpers'
-import IconButton from '@material-ui/core/IconButton';
-import Block from '@material-ui/icons/Block';
+
 import Edit from '@material-ui/icons/Edit';
 import { Link } from 'react-router-dom'
 import Switch from '@material-ui/core/Switch';
@@ -12,7 +11,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
+
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -25,9 +24,7 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 
 
 
-function dialogDisableEmployee(id) {
-    
-}
+
 
 export class Employees extends Component {
     constructor(props) {
@@ -173,7 +170,7 @@ export class Employees extends Component {
     }
 
     getJobs(data) {
-        return [... new Set(data.map(employee => employee.job_code))].sort()
+        return [...new Set(data.map(employee => employee.job_code))].sort()
     }
 
     filterCompany(data) {

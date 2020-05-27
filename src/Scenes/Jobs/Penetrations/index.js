@@ -122,7 +122,7 @@ export class Penetrations extends Component {
     }
 
     getDrawings(data) {
-        return [... new Set(data.map(penetration => penetration.drawing))].sort()
+        return [...new Set(data.map(penetration => penetration.drawing))].sort()
     }
 
 
@@ -214,7 +214,7 @@ export class Penetrations extends Component {
                       textAlign: 'center',                      
                     }}
                   >
-                    {rowData.photo_path ? <img src={rowData.photo_path}/> : <h3>No Photo</h3>}  
+                    {rowData.photo_path ? <img src={rowData.photo_path} alt=""/> : <h3>No Photo</h3>}  
                     
                   </div>
                 )

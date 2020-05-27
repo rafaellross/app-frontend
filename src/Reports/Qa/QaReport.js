@@ -94,13 +94,6 @@ const stylesTable = StyleSheet.create({
     }
 })
 
-const projects = {
-      name: '608 Tonkin St Cronulla (Richard Crooks)',
-      date: new Date().toLocaleDateString()
-}
-
-
-
 export class QaReport extends Component {
 
     constructor(props) {

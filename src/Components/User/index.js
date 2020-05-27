@@ -6,7 +6,7 @@ import 'typeface-roboto';
 import { Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import { Link, Redirect, withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 import * as API from '../../Api';
 

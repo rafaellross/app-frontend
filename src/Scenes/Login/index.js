@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import axios from 'axios'
+
+
 import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-import Input from '@material-ui/core/Input';
+
 import Typography from '@material-ui/core/Typography';
 import * as API from '../../Api';
 
@@ -81,12 +81,12 @@ class Login extends Component {
 
 	render() {
 
-        let error = this.state.err ;
-        let msg = (!error) ? 'Login Successful' : 'Wrong Credentials' ;
-        let name = (!error) ? 'alert alert-success' : 'alert alert-danger' ;
+        //let error = this.state.err ;
+        //let msg = (!error) ? 'Login Successful' : 'Wrong Credentials' ;
+        //let name = (!error) ? 'alert alert-success' : 'alert alert-danger' ;
 	    return (
-      <div style={classes.root}>
-        <form role="form" onSubmit={this.onSubmit.bind(this)}>
+      
+        <form style={classes.root} onSubmit={this.onSubmit.bind(this)}>
             <Grid container>
               <Grid item xs={1} sm={1} md={4}>
               </Grid>
@@ -134,8 +134,7 @@ class Login extends Component {
                 </Card>
               </Grid>
             </Grid>
-          </form>
-          </div>
+          </form>          
   	);
   }
 }
