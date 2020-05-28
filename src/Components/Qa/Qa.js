@@ -18,7 +18,8 @@ import 'typeface-roboto';
 import * as API from '../../Api';
 import SignaturePad from 'react-signature-canvas';
 import ModalSignature from '../../utils/ModalSignature';
-
+import { DropzoneArea } from 'material-ui-dropzone';
+import MenuItem from '@material-ui/core/MenuItem';
 const styles = theme => ({
 
   root: {
@@ -50,16 +51,19 @@ class Qa extends Component {
 
     constructor(props) {
         super(props)
-
+        let date = new Date();
+        let today = `${date.getFullYear().toString()}-${(date.getMonth() + 1).toString().padStart(2, 0)}-${date.getDate().toString().padStart(2, 0)}`
         this.state = {
             isLoading: true,
             title: '',
             description: '',
+            update_date: today,
             qa_type: '',
-            job: '',
+            project: '',
+
             customer: '',
             site_manager: '',
-            revision: '',
+            revision: '1',
             unit_area: '',
             foreman: '',
             location: '',
@@ -91,120 +95,174 @@ class Qa extends Component {
             trimmedDataURL: null,
 
             //Modals
+            openSignModal: false,
+            currentSignature: '',
             open_modal_sign1: false,
             open_modal_sign2: false,
             open_modal_sign3: false,
-            open_modal_sign4: false
+            open_modal_sign4: false,
 
+            //Photos
+            photos: [],
+            previewPhotos: undefined
         }
         this.openModal.bind(this)
     }
 
-    sigPad1 = {}
-    sigPad2 = {}
-    sigPad3 = {}
-    sigPad4 = {}
+    sigPad = {}
     openModal(modal = '') {
-        switch (modal) {
-            case "1":
-                this.setState({open_modal_sign1: true});
-            case "2":
-                this.setState({open_modal_sign2: true});
-            case "3":
-                this.setState({open_modal_sign2: true});
-            case "4":
-                this.setState({open_modal_sign2: true});
-            default:
-                console.log('None');
-        }
+
+        this.setState({
+            openSignModal: true,
+            currentSignature: modal
+        });
 
     }
 
-    closeModal(modal = '') {
-        switch (modal) {
-            case "1":
-                this.setState({open_modal_sign1: false});
-            case "2":
-                this.setState({open_modal_sign2: false});
-            case "3":
-                this.setState({open_modal_sign2: false});
-            case "4":
-                this.setState({open_modal_sign2: false});
-            default:
-                console.log('None');
-        }
-
+    closeModal() {
+        this.setState({
+            openSignModal: false,
+            currentSignature: null
+        });
     }
 
 
     clear = () => {
-        this.sigPad.clear()
-      }
 
-      trim = (modal) => {
-        switch (modal) {
+        this.sigPad.clear()
+
+    }
+
+    trim = () => {
+        switch (this.state.currentSignature) {
             case "1":
-                this.setState({approved_sign_1: this.sigPad1.getTrimmedCanvas()
+                this.setState({approved_sign_1: this.sigPad.getTrimmedCanvas()
                     .toDataURL('image/png')})
                 break;
             case "2":
-                this.setState({approved_sign_2: this.sigPad2.getTrimmedCanvas()
+                this.setState({approved_sign_2: this.sigPad.getTrimmedCanvas()
                     .toDataURL('image/png')})
                 break;
             case "3":
-                this.setState({approved_sign_3: this.sigPad3.getTrimmedCanvas()
+                this.setState({approved_sign_3: this.sigPad.getTrimmedCanvas()
                     .toDataURL('image/png')})
                 break;
             case "4":
-                this.setState({approved_sign_4: this.sigPad4.getTrimmedCanvas()
+                this.setState({approved_sign_4: this.sigPad.getTrimmedCanvas()
                     .toDataURL('image/png')})
                 break;
             default:
                 console.log('None');
                 break;
         }
+        this.closeModal()
+    }
+
+
+    loadPhotos() {
+        let photo = ''
+        let counter = 1
+        this.state.photos.map(photo => {
+            fetch(photo).then(res => {
+                res.arrayBuffer().then(buf => {
+                  const file = new File([buf], `image_data_url_${counter}.jpg`, { type: 'image/jpeg' })
+                  this.setState((prevState, props) => ({
+                    previewPhotos: file
+                  }));
+
+                })
+              })
+
+        })
+
+        /*
+        let photoArr = []
+        arrPhotos.map(photo => {
+            fetch(photo.qa_photo).then(res => {
+                res.arrayBuffer().then(buf => {
+                  const file = new File([buf], 'image_data_url.jpg', { type: 'image/jpeg' })
+                  //photoArr = [...photoArr, new File([buf], `image_data_url_${photo.id}.jpg`, { type: 'image/jpeg' })]
+                })
+              })
+
+        })
+
+        this.setState(() => ({
+            photos: photoArr
+        }))
+        */
 
       }
+
 
     componentDidMount() {
 
 
-          API.getAll("q_a_users/add/1")
-        .then((data) => {
-            this.setState(() => ({
-                activities: data.activities,
-                foremen: data.foremen,
-                jobs: data.jobs,
-                qa_type: data.qa_type.id,
-                description: data.qa_type.description,
-                title: data.qa_type.title
-
-
-            }))
-        })
 
 
         if (this.props.qa_id) {
-            API.get('q_a_users', this.props.user_id)
-            .then((user) => {
+            API.get('q_a_users/edit', this.props.qa_id)
+            .then((data) => {
                 this.setState(() => ({
-                    id: user.id,
-                    name: user.name,
-                    username: user.username,
-                    administrator: user.administrator,
-                    password: user.password,
-                    password_confirmation: user.password,
-                    enabled: user.enabled,
-                    //Loading
-                    isLoading: false
+                    activities: data.activities,
+                    foremen: data.foremen,
+                    jobs: data.jobs,
+                    qa_type: data.qa_type.id,
+                    approved_company_1: data.qa.approved_company_1,
+                    approved_company_2: data.qa.approved_company_2,
+                    approved_company_3: data.qa.approved_company_3,
+                    approved_company_4: data.qa.approved_company_4,
+                    approved_name_1: data.qa.approved_name_1,
+                    approved_name_2: data.qa.approved_name_2,
+                    approved_name_3: data.qa.approved_name_3,
+                    approved_name_4: data.qa.approved_name_4,
+                    approved_position_1: data.qa.approved_position_1,
+                    approved_position_2: data.qa.approved_position_2,
+                    approved_position_3: data.qa.approved_position_3,
+                    approved_position_4: data.qa.approved_position_4,
+                    approved_sign_1: data.qa.approved_sign_1,
+                    approved_sign_2: data.qa.approved_sign_2,
+                    approved_sign_3: data.qa.approved_sign_3,
+                    approved_sign_4: data.qa.approved_sign_4,
+                    comments: data.qa.comments,
+                    created_at: data.qa.created_at,
+                    customer: data.qa.customer,
+                    description: data.qa.description,
+                    distribution: data.qa.distribution,
+                    foreman: data.qa.foreman,
+                    id: data.qa.id,
+                    location: data.qa.location,
+                    project: data.qa.project,
+                    revision: data.qa.revision,
+                    site_manager: data.qa.site_manager,
+                    title: data.qa.title,
+                    unit_area: data.qa.unit_area,
+                    update_date: data.qa.update_date,
+
+                    //Photos
+                    photos: data.photos ? data.photos.map(photo => photo.qa_photo) : []
 
                 }))
+
+                this.loadPhotos();
+
             })
 
         } else {
-            this.setState(() => ({
-                isLoading: false
-            }))
+
+            API.getAll("q_a_users/add/1")
+            .then((data) => {
+                this.setState(() => ({
+                    activities: data.activities,
+                    foremen: data.foremen,
+                    jobs: data.jobs,
+                    qa_type: data.qa_type.id,
+                    description: data.qa_type.description,
+                    title: data.qa_type.title,
+
+
+                }))
+            })
 
 
         }
@@ -225,12 +283,14 @@ class Qa extends Component {
     handleChangeActivity(event) {
 
 
+            const currId = event.target.id === undefined ? event.target.name.split("-")[0].toString() :event.target.id.toString()
+            console.log(currId);
             //Get className
-            let className = event.target.name.split("[")[0]
+            let className = event.target.id === undefined ? event.target.name.split("-")[1].toString() : event.target.name
 
-            let newActivities = this.state.activities.map((activity) => activity.id == event.target.id ? Object.assign({}, activity, {[className]: event.target.value}) : activity
+            let newActivities = this.state.activities.map((activity) => activity.id.toString() === currId ? Object.assign({}, activity, {[className]: event.target.value}) : activity
             )
-
+            console.log(newActivities)
             this.setState({activities: newActivities}, () => console.log(this.state.activities))
 
     }
@@ -240,13 +300,49 @@ class Qa extends Component {
         API.save('q_a_users', this.state)
         .then((employee) => {
             console.log(employee)
-            //this.props.history.goBack()
+            this.props.history.goBack()
         })
 
     }
 
+
+    handleUploadPhoto(acceptedFiles){
+        let photosUpload = []
+
+
+        this.setState((prevState, props) => ({
+            photos: []
+          }));
+
+        acceptedFiles.forEach((file) => {
+            const reader = new FileReader()
+
+            reader.onabort = () => console.log('file reading was aborted')
+            reader.onerror = () => console.log('file reading has failed')
+            reader.onload = () => {
+            // Do whatever you want with the file contents
+              const binaryStr = reader.result;
+              photosUpload.concat(binaryStr);
+              this.setState((prevState, props) => ({
+                photos: [...prevState.photos, binaryStr]
+              }));
+
+
+            }
+            reader.readAsDataURL(file)
+          })
+
+}
+
+
+handleDeletePhoto() {
+this.setState(() => ({
+    fire_photo: null
+}));
+
+}
     render () {
-        let {trimmedDataURL} = this.state
+
     return (
         <div>
         <Typography variant="h3" component="h2" className={this.props.classes.paper} style={{textAlign: 'center'}}>
@@ -261,14 +357,11 @@ class Qa extends Component {
                     <TextField required label="Description" value={this.state.description} variant="outlined" InputLabelProps={{ shrink: true}} name="description" onChange={(e) => this.handleChange(e)} type="text"/>
                     <TextField required label="Date Of Update" value={this.state.update_date} variant="outlined" InputLabelProps={{ shrink: true}} name="update_date" onChange={(e) => this.handleChange(e)} type="date"/>
                     <TextField required label="Revision" value={this.state.revision} variant="outlined" InputLabelProps={{ shrink: true}} name="revision" onChange={(e) => this.handleChange(e)} type="number"/>
-                    <TextField select label="Project" value={this.state.job} variant="outlined" name="job" onChange={(e) => this.handleChange(e)}>
-                        <option value={''}>-</option>
+                    <TextField select required label="Project" value={this.state.project} variant="outlined" name="project" onChange={(e) => this.handleChange(e)}>
                         {this.state.jobs.map(job => (
                             <option key={job.id} value={job.id}>{job.description}</option>
                         ))}
-
                     </TextField>
-
                     <TextField required label="Customer" value={this.state.customer} variant="outlined" InputLabelProps={{ shrink: true}} name="customer" onChange={(e) => this.handleChange(e)} type="text"/>
                     <TextField required label="Unit/Area No:" value={this.state.unit_area} variant="outlined" InputLabelProps={{ shrink: true}} name="unit_area" onChange={(e) => this.handleChange(e)} type="text"/>
                     <TextField required label="Site Manager:" value={this.state.site_manager} variant="outlined" InputLabelProps={{ shrink: true}} name="site_manager" onChange={(e) => this.handleChange(e)} type="text"/>
@@ -320,32 +413,66 @@ class Qa extends Component {
                         <TextField required label="Company:" value={this.state.approved_company_1} variant="outlined" InputLabelProps={{ shrink: true}} name="approved_company_1" onChange={(e) => this.handleChange(e)} type="text"/>
                         <TextField required label="Position:" value={this.state.approved_position_1} variant="outlined" InputLabelProps={{ shrink: true}} name="approved_position_1" onChange={(e) => this.handleChange(e)} type="text"/>
                         <Button variant="contained" color="secondary" onClick={() => this.openModal("1")}>Sign</Button>
-                        <ModalSignature
-                            key={"modal1"}
-                            open={this.state.open_modal_sign1}
-                            onClose={() => this.closeModal("1")}
-                            saveSign={() => this.trim("1")}
-                            body={
-                                <SignaturePad
-                                    style={{maxWidth: '100%'}}
-                                    backgroundColor="grey"
-                                    marginLeft
-                                    canvasProps={{maxWidth: '100%', width: '100%'}}
-                                    ref={(ref) => { this.sigPad1 = ref }} />}
-                            />
                         {this.state.approved_sign_1
                         ? <img className={styles.sigImage}
                         src={this.state.approved_sign_1} />
                         : null}
-
-                         <Button variant="contained" color="secondary" onClick={this.clear}>Clear</Button>
-                         <Button variant="contained" color="primary" onClick={this.trim}>Save</Button>
                     </div>
 
+                    <div>
+                        <TextField required label="Name:" value={this.state.approved_name_2} variant="outlined" InputLabelProps={{ shrink: true}} name="approved_name_2" onChange={(e) => this.handleChange(e)} type="text"/>
+                        <TextField required label="Company:" value={this.state.approved_company_2} variant="outlined" InputLabelProps={{ shrink: true}} name="approved_company_2" onChange={(e) => this.handleChange(e)} type="text"/>
+                        <TextField required label="Position:" value={this.state.approved_position_2} variant="outlined" InputLabelProps={{ shrink: true}} name="approved_position_2" onChange={(e) => this.handleChange(e)} type="text"/>
+                        <Button variant="contained" color="secondary" onClick={() => this.openModal("2")}>Sign</Button>
+                        {this.state.approved_sign_2
+                        ? <img className={styles.sigImage}
+                        src={this.state.approved_sign_2} />
+                        : null}
+                    </div>
+                    <div>
+                        <TextField required label="Name:" value={this.state.approved_name_3} variant="outlined" InputLabelProps={{ shrink: true}} name="approved_name_3" onChange={(e) => this.handleChange(e)} type="text"/>
+                        <TextField required label="Company:" value={this.state.approved_company_3} variant="outlined" InputLabelProps={{ shrink: true}} name="approved_company_3" onChange={(e) => this.handleChange(e)} type="text"/>
+                        <TextField required label="Position:" value={this.state.approved_position_3} variant="outlined" InputLabelProps={{ shrink: true}} name="approved_position_3" onChange={(e) => this.handleChange(e)} type="text"/>
+                        <Button variant="contained" color="secondary" onClick={() => this.openModal("3")}>Sign</Button>
+                        {this.state.approved_sign_3
+                        ? <img className={styles.sigImage}
+                        src={this.state.approved_sign_3} />
+                        : null}
+                    </div>
+                    <div>
+                        <TextField required label="Name:" value={this.state.approved_name_4} variant="outlined" InputLabelProps={{ shrink: true}} name="approved_name_4" onChange={(e) => this.handleChange(e)} type="text"/>
+                        <TextField required label="Company:" value={this.state.approved_company_4} variant="outlined" InputLabelProps={{ shrink: true}} name="approved_company_4" onChange={(e) => this.handleChange(e)} type="text"/>
+                        <TextField required label="Position:" value={this.state.approved_position_4} variant="outlined" InputLabelProps={{ shrink: true}} name="approved_position_4" onChange={(e) => this.handleChange(e)} type="text"/>
+                        <Button variant="contained" color="secondary" onClick={() => this.openModal("4")}>Sign</Button>
+                        {this.state.approved_sign_4
+                        ? <img className={styles.sigImage}
+                        src={this.state.approved_sign_4} />
+                        : null}
+                    </div>
+                    <div>
+                        <Typography variant="h5" style={{textAlign: 'center'}}>
+                            Photos
+                        </Typography>
+                    </div>
+                    {this.state.photos && (
+                        this.state.photos.map((photo) =>
+                            <img src={photo} style={{maxWidth: '100%'}} alt=""/>
+                        )
+
+                    )}
+                    <DropzoneArea
+
+                        initialFiles={this.state.previewPhotos}
+
+                        filesLimit={10}
+                        acceptedFiles={['image/jpeg', 'image/png', 'image/bmp']}
+                        onChange={this.handleUploadPhoto.bind(this)}
+                        onDelete={this.handleDeletePhoto.bind(this)}
+                    />
 
                     <div>
                         <ButtonGroup aria-label="outlined primary button group" style={{width: '80%', marginLeft: '10%'}}>
-                            <Button variant="contained" color="secondary" style={{width: '50%', padding: '10px'}} component={Link} to={'/users'}>Cancel</Button>
+                            <Button variant="contained" color="secondary" style={{width: '50%', padding: '10px'}} component={Link} to={'/qa'}>Cancel</Button>
                             <Button type="submit" variant="contained" color="primary" style={{width: '50%', padding: 10}}>Save</Button>
                         </ButtonGroup>
                     </div>
@@ -355,6 +482,18 @@ class Qa extends Component {
 
         )}
 
+<ModalSignature
+                            open={this.state.openSignModal}
+                            onClose={() => this.closeModal()}
+                            saveSign={() => this.trim()}
+                            body={
+                                <SignaturePad
+                                    style={{maxWidth: '100%'}}
+                                    backgroundColor="grey"
+                                    marginLeft
+                                    canvasProps={{width: '100%'}}
+                                    ref={(ref) => { this.sigPad = ref }} />}
+                            />
 
         </div>
     );

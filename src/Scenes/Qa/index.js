@@ -10,8 +10,9 @@ import Button from '@material-ui/core/Button';
 
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-
-
+import Tooltip from '@material-ui/core/Tooltip';
+import Image from '@material-ui/icons/Image';
+import HighlightOff from '@material-ui/icons/HighlightOff';
 export class Qas extends Component {
     constructor(props) {
         super(props)
@@ -25,7 +26,7 @@ export class Qas extends Component {
                 { title: 'Job', field: 'job'},
                 { title: 'Customer', field: 'customer'},
                 { title: 'Site Manager', field: 'site_manager'},
-                { title: 'Update Date', field: 'updated_at'},    
+                { title: 'Update Date', field: 'updated_at'},
                 {
                     field: 'edit',
                     title: 'Edit',
@@ -44,18 +45,30 @@ export class Qas extends Component {
                         </div>
                         )
                 } ,
+                {
+                    field: 'photos',
+                    title: 'Photo',
+                    render: rowData => (
+                        <div>
+                              {rowData.photos > 0 ? <Tooltip title={`This Q.A has ${rowData.photos} photo(s)`} aria-label="photo"><Image/></Tooltip> : <Tooltip title="No Photo" aria-label="photo"><HighlightOff color="secondary"/></Tooltip>}
+                        </div>
+                        )
+                } ,
+
 
 
 
             ],
             jobs: [
-            ]
+            ],
+            data: []
         }
 
     }
 
     loadData (table) {
-        API.getAll(table)
+        //console.log(this.props.match.params.job)
+        API.getAll(table, this.props.match.params.job)
         .then((data) => {
             this.setState(() => ({
                 data: data,
@@ -75,10 +88,6 @@ export class Qas extends Component {
 
 
     toggleColumn(columnToggle) {
-
-        console.log(columnToggle, 'chegou')
-
-
         let fields = this.state.columns.map((column) => column.field !== columnToggle ? column :
         Object.assign({}, column, {hidden: !column.hidden, export: column.export}));
         this.setState((prevState, props) => ({
@@ -111,6 +120,7 @@ export class Qas extends Component {
 
 
     componentDidMount() {
+
         this.loadData('q_a_users')
     }
 
@@ -125,7 +135,7 @@ export class Qas extends Component {
 
         return (
             <div>
-                <DataTable toggleColumn={this.toggleColumn} toolBar={toolBar} style={{maxWidth: '80%', marginLeft: '10%', padding: 10}} columns={this.state.columns} title="Q.A Sign Off" data={this.state.data} isLoading={this.state.loading}/>
+                <DataTable toggleColumn={this.toggleColumn} toolBar={toolBar} style={{maxWidth: '80%', marginLeft: '10%', padding: 10}} columns={this.state.columns} title={`Q.A Sign Off (${this.state.data.length})`} data={this.state.data} isLoading={this.state.loading}/>
             </div>
         )
     }

@@ -51,7 +51,7 @@ function UserInfo(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
-  
+
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -63,12 +63,12 @@ function UserInfo(props) {
   const handleLogOut = () => {
     props.handleLogOut();
     setAnchorEl(null);
-    
+
   };
 
   if(props.auth)
     return (
-      
+
       <div>
         <IconButton
           aria-label="account of current user"
@@ -98,7 +98,7 @@ function UserInfo(props) {
           <MenuItem onClick={handleClose}>My account</MenuItem>
           <MenuItem onClick={handleLogOut}>Log Out</MenuItem>
         </Menu>
-      </div>      
+      </div>
     )
 
     return null
@@ -163,7 +163,7 @@ class NavBar extends Component {
     }
 
     toggleDrawer(){
-      console.log("Toggle")
+
       this.setState((prevState, props) => {
         return {open: !prevState.open};
       });
@@ -174,18 +174,18 @@ class NavBar extends Component {
       if(localStorage.token) {
         this.setState({
           auth: true
-        });        
+        });
       }
-      
+
     }
-    
+
     handleLogOut() {
       localStorage.removeItem('user');
-      localStorage.removeItem('token');       
+      localStorage.removeItem('token');
       window.location.replace("/login");
     }
 
-    render() {        
+    render() {
 
         return (
           <ThemeProvider theme={theme}>
@@ -196,9 +196,6 @@ class NavBar extends Component {
                       </IconButton>
                         <Drawer anchor="left" open={this.state.open} onClose={console.log("close")} ModalProps={{ onBackdropClick: this.toggleDrawer }}>
                         <div
-                          role="presentation"
-                          onClick={console.log('click')}
-                          onKeyDown={console.log('key down')}
                         >
                           <List>
                             {this.state.drawerItems.map((item) => (
@@ -226,9 +223,9 @@ class NavBar extends Component {
                       <div>
                         <UserInfo auth={this.state.auth} handleLogOut={this.handleLogOut.bind(this)}/>
                       </div>
-                      
+
                     </Toolbar>
-                    
+
                 </AppBar>
           </ThemeProvider>
         )
