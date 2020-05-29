@@ -35,8 +35,7 @@ export class Jobs extends Component {
                     title: 'Active Job?',
                     render: rowData => (
                             <Switch
-
-                                checked={rowData.inactive == "1" ? false : true}
+                                checked={rowData.inactive === "1" ? false : true}
                                 onChange={() => this.enableDisableJob(rowData.id)}
                                 color="primary"
                                     name="checkedB"
@@ -99,14 +98,12 @@ export class Jobs extends Component {
         if (this.state.showInactive) {
             return data;
         } else {
-            return data.filter(job => job.inactive == "0")
+            return data.filter(job => job.inactive === "0")
         }
     }
 
 
     toggleColumn(columnToggle) {
-
-        console.log(columnToggle, 'chegou')
 
 
         let fields = this.state.columns.map((column) => column.field !== columnToggle ? column :

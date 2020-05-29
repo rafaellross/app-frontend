@@ -19,7 +19,7 @@ import * as API from '../../Api';
 import SignaturePad from 'react-signature-canvas';
 import ModalSignature from '../../utils/ModalSignature';
 import { DropzoneArea } from 'material-ui-dropzone';
-import MenuItem from '@material-ui/core/MenuItem';
+
 const styles = theme => ({
 
   root: {
@@ -160,7 +160,7 @@ class Qa extends Component {
 
 
     loadPhotos() {
-        let photo = ''
+/*
         let counter = 1
         this.state.photos.map(photo => {
             fetch(photo).then(res => {
@@ -174,7 +174,7 @@ class Qa extends Component {
               })
 
         })
-
+*/
         /*
         let photoArr = []
         arrPhotos.map(photo => {
@@ -414,7 +414,7 @@ this.setState(() => ({
                         <TextField required label="Position:" value={this.state.approved_position_1} variant="outlined" InputLabelProps={{ shrink: true}} name="approved_position_1" onChange={(e) => this.handleChange(e)} type="text"/>
                         <Button variant="contained" color="secondary" onClick={() => this.openModal("1")}>Sign</Button>
                         {this.state.approved_sign_1
-                        ? <img className={styles.sigImage}
+                        ? <img alt="" className={styles.sigImage}
                         src={this.state.approved_sign_1} />
                         : null}
                     </div>
@@ -425,7 +425,7 @@ this.setState(() => ({
                         <TextField required label="Position:" value={this.state.approved_position_2} variant="outlined" InputLabelProps={{ shrink: true}} name="approved_position_2" onChange={(e) => this.handleChange(e)} type="text"/>
                         <Button variant="contained" color="secondary" onClick={() => this.openModal("2")}>Sign</Button>
                         {this.state.approved_sign_2
-                        ? <img className={styles.sigImage}
+                        ? <img alt="" className={styles.sigImage}
                         src={this.state.approved_sign_2} />
                         : null}
                     </div>
@@ -435,7 +435,7 @@ this.setState(() => ({
                         <TextField required label="Position:" value={this.state.approved_position_3} variant="outlined" InputLabelProps={{ shrink: true}} name="approved_position_3" onChange={(e) => this.handleChange(e)} type="text"/>
                         <Button variant="contained" color="secondary" onClick={() => this.openModal("3")}>Sign</Button>
                         {this.state.approved_sign_3
-                        ? <img className={styles.sigImage}
+                        ? <img alt="" className={styles.sigImage}
                         src={this.state.approved_sign_3} />
                         : null}
                     </div>
@@ -445,7 +445,7 @@ this.setState(() => ({
                         <TextField required label="Position:" value={this.state.approved_position_4} variant="outlined" InputLabelProps={{ shrink: true}} name="approved_position_4" onChange={(e) => this.handleChange(e)} type="text"/>
                         <Button variant="contained" color="secondary" onClick={() => this.openModal("4")}>Sign</Button>
                         {this.state.approved_sign_4
-                        ? <img className={styles.sigImage}
+                        ? <img alt="" className={styles.sigImage}
                         src={this.state.approved_sign_4} />
                         : null}
                     </div>

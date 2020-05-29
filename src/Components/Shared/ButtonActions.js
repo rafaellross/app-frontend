@@ -14,11 +14,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 function AlertDialog(props) {
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  const [setOpen] = React.useState(false);
 
   const handleClose = () => {
     setOpen(false);
@@ -29,8 +25,6 @@ function AlertDialog(props) {
       <Dialog
         open={props.open}
         onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">{"Delete Record"}</DialogTitle>
         <DialogContent>

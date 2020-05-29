@@ -1,22 +1,11 @@
 import React, { Component } from 'react'
 import DataTable from '../../Components/DataTable'
 import * as API from '../../Api'
-import * as Helpers from '../../Helpers'
-
-import Edit from '@material-ui/icons/Edit';
 import { Link } from 'react-router-dom'
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 
 import ButtonGroup from '@material-ui/core/ButtonGroup';
@@ -93,7 +82,7 @@ export class TimeSheets extends Component {
     }
 
     handlePrint(selecteds) {
-        const { history } = this.props;
+
         const idsToPrint = selecteds.map(item => item.id);
         this.props.history.push({
             pathname: '/timesheets/print',
@@ -168,7 +157,7 @@ export class TimeSheets extends Component {
                             <Button variant="contained" color="primary" style={{width: '100%', padding: '10px'}} component={Link} to={'/employees/add '}>Add</Button>
                         </ButtonGroup>
 
-        const showInactive = <FormControlLabel value="inactives" control={<Switch checked={this.state.showInactive} onChange={(e) => this.toggleInactives(e)} color="primary" name="checkedB" inputProps={{ 'aria-label': 'primary checkbox' }}/>} label="Show Inactives" labelPlacement="bottom" />;
+
         const selectCompany =     <FormControl style={{width: 200}} >
                                         <InputLabel id="demo-simple-select-label">Select Company</InputLabel>
                                         <Select

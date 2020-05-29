@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import * as API from '../../Api';
-import { Page, Text, View, Document, StyleSheet, PDFViewer, Image } from '@react-pdf/renderer';
+
 
 export class TimeSheetReport extends Component {
 

@@ -52,7 +52,7 @@ export const PrivateRoute = ({ component: Component, ...rest }) => (
 class App extends Component {
 
     componentDidMount() {
-        console.log(process.env.PUBLIC_URL, "here");
+
       }
 
 

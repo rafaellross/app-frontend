@@ -163,7 +163,7 @@ class NavBar extends Component {
     }
 
     toggleDrawer(){
-      console.log("Toggle")
+
       this.setState((prevState, props) => {
         return {open: !prevState.open};
       });
@@ -194,12 +194,8 @@ class NavBar extends Component {
                       <IconButton edge="start" color="inherit" aria-label="menu" onClick={this.toggleDrawer}>
                           <MenuIcon/>
                       </IconButton>
-                        <Drawer anchor="left" open={this.state.open} onClose={console.log("close")} ModalProps={{ onBackdropClick: this.toggleDrawer }}>
-                        <div
-                          role="presentation"
-                          onClick={console.log('click')}
-                          onKeyDown={console.log('key down')}
-                        >
+                        <Drawer anchor="left" open={this.state.open} ModalProps={{ onBackdropClick: this.toggleDrawer }}>
+                        <div>
                           <List>
                             {this.state.drawerItems.map((item) => (
                               <Link key={item.title} onClick={this.toggleDrawer} to={item.path} style={{color: 'inherit', textDecoration: 'inherit', fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif'}}>

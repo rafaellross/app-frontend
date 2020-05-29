@@ -6,12 +6,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import TextField from '@material-ui/core/TextField';
 
-const classes = {
-    reference: {
-
-    }
-}
-
 export default function ActivitiesInputs(props) {
     return (
         props.activities.map((row, index) => (
