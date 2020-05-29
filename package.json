@@ -36,7 +36,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://127.0.0.1:8000/",
+  "proxy": "https://smartplumbingsolutions.com.au/development/rest-api/",
   "eslintConfig": {
     "extends": "react-app"
   },

@@ -26,6 +26,8 @@ import { QaReport } from './Reports/Qa/QaReport';
 import AddQa from './Scenes/Qa/add';
 import Login from './Scenes/Login';
 import EditQa from './Scenes/Qa/edit';
+import TimeSheets from './Scenes/TimeSheet';
+import TimeSheetReport from './Reports/TimeSheets/TimeSheetReport';
 
 
 
@@ -95,6 +97,9 @@ class App extends Component {
               <PrivateRoute exact path={`/reports/employees`} component={ListEmployees}/>
               <PrivateRoute exact path={`/reports/jobs/fire/:id`} component={FireRegister}/>
 
+              <PrivateRoute exact path={`/timesheets`}component={TimeSheets}/>
+              <PrivateRoute exact path={`/timesheets/print`}component={TimeSheetReport}/>
+              <PrivateRoute exact path={`/timesheets/print/:id`}component={TimeSheetReport}/>
 
 
           </div>

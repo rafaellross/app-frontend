@@ -35,6 +35,7 @@ export class Jobs extends Component {
                     title: 'Active Job?',
                     render: rowData => (
                             <Switch
+
                                 checked={rowData.inactive == "1" ? false : true}
                                 onChange={() => this.enableDisableJob(rowData.id)}
                                 color="primary"

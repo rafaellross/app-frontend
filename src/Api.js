@@ -18,7 +18,7 @@ export const get = (table, id) =>
 
 
 
-export const getAll = async  (table, query) => 
+export const getAll = async  (table, query) =>
  fetch(`${api}/${table}${query ? `/${query}` : ''}`, { headers })
     .then(res => res.json())
     .then(data => data)
@@ -35,7 +35,7 @@ export const update = async (table, model) =>
 
 
   export const save = async (table, model, store = false) =>
-  
+
   fetch(`${api}/${table}${model.id && !store ? `/${model.id}` : ''}`, {
     method: model.id && !store ? 'PUT' : 'POST',
     headers: {
@@ -68,6 +68,6 @@ export const search = async  (query) =>
       body: JSON.stringify( credentials )
     }).then(res => res.json())
       .then(data => data)
-  
-  
-  
+
+
+

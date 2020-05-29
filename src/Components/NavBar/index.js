@@ -163,7 +163,7 @@ class NavBar extends Component {
     }
 
     toggleDrawer(){
-
+      console.log("Toggle")
       this.setState((prevState, props) => {
         return {open: !prevState.open};
       });
@@ -196,14 +196,18 @@ class NavBar extends Component {
                       </IconButton>
                         <Drawer anchor="left" open={this.state.open} onClose={console.log("close")} ModalProps={{ onBackdropClick: this.toggleDrawer }}>
                         <div
+                          role="presentation"
+                          onClick={console.log('click')}
+                          onKeyDown={console.log('key down')}
                         >
                           <List>
                             {this.state.drawerItems.map((item) => (
-                              <ListItem button key={item.title}>
+                              <Link key={item.title} onClick={this.toggleDrawer} to={item.path} style={{color: 'inherit', textDecoration: 'inherit', fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif'}}>
+                              <ListItem button>
                                 <ListItemIcon>{item.icon}</ListItemIcon>
-                                <Link onClick={this.toggleDrawer} to={item.path} style={{color: 'inherit', textDecoration: 'inherit', fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif'}}>{item.title}</Link>
-
+                                {item.title}
                               </ListItem>
+                              </Link>
                             ))}
                           </List>
                           <Divider />
@@ -218,7 +222,7 @@ class NavBar extends Component {
                         </div>
                         </Drawer>
                       <Typography variant="h6">
-                        <Avatar src="/src/brand.ico"/>
+                        <Avatar src="brand.ico"/>
                       </Typography>
                       <div>
                         <UserInfo auth={this.state.auth} handleLogOut={this.handleLogOut.bind(this)}/>
