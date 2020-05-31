@@ -138,7 +138,7 @@ class NavBar extends Component {
 
               {
                 title: "Quality Assurance (QA)",
-                path: "/qa",
+                path: "/qas",
                 icon: <AssignmentTurnedInIcon />
               },
 
@@ -218,7 +218,10 @@ class NavBar extends Component {
                         </div>
                         </Drawer>
                       <Typography variant="h6">
-                        <Avatar src="brand.ico"/>
+                        <Link to="/">
+                          <Avatar src="../../brand.ico"/>
+                        </Link>
+
                       </Typography>
                       <div>
                         <UserInfo auth={this.state.auth} handleLogOut={this.handleLogOut.bind(this)}/>

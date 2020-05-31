@@ -2,15 +2,14 @@ import React from 'react'
 import Employee from '../../Components/Employee'
 
 
+function AddEmployee(props) {
 
-
-  
-function AddEmployee() {
-
-        return (            
-            <Employee action="Add Employee"/>                            
+        return (
+            <Employee action="Add Employee" type="add"/>
         )
     }
 
 
 export default AddEmployee
+
+

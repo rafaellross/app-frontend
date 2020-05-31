@@ -4,11 +4,11 @@ import Job from '../../Components/Job'
 
 
 
-  
+
 function AddJob() {
 
-        return (            
-            <Job action="Add Job"/>                            
+        return (
+            <Job action="Add Job" type="add"/>
         )
     }
 
