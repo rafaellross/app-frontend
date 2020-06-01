@@ -29,13 +29,13 @@ export class Jobs extends Component {
                     field: 'inactive',
                     title: 'Active Job?',
                     render: rowData => (
-                            <Switch
-                                checked={rowData.inactive === "1" ? false : true}
-                                onChange={() => this.enableDisableJob(rowData)}
-                                color="primary"
-                                    name="checkedB"
-                                    inputProps={{ 'aria-label': 'primary checkbox' }}
-                                />
+                        <Switch
+                            checked={rowData.inactive === "1" ? false : true}
+                            onChange={() => this.enableDisableJob(rowData)}
+                            color="primary"
+                            name="checkedB"
+                            inputProps={{ 'aria-label': 'primary checkbox' }}
+                            />
                     )
                 },
                 {
@@ -100,7 +100,7 @@ export class Jobs extends Component {
 
     handleDelete = (selecteds) => {
         this.props.dispatch(handleDeleteJob(selecteds))
-        console.log(selecteds)
+
     }
     render() {
 

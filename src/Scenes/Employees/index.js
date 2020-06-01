@@ -118,12 +118,10 @@ export class Employees extends Component {
     }
 
     getJobs(data) {
-        console.log("Get jobs", data)
         return [...new Set(data.map(employee => employee.job_code))].sort()
     }
 
     filterCompany(data) {
-        console.log('Filter company', this.state.selectedCompany);
         if (this.state.selectedCompany === 'A') {
             console.log('Returned all companies');
             return data;
