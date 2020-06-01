@@ -26,7 +26,7 @@ function updateTimesheet (timesheet) {
   }
 }
 
-export function handleAddTimesheet (timesheet, cb) {
+export function handleAddTimesheet (timesheet) {
     return (dispatch) => {
       return API.addTimesheet(timesheet)
         .then((timesheet) => {
