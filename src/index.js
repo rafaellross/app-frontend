@@ -9,6 +9,11 @@ import reducer from './Redux/Reducers'
 import middleware from './Redux/Middleware'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
+import { createBrowserHistory } from 'history';
+
+export const history = createBrowserHistory({
+  basename: process.env.PUBLIC_URL
+});
 
 const store = createStore(reducer, middleware)
 

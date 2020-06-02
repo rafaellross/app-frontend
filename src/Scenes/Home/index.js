@@ -14,27 +14,31 @@ const styles = theme => ({
     root: {
         display: 'flex',
         '& > *': {
-          margin: theme.spacing(1),
+            margin: theme.spacing(1),
+            width: theme.spacing(16),
+            height: theme.spacing(16),
         },
       },
 
       large: {
         width: theme.spacing(20),
         height: theme.spacing(20),
-        fontSize: theme.spacing(20),        
-        
-                        
+        fontSize: theme.spacing(20),
+
+
       },
       paper: {
           height: theme.spacing(60),
-          paddingTop: theme.spacing(10),   
-          marginTop: theme.spacing(5),   
+          paddingTop: theme.spacing(10),
+          marginTop: theme.spacing(5),
+          width: theme.spacing(80),
           textAlign: 'center',
-          
+
       },
+
       buttons: {
-        width: theme.spacing(40),        
-        marginTop: theme.spacing(10),  
+        width: theme.spacing(40),
+        marginTop: theme.spacing(10),
       }
 });
 
@@ -43,35 +47,39 @@ const styles = theme => ({
 
 class Home extends Component {
 
+    constructor(props) {
+        super(props)
+
+        this.state = {
+             user: JSON.parse(localStorage.getItem("user"))
+        }
+    }
+
     render() {
-        
-        return (            
+
+        return (
             <div>
-                <React.Fragment>                
-                <Container maxWidth="sm">
-                    <Paper className={this.props.classes.paper} elevation={3}>      
-                            <Grid container spacing={1}>
-                                <Grid item xs={12}>
-                                    <Container maxWidth="lg">
-                                    <Avatar className={this.props.classes.large}>H</Avatar>
-                                    </Container>
-                                </Grid>
-                                
-                                <Grid item xs={12}>
-                                    <Typography variant="h3" component="h2">
-                                        Welcome User!
-                                    </Typography>                            
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group" orientation="vertical" className={this.props.classes.buttons}>
-                                        <Button size="large">Start Employee Application</Button>
-                                        <Button size="large">Include New Time Sheet - Test</Button>                                
-                                    </ButtonGroup>                           
-                                </Grid>                            
-                            </Grid>                     
-                    </Paper>                    
-                </Container>
-                </React.Fragment>                
+                <React.Fragment>
+
+                    <Grid container maxWidth="sm" alignItems="center" justify="center" direction="column">
+                    <Paper className={this.props.classes.paper} elevation={3}>
+                        <Grid container maxWidth="sm" alignItems="center" justify="center" direction="column">
+                            <Grid item xs={12}>
+                                <Avatar className={this.props.classes.large} src={this.state.user.user_photo}/>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Typography variant="h3" component="h2">
+                                    Welcome
+                                </Typography>
+                                <Typography variant="h3" component="h2">
+                                    {this.state.user.name}!
+                                </Typography>
+                            </Grid>
+                           </Grid>
+                        </Paper>
+                    </Grid>
+
+                </React.Fragment>
             </div>
         )
     }

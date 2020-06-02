@@ -44,7 +44,7 @@ export class Penetrations extends Component {
         this.closeModalPrint = this.closeModalPrint.bind(this);
         this.openReport = this.openReport.bind(this);
         this.toggleMissingPhoto = this.toggleMissingPhoto.bind(this);
-        
+
         this.state = {
             selecteds: [],
             drawings: [],
@@ -54,71 +54,71 @@ export class Penetrations extends Component {
             job: {},
             modalAdd: true,
             columns: [
-                    
+
                 { title: '#', field: 'id', type: 'numeric', searchable: false},
                 { title: 'Drawing', field: 'drawing' },
                 { title: 'Fire Seal Ref.', field: 'fire_number'},
                 { title: 'Fire Resistance Level (FRL)', field: 'fire_resist_level'},
                 { title: 'Installed By', field: 'install_by'},
-                { title: 'Installed Date', field: 'install_dt', type: 'date'},                
+                { title: 'Installed Date', field: 'install_dt', type: 'date'},
 
                 {
                     field: 'edit',
                     title: 'Edit',
                     render: rowData => (
                         <div>
-                            <Link style={{ color: 'inherit', textDecoration: 'none' }} to={`/jobs/penetrations/${this.props.match.params.job}/edit/${rowData.id}`}><Edit /></Link>                        
+                            <Link style={{ color: 'inherit', textDecoration: 'none' }} to={`/jobs/penetrations/${this.props.match.params.job}/edit/${rowData.id}`}><Edit /></Link>
                         </div>
                         )
-                } ,                           
+                } ,
                 {
                     field: 'fire_photo',
                     title: 'Photo',
                     render: rowData => (
                         <div>
-                              {rowData.photo_path ? <Tooltip title="This penetration has a photo" aria-label="photo"><Image/></Tooltip> : <Tooltip title="No Photo" aria-label="photo"><HighlightOff color="secondary"/></Tooltip>}                      
+                              {rowData.photo_path ? <Tooltip title="This penetration has a photo" aria-label="photo"><Image/></Tooltip> : <Tooltip title="No Photo" aria-label="photo"><HighlightOff color="secondary"/></Tooltip>}
                         </div>
                         )
-                } ,                           
-    
-                
-            ],        
-        }
-    
-    }
-    
+                } ,
 
-    toggleMissingPhoto() {        
+
+            ],
+        }
+
+    }
+
+
+    toggleMissingPhoto() {
         this.setState((prevState, props) => ({
-            missingPhotos: !prevState.missingPhotos            
-        }))                
+            missingPhotos: !prevState.missingPhotos
+        }))
         this.loadData('fire_identifications')
 
     }
 
  async loadData (table) {
-        
+
 
         await API.getAll(table, this.props.match.params.job)
-        .then((data) => {            
+        .then((data) => {
             this.setState(() => ({
                 data: this.filterPenetrations(data),
                 loading: false,
                 drawings: this.getDrawings(data)
-          }))                    
-        })    
+          }))
+        })
     }
 
     toggleColumn(columnToggle) {
-        
+
         console.log(columnToggle)
-        
-        
-        let fields = this.state.columns.map((column) => column.field !== columnToggle ? column :     
-        Object.assign({}, column, {hidden: !column.hidden, export: column.export}));        
+
+
+        let fields = this.state.columns.map((column) => column.field !== columnToggle ? column :
+        Object.assign({}, column, {hidden: !column.hidden, export: column.export}));
         this.setState((prevState, props) => ({
             columns: fields
-        }))                
+        }))
     }
 
     getDrawings(data) {
@@ -132,35 +132,35 @@ export class Penetrations extends Component {
         this.setState((prevState, props) => ({
             modalPrint: true,
             selecteds: data
-        }))                                        
+        }))
     }
 
     closeModalPrint() {
         this.setState(() => ({
             modalPrint: false
-        }))                                        
+        }))
 
     }
 
     componentDidMount() {
         API.get('jobs', this.props.match.params.job)
-        .then((job) => {            
+        .then((job) => {
             this.setState(() => ({
                 job: job
-          }))                    
-        })    
-        
+          }))
+        })
+
         this.loadData('fire_identifications')
     }
 
     openReport(data) {
 
-        
+
         this.setState((prevState, props) => ({
             modalPrint: true,
             selecteds: data
-        }))                                        
-        
+        }))
+
     }
 
 
@@ -172,14 +172,14 @@ export class Penetrations extends Component {
         } else {
             console.log('Returned Drawing', this.state.selectedDrawing);
             return data.filter(penetration => penetration.drawing === this.state.selectedDrawing)
-        }        
+        }
     }
 
     filterMissingPhoto(data) {
         if (this.state.missingPhotos) {
             return data.filter(penetration => !penetration.photo_path)
         } else {
-            return data;            
+            return data;
         }
     }
 
@@ -189,7 +189,7 @@ export class Penetrations extends Component {
 
         let filterMissing = this.filterMissingPhoto(data);
         let filterDrawing = this.filterDrawing(filterMissing);
-        return filterDrawing; 
+        return filterDrawing;
     }
 
 
@@ -197,25 +197,25 @@ export class Penetrations extends Component {
         console.log('Method change drawing: ', drawing);
         this.setState(() => ({
             selectedDrawing: drawing
-        }))   
-        
+        }))
+
         this.loadData('fire_identifications')
     }
 
     render() {
         const detailPanel=[
             {
-              tooltip: 'Show Photo',              
+              tooltip: 'Show Photo',
               render: rowData => {
                 return (
                   <div
                     style={{
                       fontSize: 100,
-                      textAlign: 'center',                      
+                      textAlign: 'center',
                     }}
                   >
-                    {rowData.photo_path ? <img src={rowData.photo_path} alt=""/> : <h3>No Photo</h3>}  
-                    
+                    {rowData.photo_path ? <img src={rowData.photo_path} alt=""/> : <h3>No Photo</h3>}
+
                   </div>
                 )
               },
@@ -223,11 +223,11 @@ export class Penetrations extends Component {
           ]
 
         const buttons = <ButtonGroup aria-label="outlined primary button group" style={{minWidth: 200+'px', marginLeft: 1+'px'}}>
-                            <SplitButton 
-                                title={"Add Penetrations"} 
+                            <SplitButton
+                                title={"Add Penetrations"}
                                 buttons={
                                     [
-                                        {title: 'Add Single Penetration', action: <Button><Link style={{ color: 'inherit', textDecoration: 'none' }} to={`/jobs/penetrations/${this.props.match.params.job}/add`}>Add Single Penetration</Link></Button>}, 
+                                        {title: 'Add Single Penetration', action: <Button><Link style={{ color: 'inherit', textDecoration: 'none' }} to={`/jobs/penetrations/${this.props.match.params.job}/add`}>Add Single Penetration</Link></Button>},
                                         {title: 'Add Multiple Penetrations', action: <AddMultiplePenetrations/>}]}/>
                         </ButtonGroup>
 
@@ -237,8 +237,8 @@ export class Penetrations extends Component {
         const selectDrawing =     <FormControl style={{width: 200, marginLeft: 10}} >
                                     <InputLabel id="demo-simple-select-label">Select Drawing</InputLabel>
                                     <Select
-                                    labelId="select-drawing-label"                                        
-                                    id="select-drawing-label"                                        
+                                    labelId="select-drawing-label"
+                                    id="select-drawing-label"
                                     onChange={(e) => this.changeDrawing(e.target.value)}
                                     value={this.state.selectedDrawing}
                                     >
@@ -256,13 +256,28 @@ export class Penetrations extends Component {
             return <h3 style={{textAlign: 'center'}}>Loading...</h3>
         } else {
             return (
-                <div> 
-                    
-                    <Report data={this.state.selecteds} fileName="file.pdf" project={this.state.job} open={this.state.modalPrint} handleClose={this.closeModalPrint}/>                
-                    
-                    <DataTable handlePrint={this.openReport} detailPanel={this.state.data ? detailPanel : {}} toggleColumn={this.toggleColumn} toolBar={toolBar} style={{maxWidth: '80%', marginLeft: '10%', padding: 10}} columns={this.state.columns} table={"fire_identifications"} title="Penetrations" data={this.state.data} isLoading={this.state.loading}/>                    
+                <div>
+
+                    <Report
+                        data={this.state.selecteds}
+                        fileName="file.pdf"
+                        project={this.state.job}
+                        open={this.state.modalPrint} handleClose={this.closeModalPrint}/>
+
+                    <DataTable
+                        handlePrint={this.openReport}
+                        filters={[]}
+                        buttons={[{color: 'primary', path: `/jobs/penetrations/${this.props.match.params.job}/add`}]}
+                        detailPanel={this.state.data ? detailPanel : {}}
+                        toggleColumn={this.toggleColumn}
+                        toolBar={toolBar}
+                        style={{maxWidth: '80%', marginLeft: '10%', padding: 10}}
+                        columns={this.state.columns} table={"fire_identifications"}
+                        title="Penetrations"
+                        data={this.state.data}
+                        isLoading={this.state.loading}/>
                 </div>
-            )    
+            )
         }
 
     }

@@ -11,6 +11,8 @@ import {
     handleUpdateJob,
     handleDeleteJob
  } from "../../Redux/Actions/jobs";
+import DataTableDetails from '../../Components/DataTable/DataTableDetails';
+
 
 
 const DataTable = React.lazy(() => import('../../Components/DataTable'));
@@ -47,6 +49,15 @@ export class Jobs extends Component {
                         </div>
                         )
                 } ,
+                {
+                    field: 'employees',
+                    title: 'Qty Employees',
+                    sorting: true,
+                    render: rowData => (
+                        this.props.employees.filter(employee => employee.job_code === rowData.code).length
+                    )
+                } ,
+
                 {
                     field: 'fire_register',
                     title: 'Fire Register',
@@ -103,17 +114,72 @@ export class Jobs extends Component {
 
     }
     render() {
+        const detailPanel=[
+            {
+              tooltip: 'Show Job',
+              render: rowData => {
+                return (
+                  <div
+                    style={{
+                      fontSize: 100,
+                      textAlign: 'center',
+                    }}
+                  >
+                      <DataTableDetails
+                        columns={[
+                            {
+                                name: 'id',
+                                title: '#'
+                            },
+                            {
+                                name: 'name',
+                                title: 'Name'
+                            },
+                            {
+                                name: 'dob',
+                                title: 'D.O.B'
+                            },
+                            {
+                                name: 'phone',
+                                title: 'Phone'
+                            },
+                            {
+                                name: 'rdo_bal',
+                                title: 'RDO'
+                            },
+                            {
+                                name: 'pld',
+                                title: 'PLD'
+                            },
+                            {
+                                name: 'anl',
+                                title: 'Annual Leave'
+                            },
+                            {
+                                name: 'sick_bal',
+                                title: 'Sick Leave'
+                            }
 
+
+                        ]}
+                        rows={this.props.employees.filter(employee => employee.job_code === rowData.code)}
+                      />
+                  </div>
+                )
+              },
+            },
+          ]
 
         return (
             <React.Suspense fallback={<h1>Loading</h1>}>
                     <DataTable
                         buttons={[{color: 'primary', path: '/jobs/add'}]}
                         filters={[]}
+                        detailPanel={detailPanel}
                         toggleColumn={this.toggleColumn}
-                        style={{maxWidth: '80%', marginLeft: '10%', padding: 10}}
+                        style={{maxWidth: '100%', marginLeft: '0%', padding: 10}}
                         columns={this.state.columns} table={"jobs"}
-                        title="Jobs"
+                        title={"Jobs"}
                         data={this.filterInactives(this.props.jobs)}
                         handleDelete={this.handleDelete}
                         isLoading={this.props.loading}
@@ -125,6 +191,7 @@ export class Jobs extends Component {
 
 export default connect((state) => ({
     jobs: state.jobs,
+    employees: state.employees,
     loading: state.loading
   }))(Jobs)
 

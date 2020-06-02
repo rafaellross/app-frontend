@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import * as API from '../../Api';
 
 const classes = {
-  root: {    
+  root: {
     height: '100vh'
 
   },
@@ -44,12 +44,12 @@ class Login extends Component {
         e.preventDefault();
 
         const {email , password} = this.state ;
-        API.login({            
+        API.login({
           email,
           password
-        })        
+        })
         .then(response=> {
-            
+
             localStorage.setItem('token', response.success.token);
             localStorage.setItem('user', JSON.stringify(response.user));
             console.log(response);
@@ -57,27 +57,27 @@ class Login extends Component {
             window.location.replace("/");
 
           })
-          .catch(error=> {            
+          .catch(error=> {
             /*
             this.setState(() => ({
               email: '',
               password: '',
               err: true
-            }));        
+            }));
             console.log(error)
             */
           });
      }
 
       handleChange(event) {
-        
+
       const { target: { name, value } } = event
       this.setState(() => ({
               [name]: value
-          }));        
-      
-  
-  }     
+          }));
+
+
+  }
 
 	render() {
 
@@ -85,7 +85,7 @@ class Login extends Component {
         //let msg = (!error) ? 'Login Successful' : 'Wrong Credentials' ;
         //let name = (!error) ? 'alert alert-success' : 'alert alert-danger' ;
 	    return (
-      
+
         <form style={classes.root} onSubmit={this.onSubmit.bind(this)}>
             <Grid container>
               <Grid item xs={1} sm={1} md={4}>
@@ -134,7 +134,7 @@ class Login extends Component {
                 </Card>
               </Grid>
             </Grid>
-          </form>          
+          </form>
   	);
   }
 }

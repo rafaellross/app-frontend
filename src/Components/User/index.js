@@ -12,6 +12,7 @@ import {
     handleUpdateUser,
     handleAddUser
  } from "../../Redux/Actions/users";
+ import {DropzoneArea} from 'material-ui-dropzone'
 
 const styles = theme => ({
 
@@ -55,6 +56,7 @@ class User extends Component {
             password: '',
             password_confirmation: '',
             enabled: true,
+            user_photo: '',
         }
     }
 
@@ -72,6 +74,34 @@ class User extends Component {
             }))
         }
     }
+
+    handleUploadPhoto(acceptedFiles){
+
+        acceptedFiles.forEach((file) => {
+            const reader = new FileReader()
+
+            reader.onabort = () => console.log('file reading was aborted')
+            reader.onerror = () => console.log('file reading has failed')
+            reader.onload = () => {
+            // Do whatever you want with the file contents
+              const binaryStr = reader.result
+              this.setState(() => ({
+                  user_photo: binaryStr
+              }));
+
+              console.log(binaryStr)
+            }
+            reader.readAsDataURL(file)
+          })
+    }
+
+
+    handleDeletePhoto() {
+        this.setState(() => ({
+            user_photo: null
+        }));
+
+      }
 
     handleSave(state) {
         if (this.props.type === "edit") {
@@ -108,6 +138,11 @@ class User extends Component {
 
                         <TextField required label="Password" type="password" value={this.state.password} variant="outlined" InputLabelProps={{ shrink: true}} name="password" onChange={(e) => this.handleChange(e)}/>
                         <TextField required label="Confirm Password" type="password" value={this.state.password_confirmation} variant="outlined" InputLabelProps={{ shrink: true}} name="password_confirmation" onChange={(e) => this.handleChange(e)}/>
+                        <DropzoneArea
+                            filesLimit={1}
+                            onChange={this.handleUploadPhoto.bind(this)}
+                            onDelete={this.handleDeletePhoto.bind(this)}
+                        />
 
                         <div>
                             <ButtonGroup aria-label="outlined primary button group" style={{width: '80%', marginLeft: '10%'}}>

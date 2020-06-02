@@ -27,7 +27,7 @@ import Settings from '@material-ui/icons/Settings';
 import Assignment from '@material-ui/icons/Assignment';
 import HowToReg from '@material-ui/icons/HowToReg';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
-
+import EqualizerIcon from '@material-ui/icons/Equalizer';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 import deepPurple from '@material-ui/core/colors/deepPurple';
@@ -94,8 +94,8 @@ function UserInfo(props) {
           open={open}
           onClose={handleClose}
         >
-          <MenuItem onClick={handleClose}>Profile</MenuItem>
-          <MenuItem onClick={handleClose}>My account</MenuItem>
+          <MenuItem onClick={handleClose} style={{display: 'none'}}>Profile</MenuItem>
+          <MenuItem onClick={handleClose} style={{display: 'none'}}>My account</MenuItem>
           <MenuItem onClick={handleLogOut}>Log Out</MenuItem>
         </Menu>
       </div>
@@ -113,6 +113,7 @@ class NavBar extends Component {
         this.state = {
              auth: false,
              open: false,
+             user: {},
              drawerItems: [
                {
                 title: "Home",
@@ -154,6 +155,11 @@ class NavBar extends Component {
                 icon: <Assignment />
               },
 
+              {
+                title: "Charts",
+                path: "/charts",
+                icon: <EqualizerIcon />
+              },
 
 
             ]
@@ -173,7 +179,8 @@ class NavBar extends Component {
     componentDidMount() {
       if(localStorage.token) {
         this.setState({
-          auth: true
+          auth: true,
+          user: JSON.parse(localStorage.getItem('user'))
         });
       }
 
@@ -208,7 +215,7 @@ class NavBar extends Component {
                           </List>
                           <Divider />
                           <List>
-                            {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                            {[].map((text, index) => (
                               <ListItem button key={text}>
                                 <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
                                 <ListItemText primary={text} />
@@ -223,7 +230,7 @@ class NavBar extends Component {
                         </Link>
 
                       </Typography>
-                      <div>
+                      <div style={{position: 'absolute', right: 0, top: 10}}>
                         <UserInfo auth={this.state.auth} handleLogOut={this.handleLogOut.bind(this)}/>
                       </div>
 
