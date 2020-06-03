@@ -5,7 +5,7 @@ import * as Helpers from '../../Helpers'
 import Edit from '@material-ui/icons/Edit';
 import { Link } from 'react-router-dom'
 import Switch from '@material-ui/core/Switch';
-
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import { connect } from 'react-redux'
 
@@ -34,6 +34,7 @@ export class Employees extends Component {
                 { hidden: false, title: 'RDO', field: 'rdo_bal' },
                 { hidden: false, title: 'PLD', field: 'pld' },
                 { hidden: false, title: 'Annual Leave Balance', field: 'anl' },
+                { hidden: false, title: 'Total Entitlements', field: 'entitlements' },
                 {
                     hidden: false, title: 'Role',
                     field: 'location',
@@ -182,11 +183,12 @@ export class Employees extends Component {
 
 
     render() {
-
+        const showInactive = <FormControlLabel value="inactives" control={<Switch checked={this.state.showInactive} onChange={(e) => this.toggleInactives(e)} color="primary" name="checkedB" inputProps={{ 'aria-label': 'primary checkbox' }}/>} label="Show Inactives" labelPlacement="bottom" />;
         return (
             <div>
                 <DataTable
                     buttons={[{color: 'primary', path: '/employees/add'}]}
+                    switch={showInactive}
                     filters={[
                         {
                             description: 'Select Company',
@@ -212,7 +214,7 @@ export class Employees extends Component {
                             description: 'Select Job',
                             onChange: this.changeJob,
                             value: this.state.selectedJob,
-                            options: [{value:'A', description: 'All'}].concat(this.props.jobsList)
+                            options: [{value:'A', description: 'All'}].concat(this.props.jobs.map((job) => ({value: job.code, description: job.description})))
                         },
                     ]}
                     toggleColumn={this.toggleColumn}
@@ -233,12 +235,7 @@ export class Employees extends Component {
 
 export default connect((state) => ({
     employees: state.employees,
-    jobsList: [...new Set(state.timesheets.map(timesheet => timesheet.job))].sort().map(job => (
-        {
-            value: job,
-            description: job
-        }
-    )),
+    jobs: state.jobs,
     loading: state.loading
   }))(Employees)
 

@@ -11,9 +11,7 @@ import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import { createBrowserHistory } from 'history';
 
-export const history = createBrowserHistory({
-  basename: process.env.PUBLIC_URL
-});
+import 'react-app-polyfill/stable';
 
 const store = createStore(reducer, middleware)
 

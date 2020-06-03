@@ -34,11 +34,8 @@ import {
   handleInitialData
 } from './Redux/Actions/shared'
 import AddTimeSheet from './Scenes/TimeSheet/add';
-import { createBrowserHistory } from 'history';
+import JobsByHours from './Components/Charts/JobsByHours';
 
-export const history = createBrowserHistory({
-  basename: process.env.PUBLIC_URL
-});
 export const PrivateRoute = ({ component: Component, ...rest }) => (
 
   <Route {...rest} render={(props) => (
@@ -66,8 +63,9 @@ class App extends Component {
           <React.Fragment>
 
               <NavBar {...this.props}/>
-                <Route exact path={`./login`} component={Login}/>
+                <Route exact path={`/login`} component={Login}/>
                 <PrivateRoute exact path="/" component={Home}/>
+                <PrivateRoute exact path="/home" component={Home}/>
                 <PrivateRoute exact path={`/jobs`} component={Jobs}/>
                 <PrivateRoute exact path={`/jobs/add`} component={AddJob}/>
                 <PrivateRoute exact path={`/jobs/edit/:id`} component={EditJob}/>
@@ -79,7 +77,7 @@ class App extends Component {
                 <PrivateRoute exact path={`/jobs/penetrations/:job/add`} component={AddPenetration}/>
                 <PrivateRoute exact path={`/jobs/penetrations/:job/edit/:id`} component={EditPenetration}/>
                 <PrivateRoute exact path={`/jobs/qas/:job`} component={Qas}/>
-                <PrivateRoute exact path={`/users`}component={Users}/>
+                <PrivateRoute exact path={`/users`} component={Users}/>
                 <PrivateRoute exact path={`/users/add`} component={AddUser}/>
                 <PrivateRoute exact path={`/users/edit/:id`} component={EditUser}/>
                 <PrivateRoute exact path={`/employees`} component={Employees}/>
@@ -87,10 +85,13 @@ class App extends Component {
                 <PrivateRoute exact path={`/employees/add`} component={AddEmployee}/>
                 <PrivateRoute exact path={`/reports/employees`} component={ListEmployees}/>
                 <PrivateRoute exact path={`/reports/jobs/fire/:id`} component={FireRegister}/>
-                <PrivateRoute exact path={`/timesheets`}component={TimeSheets}/>
-                <PrivateRoute exact path={`/timesheets/add`}component={AddTimeSheet}/>
-                <PrivateRoute exact path={`/timesheets/print`}component={TimeSheetReport}/>
-                <PrivateRoute exact path={`/timesheets/print/:id`}component={TimeSheetReport}/>
+                <PrivateRoute exact path={`/timesheets`} component={TimeSheets}/>
+                <PrivateRoute exact path={`/timesheets/add`} component={AddTimeSheet}/>
+                <PrivateRoute exact path={`/timesheets/print`} component={TimeSheetReport}/>
+                <PrivateRoute exact path={`/timesheets/print/:id`} component={TimeSheetReport}/>
+
+
+                <PrivateRoute exact path={`/charts`} component={JobsByHours}/>
           </React.Fragment>
         );
       }

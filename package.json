@@ -14,12 +14,15 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
+    "es6-object-assign": "^1.0.2",
     "formik": "^2.1.4",
     "history": "^4.10.1",
     "material-table": "^1.59.0",
     "material-ui-dropzone": "^3.0.0",
     "material-ui-image": "^3.2.3",
     "react": "^16.13.1",
+    "react-app-polyfill": "^1.0.6",
+    "react-charts": "^2.0.0-beta.7",
     "react-dom": "^16.13.1",
     "react-loader-spinner": "^3.1.14",
     "react-pdf": "^4.1.0",
@@ -38,8 +41,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "homepage": "/development/frontend/",
-  "proxy": "https://smartplumbingsolutions.com.au/development/rest-api/",
+  "proxy": "https://smartplumbingsolutions.com.au/rest-api",
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -47,7 +49,10 @@
     "production": [
       ">0.2%",
       "not dead",
-      "not op_mini all"
+      "not op_mini all",
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
     ],
     "development": [
       "last 1 chrome version",

@@ -63,6 +63,7 @@ class DataTable extends Component {
                       to={button.path}>Add</Button>
                 ))}
                 </ButtonGroup>
+                {this.props.switch}
                 {this.props.filters.map(filter => (
                   <FormControl style={{width: 200}}  key={filter.description}>
                     <InputLabel id="demo-simple-select-label">{filter.description}</InputLabel>
@@ -88,7 +89,7 @@ class DataTable extends Component {
               {
                 tooltip: 'Remove All Selected Users',
                 icon: 'delete',
-                onClick: (evt, data) => this.props.handleDelete(data)
+                onClick: (evt, data) => console.log('Disabled') //this.props.handleDelete(data)
               },
               {
                 icon: 'print',

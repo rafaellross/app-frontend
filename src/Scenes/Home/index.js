@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import 'typeface-roboto';
-
+import { Redirect } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
@@ -57,6 +57,18 @@ class Home extends Component {
 
     render() {
 
+        const { user } = this.state
+
+        if (!localStorage.token || !user) {
+            return (
+                <Redirect to={{
+                    pathname: '/login'
+
+                  }} />
+            )
+        }
+
+
         return (
             <div>
                 <React.Fragment>
@@ -65,14 +77,14 @@ class Home extends Component {
                     <Paper className={this.props.classes.paper} elevation={3}>
                         <Grid container maxWidth="sm" alignItems="center" justify="center" direction="column">
                             <Grid item xs={12}>
-                                <Avatar className={this.props.classes.large} src={this.state.user.user_photo}/>
+                                <Avatar className={this.props.classes.large} src={user.user_photo !== undefined ? user.user_photo : null}/>
                             </Grid>
                             <Grid item xs={12}>
                                 <Typography variant="h3" component="h2">
                                     Welcome
                                 </Typography>
                                 <Typography variant="h3" component="h2">
-                                    {this.state.user.name}!
+                                    {user.name}!
                                 </Typography>
                             </Grid>
                            </Grid>

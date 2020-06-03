@@ -156,6 +156,10 @@ export class Jobs extends Component {
                                 title: 'Annual Leave'
                             },
                             {
+                                name: 'entitlements',
+                                title: 'Total Entitlements'
+                            },
+                            {
                                 name: 'sick_bal',
                                 title: 'Sick Leave'
                             }
