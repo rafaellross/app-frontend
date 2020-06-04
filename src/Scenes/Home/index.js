@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
-import Container from '@material-ui/core/Container';
 import { Paper } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
 import 'typeface-roboto';
 import { Redirect } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid';
@@ -73,9 +70,9 @@ class Home extends Component {
             <div>
                 <React.Fragment>
 
-                    <Grid container maxWidth="sm" alignItems="center" justify="center" direction="column">
+                    <Grid container alignItems="center" justify="center" direction="column">
                     <Paper className={this.props.classes.paper} elevation={3}>
-                        <Grid container maxWidth="sm" alignItems="center" justify="center" direction="column">
+                        <Grid container alignItems="center" justify="center" direction="column">
                             <Grid item xs={12}>
                                 <Avatar className={this.props.classes.large} src={user.user_photo !== undefined ? user.user_photo : null}/>
                             </Grid>

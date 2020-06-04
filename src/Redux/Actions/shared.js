@@ -14,7 +14,9 @@ function receiveDataAction (employees, jobs, users, timesheets, qas) {
 }
 
 export function handleInitialData () {
+
    return (dispatch) => {
+    if(localStorage.token)
      return Promise.all([
        API.fetchEmployees(),
        API.fetchJobs(),

@@ -16,7 +16,7 @@ export default function AutoFill(props) {
     const [start, setStart] = useState(7*60);
     const [end, setEnd] = useState(15.25*60);
 
-    const [startOptions, setStartOptions] = useState(options);
+    const [startOptions] = useState(options);
     const [endOptions, setEndOptions] = useState(range(Number(start), (24*60)-15, 15));
     const [job, setJob] = useState('');
 

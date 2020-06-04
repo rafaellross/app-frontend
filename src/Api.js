@@ -1,4 +1,4 @@
-const api = "https://smartplumbingsolutions.com.au/rest-api/api"
+const api = "/api"
 
 
 // Get Token from localStorage

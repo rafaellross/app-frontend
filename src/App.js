@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { Route, HashRouter } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import { withRouter, Redirect } from 'react-router-dom'
 import NavBar from './Components/NavBar';
 import  Home from './Scenes/Home'
