@@ -7,7 +7,6 @@ import Image from '@material-ui/icons/Image';
 import HighlightOff from '@material-ui/icons/HighlightOff';
 import { connect } from 'react-redux'
 import {
-    handleUpdateQa,
     handleDeleteQa
  } from "../../Redux/Actions/qas";
 
@@ -37,7 +36,7 @@ export class Qas extends Component {
                     field: 'print_qa',
                     title: 'Print Q.A',
                     render: rowData => (
-                            <Link to={`/qa/report/${rowData.id}`} target="_blank"><Print /></Link>
+                            <Link to={`/qas/report/${rowData.id}`} target="_blank"><Print /></Link>
                         )
                 } ,
                 {
