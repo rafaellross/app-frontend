@@ -73,9 +73,9 @@ class Home extends Component {
             <div>
                 <React.Fragment>
 
-                    <Grid container maxWidth="sm" alignItems="center" justify="center" direction="column">
+                    <Grid container alignItems="center" justify="center" direction="column">
                     <Paper className={this.props.classes.paper} elevation={3}>
-                        <Grid container maxWidth="sm" alignItems="center" justify="center" direction="column">
+                        <Grid container alignItems="center" justify="center" direction="column">
                             <Grid item xs={12}>
                                 <Avatar className={this.props.classes.large} src={user.user_photo !== undefined ? user.user_photo : null}/>
                             </Grid>
