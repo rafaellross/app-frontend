@@ -23,7 +23,7 @@ export class TimeSheets extends Component {
             selectedCompany: 'A',
             selecteds: [],
             columns: [
-                { hidden: true, title: '#', field: 'id', width: 5},
+                { hidden: true, title: '#', field: 'id', width: 5,  cellStyle: {width: 2}},
                 { hidden: false, title: 'User', field: 'username'},
                 { hidden: false, title: 'Date', field: 'created_at', type: 'date' },
                 { hidden: false, title: 'Employee', field: 'name' },
@@ -53,7 +53,6 @@ export class TimeSheets extends Component {
     }
 
     componentDidMount(){
-        console.log("Get Jobs: ", this.getJobs(this.props.timesheets), this.props.timesheets)
         this.setState(() => ({
             jobs: this.getJobs(this.props.timesheets)
       }))
@@ -83,23 +82,19 @@ export class TimeSheets extends Component {
     }
 
     filterJob(data) {
-        console.log('Filter Job', this.state.selectedJob);
         if (this.state.selectedJob === 'A') {
-            console.log('Returned all Jobs');
+
             return data;
         } else {
-            console.log('Returned Job', this.state.selectedJob);
+
             return data.filter(timesheet => timesheet.job === this.state.selectedJob)
         }
     }
 
     filterCompany(data) {
-        console.log('Filter company', this.state.selectedCompany);
         if (this.state.selectedCompany === 'A') {
-            console.log('Returned all companies');
             return data;
         } else {
-            console.log('Returned Company', this.state.selectedCompany);
             return data.filter(timesheet => timesheet.company === this.state.selectedCompany)
         }
     }
@@ -113,7 +108,6 @@ export class TimeSheets extends Component {
     }
 
     changeJob(job) {
-        console.log('Method change job: ', job);
         this.setState(() => ({
             selectedJob: job
         }))

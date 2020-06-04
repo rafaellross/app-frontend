@@ -34,7 +34,7 @@ class DataTable extends Component {
           <MaterialTable
           style={this.props.style}
           title={this.props.title}
-          columns={this.props.columns}
+          columns={[{ hidden: false, title: '#', field: 'id', headerStyle: {width: '200px'}}, ...this.props.columns]}
           data={this.props.data}
           options={{
             selection: true,

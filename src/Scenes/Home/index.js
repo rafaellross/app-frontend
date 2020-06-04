@@ -30,6 +30,7 @@ const styles = theme => ({
           marginTop: theme.spacing(5),
           width: theme.spacing(80),
           textAlign: 'center',
+          zIndex: 1
 
       },
 

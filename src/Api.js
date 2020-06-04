@@ -335,6 +335,20 @@ export const deleteQa = (qas) =>
   }).then(res => res.json())
 
 
+
+/**
+ * CHARTS API
+ *
+ *
+ */
+
+export const fetchTimesheetsChart = () =>
+fetch(`${api}/timesheets/charts`, { headers })
+   .then(res => res.json())
+   .then(data => data)
+
+
+
   ////General
 
 export const get = (table, id) =>

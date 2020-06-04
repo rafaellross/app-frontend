@@ -14,7 +14,7 @@ export class TimeSheetReport extends Component {
     }
 
     componentDidMount() {
-        console.log("Time Sheet report", this.state.data)
+
         let idsToPrint = this.props.location.state !== undefined ? this.props.location.state.timesheets.join(",") : this.props.match.params.id
         API.getAll('timesheets/print', idsToPrint)
         .then((file) => {
@@ -23,10 +23,7 @@ export class TimeSheetReport extends Component {
                 file: file.path
             }))
 
-            //
-
         }).then(()=> {
-            console.log(this.state.file)
             window.open(this.state.file);
             window.history.back();
         })

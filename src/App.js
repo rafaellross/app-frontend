@@ -35,6 +35,12 @@ import {
 } from './Redux/Actions/shared'
 import AddTimeSheet from './Scenes/TimeSheet/add';
 import JobsByHours from './Components/Charts/JobsByHours';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
 
 export const PrivateRoute = ({ component: Component, ...rest }) => (
 
@@ -49,6 +55,14 @@ export const PrivateRoute = ({ component: Component, ...rest }) => (
   )} />
 )
 
+const useStyles = makeStyles((theme) => ({
+  backdrop: {
+    zIndex: -1,
+    color: '#fff',
+  },
+}));
+
+
 
 class App extends Component {
 
@@ -61,6 +75,13 @@ class App extends Component {
     render() {
         return (
           <React.Fragment>
+
+                <Backdrop className={useStyles.backdrop} style={{zIndex: -10}} open={this.props.loading}>
+                  <CircularProgress color="inherit" />
+                </Backdrop>
+
+
+
 
               <NavBar {...this.props}/>
                 <Route exact path={`/login`} component={Login}/>

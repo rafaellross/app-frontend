@@ -123,6 +123,7 @@ export class Jobs extends Component {
                     style={{
                       fontSize: 100,
                       textAlign: 'center',
+                      marginBottom: '200px'
                     }}
                   >
                       <DataTableDetails

@@ -27,8 +27,8 @@ export class Employees extends Component {
             openDialogDisable: false,
             jobs: [],
             columns: [
-                { hidden: true, title: '#', field: 'id', width: 5},
-                { hidden: false, title: 'Name', field: 'name', render: rowData => <span>{Helpers.capitaliseString(rowData.name.toLowerCase())}</span> },
+
+                {  hidden: false, title: 'Name', field: 'name', render: rowData => <span>{Helpers.capitaliseString(rowData.name.toLowerCase())}</span> },
                 { hidden: false, title: 'D.O.B', field: 'dob', type: 'date' },
                 { hidden: false, title: 'Phone', field: 'phone' },
                 { hidden: false, title: 'RDO', field: 'rdo_bal' },
@@ -124,10 +124,8 @@ export class Employees extends Component {
 
     filterCompany(data) {
         if (this.state.selectedCompany === 'A') {
-            console.log('Returned all companies');
             return data;
         } else {
-            console.log('Returned Company', this.state.selectedCompany);
             return data.filter(employee => employee.company === this.state.selectedCompany)
         }
     }
@@ -142,12 +140,9 @@ export class Employees extends Component {
 
 
     filterJob(data) {
-        console.log('Filter Job', this.state.selectedJob);
         if (this.state.selectedJob === 'A') {
-            console.log('Returned all Jobs');
             return data;
         } else {
-            console.log('Returned Job', this.state.selectedJob);
             return data.filter(employee => employee.job_code === this.state.selectedJob)
         }
     }
@@ -173,7 +168,6 @@ export class Employees extends Component {
     }
 
     changeJob(job) {
-        console.log('Method change job: ', job);
         this.setState(() => ({
             selectedJob: job
         }))
