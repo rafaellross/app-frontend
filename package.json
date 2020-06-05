@@ -26,6 +26,8 @@
     "react-dom": "^16.13.1",
     "react-loader-spinner": "^3.1.14",
     "react-pdf": "^4.1.0",
+    "react-resizable": "^1.10.1",
+    "react-resizable-box": "^2.1.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.1",
     "react-signature-canvas": "^1.0.3",

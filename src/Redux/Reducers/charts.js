@@ -1,4 +1,4 @@
-import {
+  import {
     RECEIVE_CHART
   } from '../Actions/charts'
 

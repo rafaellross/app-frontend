@@ -2,14 +2,15 @@ import * as API from '../../Api';
 
 export const RECEIVE_DATA = 'RECEIVE_DATA'
 
-function receiveDataAction (employees, jobs, users, timesheets, qas) {
+function receiveDataAction (employees, jobs, users, timesheets, qas/*, charts*/) {
   return {
     type: RECEIVE_DATA,
     employees,
     jobs,
     users,
     timesheets,
-    qas
+    qas,
+    /*charts*/
   }
 }
 
@@ -22,10 +23,11 @@ export function handleInitialData () {
        API.fetchJobs(),
        API.fetchUsers(),
        API.fetchTimesheets(),
-       API.fetchQas()
+       API.fetchQas(),
+       /*API.fetchTimesheetsChart()*/
 
-     ]).then(([ employees, jobs, users, timesheets, qas ]) => {
-       dispatch(receiveDataAction(employees, jobs, users, timesheets, qas))
+     ]).then(([ employees, jobs, users, timesheets, qas/*, charts*/ ]) => {
+       dispatch(receiveDataAction(employees, jobs, users, timesheets, qas/*, charts*/))
      })
    }
  }

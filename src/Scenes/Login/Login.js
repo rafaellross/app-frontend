@@ -69,15 +69,19 @@ class Login extends Component {
           });
      }
 
-      handleChange(event) {
+     componentDidMount() {
+       if (localStorage.token) {
+         this.props.history.push("/home")
+       }
+     }
+
+    handleChange(event) {
 
       const { target: { name, value } } = event
       this.setState(() => ({
               [name]: value
           }));
-
-
-  }
+    }
 
 	render() {
 

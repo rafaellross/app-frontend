@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import DataTable from '../../../Components/DataTable'
+import DataTable from '../../../Components/DataTable/DataTable'
 import * as API from '../../../Api'
 import CustomModal from '../../../Components/Shared/CustomModal'
 import Switch from '@material-ui/core/Switch';

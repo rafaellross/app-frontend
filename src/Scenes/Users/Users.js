@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import DataTable from '../../Components/DataTable'
+import DataTable from '../../Components/DataTable/DataTable'
 
 import Edit from '@material-ui/icons/Edit';
 import { Link } from 'react-router-dom';

@@ -15,7 +15,7 @@ import DataTableDetails from '../../Components/DataTable/DataTableDetails';
 
 
 
-const DataTable = React.lazy(() => import('../../Components/DataTable'));
+const DataTable = React.lazy(() => import('../../Components/DataTable/DataTable'));
 export class Jobs extends Component {
     constructor(props) {
         super(props)

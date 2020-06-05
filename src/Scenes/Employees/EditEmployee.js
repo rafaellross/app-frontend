@@ -1,5 +1,5 @@
 import React from 'react'
-import Employee from '../../Components/Employee'
+import Employee from '../../Components/Employee/Employee'
 import { useParams } from "react-router-dom";
 import { connect } from 'react-redux'
 

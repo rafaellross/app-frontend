@@ -45,8 +45,6 @@ const styles = theme => ({
 
 });
 
-
-
 class Qa extends Component {
 
     constructor(props) {

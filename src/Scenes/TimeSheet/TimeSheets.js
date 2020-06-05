@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import DataTable from '../../Components/DataTable'
+import DataTable from '../../Components/DataTable/DataTable'
 
 import ButtonActions from '../../Components/Shared/ButtonActions'
 import {

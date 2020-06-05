@@ -25,23 +25,18 @@ const useStyles = makeStyles((theme) => ({
 export default function AddMultiplePenetrations() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-
   const handleOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
-
   return (
     <div>
       <Button onClick={handleOpen}>
         Add Multiple Penetrations
       </Button>
       <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
         className={classes.modal}
         open={open}
         onClose={handleClose}
@@ -57,23 +52,19 @@ export default function AddMultiplePenetrations() {
                 <div>
                     <TextField required label="Fire Seal Reference" value={""} variant="outlined" InputLabelProps={{ shrink: true}} name="fire_seal_ref" onChange={(e) => this.handleChange(e)}/>
                     <TextField required label="Drawing" value={""} variant="outlined" InputLabelProps={{ shrink: true}} name="drawing" onChange={(e) => this.handleChange(e)}/>
-                    <TextField required label="Fire Resistance Level (FRL)" value={""} variant="outlined" InputLabelProps={{ shrink: true}} name="fire_resist_level" onChange={(e) => this.handleChange(e)}/>                    
-                    <TextField type="date" required label="Installed Date" value={""} variant="outlined" InputLabelProps={{ shrink: true}} name="install_dt" onChange={(e) => this.handleChange(e)}/>                    
-                    <TextField required label="Installed By" value={""} variant="outlined" InputLabelProps={{ shrink: true}} name="install_by" onChange={(e) => this.handleChange(e)}/>                                                            
-                    <TextField required label="Manufacturer" value={""} variant="outlined" InputLabelProps={{ shrink: true}} name="manufacturer" onChange={(e) => this.handleChange(e)}/>                                                            
+                    <TextField required label="Fire Resistance Level (FRL)" value={""} variant="outlined" InputLabelProps={{ shrink: true}} name="fire_resist_level" onChange={(e) => this.handleChange(e)}/>
+                    <TextField type="date" required label="Installed Date" value={""} variant="outlined" InputLabelProps={{ shrink: true}} name="install_dt" onChange={(e) => this.handleChange(e)}/>
+                    <TextField required label="Installed By" value={""} variant="outlined" InputLabelProps={{ shrink: true}} name="install_by" onChange={(e) => this.handleChange(e)}/>
+                    <TextField required label="Manufacturer" value={""} variant="outlined" InputLabelProps={{ shrink: true}} name="manufacturer" onChange={(e) => this.handleChange(e)}/>
                     <Divider light />
-                    
                     <div style={{marginTop: 20}}>
-                        
                         <ButtonGroup aria-label="outlined primary button group" style={{width: '80%', marginLeft: '10%'}}>
-                            <Button variant="contained" color="secondary" style={{width: '50%', padding: '10px'}} onClick={() => 'props.history.goBack()'}>Cancel</Button>                    
+                            <Button variant="contained" color="secondary" style={{width: '50%', padding: '10px'}} onClick={() => 'props.history.goBack()'}>Cancel</Button>
                             <Button variant="contained" color="primary" style={{width: '50%', padding: 10}} onClick={() => console.log('this.handleSave(this.state)')}>Save</Button>
                         </ButtonGroup>
                     </div>
                 </div>
                 </form>
-
-
           </div>
         </Fade>
       </Modal>

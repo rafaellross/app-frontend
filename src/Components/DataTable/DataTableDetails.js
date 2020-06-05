@@ -30,18 +30,17 @@ export default function DataTableDetails(props) {
   const classes = useStyles();
   const { rows, columns } = props
   return (
-    <TableContainer component={Paper} className={classes.container} style={{backgroundColor: blueGrey}}>
+    <TableContainer component={Paper} className={classes.container} style={{ backgroundColor: blueGrey }}>
       <Table className={classes.table} size="small" aria-label="a dense table">
         <TableHead>
-        <TableRow>
-          {columns.map((column) => (
-            <TableCell key={column.name} align="left">{column.title}</TableCell>
-          ))}
+          <TableRow>
+            {columns.map((column) => (
+              <TableCell key={column.name} align="left">{column.title}</TableCell>
+            ))}
           </TableRow>
         </TableHead>
         <TableBody className={classes.container}>
-
-        {rows.map((row) => (
+          {rows.map((row) => (
             <StyledTableRow key={row.id}>
               {columns.map((column) => (
                 <TableCell key={`${row.id} - ${column.name}`} align="left">{row[column.name]}</TableCell>

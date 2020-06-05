@@ -4,7 +4,7 @@ import * as API from '../../Api';
 
 export const RECEIVE_CHART = 'RECEIVE_CHART'
 
-function receiveTimesheetsChart (charts) {
+function receiveCharts (charts) {
   return {
     type: RECEIVE_CHART,
     charts,
@@ -12,7 +12,7 @@ function receiveTimesheetsChart (charts) {
 }
 
 
-export function handleTimeSheetChart () {
+export function handleReceiveCharts () {
 
     return (dispatch) => {
      if(localStorage.token)
@@ -20,7 +20,7 @@ export function handleTimeSheetChart () {
         API.fetchTimesheetsChart()
 
       ]).then(([ charts ]) => {
-        dispatch(receiveTimesheetsChart(charts))
+        dispatch(receiveCharts(charts))
       })
     }
   }

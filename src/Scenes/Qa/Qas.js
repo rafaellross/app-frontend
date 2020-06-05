@@ -10,7 +10,7 @@ import {
     handleDeleteQa
  } from "../../Redux/Actions/qas";
 
- const DataTable = React.lazy(() => import('../../Components/DataTable'));
+ const DataTable = React.lazy(() => import('../../Components/DataTable/DataTable'));
 
 export class Qas extends Component {
     constructor(props) {

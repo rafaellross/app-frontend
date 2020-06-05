@@ -1,5 +1,5 @@
 import React from 'react'
-import Job from '../../Components/Job'
+import Job from '../../Components/Job/Job'
 import { useParams } from "react-router-dom";
 import { connect } from 'react-redux'
 

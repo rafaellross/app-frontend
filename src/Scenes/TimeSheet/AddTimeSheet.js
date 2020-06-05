@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import TimeSheet from "../../Components/TimeSheet";
+import TimeSheet from "../../Components/TimeSheet/TimeSheet";
+
 export class AddTimeSheet extends Component {
     static propTypes = {
 

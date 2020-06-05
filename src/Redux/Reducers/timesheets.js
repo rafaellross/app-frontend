@@ -1,8 +1,8 @@
 import {
     ADD_TIMESHEET,
     REMOVE_TIMESHEET,
-    UPDATE_TIMESHEET,
-    RECEIVE_CHART
+    UPDATE_TIMESHEET
+
   } from '../Actions/timesheets'
 
   import {

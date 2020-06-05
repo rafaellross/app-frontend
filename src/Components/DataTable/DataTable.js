@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import MaterialTable, {MTableToolbar} from 'material-table'
+import MaterialTable, { MTableToolbar } from 'material-table'
 import Divider from '@material-ui/core/Divider';
 import ColumnFilter from './ColumnFilter';
 import PropTypes from 'prop-types';
@@ -18,23 +18,18 @@ class DataTable extends Component {
     this.handleToggle = this.handleToggle.bind(this);
   }
 
+  async handleToggle(column) {
+    await this.props.toggleColumn(column)
+  }
 
-   async handleToggle(column) {
-      await this.props.toggleColumn(column)
+  render() {
 
-
-    }
-
-    render() {
-
-      return (
-
-        <div style={{marginTop: 10}}>
-
-          <MaterialTable
+    return (
+      <div style={{ marginTop: 10 }}>
+        <MaterialTable
           style={this.props.style}
           title={this.props.title}
-          columns={[{ hidden: false, title: '#', field: 'id', headerStyle: {width: '200px'}}, ...this.props.columns]}
+          columns={[{ hidden: false, title: '#', field: 'id', headerStyle: { width: '200px' } }, ...this.props.columns]}
           data={this.props.data}
           options={{
             selection: true,
@@ -43,29 +38,26 @@ class DataTable extends Component {
             pageSize: 30,
             maxBodyHeight: '80vh',
             padding: 'dense'
-
           }}
-
           components={{
             Toolbar: props => (
-
               <div>
                 <MTableToolbar {...props} />
-                <Divider variant="middle" style={{marginBottom: 10}}/>
-                <ButtonGroup aria-label="outlined primary button group" style={{minWidth: 200+'px', marginLeft: 10+'px'}}>
-                {this.props.buttons.map(button => (
+                <Divider variant="middle" style={{ marginBottom: 10 }} />
+                <ButtonGroup aria-label="outlined primary button group" style={{ minWidth: 200 + 'px', marginLeft: 10 + 'px' }}>
+                  {this.props.buttons.map(button => (
                     <Button
                       key={button.path}
                       variant="contained"
                       color={button.color}
-                      style={{width: '100%', padding: '10px'}}
+                      style={{ width: '100%', padding: '10px' }}
                       component={Link}
                       to={button.path}>Add</Button>
-                ))}
+                  ))}
                 </ButtonGroup>
                 {this.props.switch}
                 {this.props.filters.map(filter => (
-                  <FormControl style={{width: 200}}  key={filter.description}>
+                  <FormControl style={{ width: 200 }} key={filter.description}>
                     <InputLabel id="demo-simple-select-label">{filter.description}</InputLabel>
                     <Select
                       labelId="select-company-label"
@@ -84,45 +76,37 @@ class DataTable extends Component {
               </div>
             ),
           }}
-
           actions={[
-              {
-                tooltip: 'Remove All Selected Users',
-                icon: 'delete',
-                onClick: (evt, data) => console.log('Disabled') //this.props.handleDelete(data)
-              },
-              {
-                icon: 'print',
-                tooltip: 'Print Selecteds',
-                onClick: (event, data) => this.props.handlePrint ? this.props.handlePrint(data) : console.log('No Print Handler'),
-                hidden: this.props.handlePrint ? false : true
-              },
-
-              {
-                icon: () => <ColumnFilter columns={this.props.columns} handleToggle={(e)=> this.handleToggle(e)}/>,
-                tooltip: 'Hide/Show Columns',
-                isFreeAction: true,
-                onClick: () => null
-              },
-
-
-
+            {
+              tooltip: 'Remove All Selected Users',
+              icon: 'delete',
+              onClick: (evt, data) => console.log('Disabled') //this.props.handleDelete(data)
+            },
+            {
+              icon: 'print',
+              tooltip: 'Print Selecteds',
+              onClick: (event, data) => this.props.handlePrint ? this.props.handlePrint(data) : console.log('No Print Handler'),
+              hidden: this.props.handlePrint ? false : true
+            },
+            {
+              icon: () => <ColumnFilter columns={this.props.columns} handleToggle={(e) => this.handleToggle(e)} />,
+              tooltip: 'Hide/Show Columns',
+              isFreeAction: true,
+              onClick: () => null
+            },
           ]}
-
           detailPanel={this.props.detailPanel}
-          onRowClick={(event, rowData, togglePanel) => {try{ togglePanel() } catch {console.log('no data')}}}
+          onRowClick={(event, rowData, togglePanel) => { try { togglePanel() } catch { console.log('no data') } }}
         />
-        </div>
-
-      )
-
+      </div>
+    )
   }
-  }
+}
 
-  DataTable.propTypes = {
-    toggleColumn: PropTypes.func.isRequired,
-    buttons: PropTypes.array.isRequired,
-    filters: PropTypes.array.isRequired
-  };
+DataTable.propTypes = {
+  toggleColumn: PropTypes.func.isRequired,
+  buttons: PropTypes.array.isRequired,
+  filters: PropTypes.array.isRequired
+};
 
 export default DataTable

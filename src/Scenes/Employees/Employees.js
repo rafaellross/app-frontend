@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import DataTable from '../../Components/DataTable'
+import DataTable from '../../Components/DataTable/DataTable'
 import * as Helpers from '../../Helpers'
 
 import Edit from '@material-ui/icons/Edit';
