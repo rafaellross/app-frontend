@@ -1,5 +1,5 @@
 
-import * as API from '../../Api';
+import * as API from '../../Api'
 
 export const ADD_TIMESHEET = 'ADD_TIMESHEET'
 export const REMOVE_TIMESHEET = 'REMOVE_TIMESHEET'
@@ -45,14 +45,14 @@ export function handleDeleteTimesheet (timesheets) {
       //Remove Timesheets from State
       timesheets.forEach(timesheet => {
         dispatch(removeTimesheet(timesheet.id))
-      });
+      })
 
 
       return API.deleteTimesheet(timesheets.map(timesheet => timesheet.id))
         .catch(() => {
           timesheets.forEach(timesheet => {
             dispatch(addTimesheet(timesheet))
-          });
+          })
 
 
           alert('An error occurred. Try again.')

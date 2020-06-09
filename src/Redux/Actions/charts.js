@@ -1,6 +1,4 @@
-
-import * as API from '../../Api';
-
+import * as API from '../../Api'
 
 export const RECEIVE_CHART = 'RECEIVE_CHART'
 
@@ -10,7 +8,6 @@ function receiveCharts (charts) {
     charts,
   }
 }
-
 
 export function handleReceiveCharts () {
 

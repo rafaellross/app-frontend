@@ -71,7 +71,7 @@ export class Qas extends Component {
                     buttons={[{color: 'primary', path: '/qas/add'}]}
                     filters={[]}
                     toggleColumn={this.toggleColumn}
-                    style={{maxWidth: '80%', marginLeft: '10%', padding: 10}}
+                    style={{maxWidth: '100%', padding: 10}}
                     columns={this.state.columns}
                     title="Q.A Sign Off "
                     data={this.props.qas}

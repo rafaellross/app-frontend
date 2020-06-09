@@ -11,9 +11,6 @@ import Employees from './Scenes/Employees/Employees';
 import EditEmployee from './Scenes/Employees/EditEmployee';
 import AddEmployee from './Scenes/Employees/AddEmployee';
 
-
-
-
 import ListEmployees from './Reports/Employees/list';
 import FireRegister from './Reports/Job/FireRegister';
 import AddUser from './Scenes/Users/AddUser';
@@ -59,8 +56,7 @@ export const PrivateRoute = ({ component: Component, ...rest }) => (
 
 const useStyles = makeStyles((theme) => ({
   backdrop: {
-    zIndex: -1,
-    color: '#fff',
+    zIndex: 100
   },
 }));
 
@@ -68,13 +64,14 @@ function App (props) {
   useEffect(() => {
     const { dispatch } = props
     dispatch(handleInitialData())
-
   });
+
+  const classes = useStyles()
 
   return (
     <React.Fragment>
-          <Backdrop className={useStyles.backdrop} style={{zIndex: -10}} open={props.loading}>
-            <CircularProgress color="inherit" />
+          <Backdrop className={classes.backdrop} open={props.loading}>
+            <CircularProgress color="primary" />
           </Backdrop>
           <NavBar {...props}/>
           <Route exact path={`/login`} component={Login}/>

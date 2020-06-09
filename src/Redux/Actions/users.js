@@ -1,5 +1,4 @@
-
-import * as API from '../../Api';
+import * as API from '../../Api'
 
 export const ADD_USER = 'ADD_USER'
 export const REMOVE_USER = 'REMOVE_USER'
@@ -45,16 +44,14 @@ export function handleDeleteUser (users) {
       //Remove Users from State
       users.forEach(user => {
         dispatch(removeUser(user.id))
-      });
+      })
 
 
       return API.deleteUser(users.map(user => user.id))
         .catch(() => {
           users.forEach(user => {
             dispatch(addUser(user))
-          });
-
-
+          })
           alert('An error occurred. Try again.')
         })
     }

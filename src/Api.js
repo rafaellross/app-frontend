@@ -1,4 +1,4 @@
-const api = "https://smartplumbingsolutions.com.au/development/rest-api/api"
+const api = process.env.REACT_APP_API_URL
 
 
 // Get Token from localStorage

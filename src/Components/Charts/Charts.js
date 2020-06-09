@@ -1,14 +1,49 @@
 import React, { useState, useEffect  } from 'react';
 import { Chart } from 'react-charts'
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import { Paper } from '@material-ui/core';
 import { connect } from 'react-redux'
 import {
   handleReceiveCharts
 }
  from '../../Redux/Actions/charts';
+
+
+
 import Button from '@material-ui/core/Button';
 import { Typography } from '@material-ui/core';
 import { ResizableBox } from 'react-resizable';
 import './style.css';
+
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(20),
+    paddingTop: theme.spacing(10),
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center'
+  },
+  grid: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: '100vh'
+  },
+  large: {
+    width: theme.spacing(20),
+    height: theme.spacing(20),
+    fontSize: theme.spacing(20),
+  },
+}));
+
+
+
 
 function Box(props) {
 
@@ -36,7 +71,10 @@ function Charts(props) {
     { position: 'left', type: 'linear', stacked: false }
   ]
 
+  const [loaded, setLoaded] = useState(false)
+
   useEffect(() => {
+    if (!loaded)
     props.dispatch(handleReceiveCharts())
   });
 
@@ -58,50 +96,71 @@ function Charts(props) {
           }
         )
       })
+      if (!loaded) {
+        setLoaded(true)
+      }
       return result
 
     } else {
       return []
     }
   }
-
+  const classes = useStyles()
   return (
     <React.Fragment>
-      <Box style={{height: '100vh'}}>
-          <Typography variant="h3" component="h2" style={{ textAlign: 'center' }}>
-            HOURS BY JOB
-          </Typography>
-          <Chart
-            data={compileData(props.byjob)}
-            axes={axes}
-            series={series}
-            tooltip
-          />
-      </Box>
-      <Box>
-          <Typography variant="h3" component="h2" style={{ textAlign: 'center' }}>
-            OVERTIME BY EMPLOYEE
-          </Typography>
-          <Chart
-            data={compileData(props.byemployee)}
-            axes={axes}
-            series={series}
-            tooltip
-          />
-      </Box>
-      <Box>
-          <Typography variant="h3" component="h2" style={{ textAlign: 'center' }}>
-            OVERTIME BY JOB
-          </Typography>
-          <Chart
-            data={compileData(props.byovertimejob)}
-            axes={axes}
-            series={series}
-            tooltip
-          />
-      </Box>
+      <div className={classes.root}>
+          <Grid container spacing={3} className={classes.grid}>
+              <Grid item xs={12} sm={12} lg={12}>
+                <Button color="secondary" variant="outlined" onClick={() => props.dispatch(handleReceiveCharts())}>Refresh</Button>
+              </Grid>
+              <Grid item xs={12} sm={12} lg={12}>
+                  <Paper className={classes.paper} elevation={3}>
+                    <Box style={{height: '100vh'}}>
+                      <Typography variant="h3" component="h2" style={{ textAlign: 'center' }}>
+                        HOURS BY JOB
+                      </Typography>
+                      <Chart
+                        data={compileData(props.byjob)}
+                        axes={axes}
+                        series={series}
+                        tooltip
+                      />
+                    </Box>
+                  </Paper>
+              </Grid>
+              <Grid item xs={12} sm={12} lg={12}>
+                  <Paper className={classes.paper} elevation={3}>
+                    <Box>
+                        <Typography variant="h3" component="h2" style={{ textAlign: 'center' }}>
+                          OVERTIME BY EMPLOYEE
+                        </Typography>
+                        <Chart
+                          data={compileData(props.byemployee)}
+                          axes={axes}
+                          series={series}
+                          tooltip
+                        />
+                    </Box>
+                  </Paper>
+              </Grid>
+              <Grid item xs={12} sm={12} lg={12}>
+                  <Paper className={classes.paper} elevation={3}>
+                    <Box>
+                        <Typography variant="h3" component="h2" style={{ textAlign: 'center' }}>
+                          OVERTIME BY JOB
+                        </Typography>
+                        <Chart
+                          data={compileData(props.byovertimejob)}
+                          axes={axes}
+                          series={series}
+                          tooltip
+                        />
+                    </Box>
+                  </Paper>
+              </Grid>
 
-      <Button color="secondary" variant="outlined" onClick={() => props.dispatch(handleReceiveCharts())}>Refresh</Button>
+          </Grid>
+      </div>
     </React.Fragment>
   )
 }

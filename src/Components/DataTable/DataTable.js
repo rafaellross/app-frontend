@@ -11,6 +11,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
+import AddIcon from '@material-ui/icons/Add';
 class DataTable extends Component {
 
   constructor(props) {
@@ -34,7 +35,7 @@ class DataTable extends Component {
           options={{
             selection: true,
             exportButton: true,
-            pageSizeOptions: [30, 60, 120, 240, 1000],
+            pageSizeOptions: this.props.data && Math.max(60, this.props.data.length) > 60 ? [30, 60, this.props.data.length] : [30, 60],
             pageSize: 30,
             maxBodyHeight: '80vh',
             padding: 'dense'
@@ -44,17 +45,6 @@ class DataTable extends Component {
               <div>
                 <MTableToolbar {...props} />
                 <Divider variant="middle" style={{ marginBottom: 10 }} />
-                <ButtonGroup aria-label="outlined primary button group" style={{ minWidth: 200 + 'px', marginLeft: 10 + 'px' }}>
-                  {this.props.buttons.map(button => (
-                    <Button
-                      key={button.path}
-                      variant="contained"
-                      color={button.color}
-                      style={{ width: '100%', padding: '10px' }}
-                      component={Link}
-                      to={button.path}>Add</Button>
-                  ))}
-                </ButtonGroup>
                 {this.props.switch}
                 {this.props.filters.map(filter => (
                   <FormControl style={{ width: 200 }} key={filter.description}>
@@ -77,6 +67,13 @@ class DataTable extends Component {
             ),
           }}
           actions={[
+            {
+              tooltip: 'Add New Record',
+              icon: () => <Link to={this.props.addPath}><AddIcon/></Link>,
+              isFreeAction: true,
+              onClick: (evt, data) => this.props.handleAdd
+            },
+
             {
               tooltip: 'Remove All Selected Users',
               icon: 'delete',

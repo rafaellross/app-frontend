@@ -19,7 +19,7 @@ export class Users extends Component {
         this.state = {
             showInactive: false,
             columns: [
-                { title: '#', field: 'id', type: 'numeric'},
+
                 { title: 'Name', field: 'name' },
                 { title: 'User', field: 'username' },
                 { title: 'Administrator', field: 'description', render: rowData => rowData.administrator ? 'Yes' : 'No'},
@@ -64,6 +64,7 @@ export class Users extends Component {
     }
 
     filterInactives(data) {
+        if(data && data.length)
         if (this.state.showInactive) {
             return data;
         } else {
@@ -97,10 +98,11 @@ export class Users extends Component {
         return (
             <React.Fragment>
                 <DataTable
+                    addPath={'/users/add'}
                     buttons={[{color: 'primary', path: '/users/add'}]}
                     filters={[]}
                     toggleColumn={this.toggleColumn}
-                    style={{maxWidth: '80%', marginLeft: '10%', padding: 10}}
+                    style={{maxWidth: '100%', padding: 10}}
                     columns={this.state.columns}
                     table={"users"}
                     title="Users"

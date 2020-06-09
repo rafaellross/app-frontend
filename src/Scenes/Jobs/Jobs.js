@@ -1,25 +1,25 @@
 import React, { Component } from 'react'
 
-import Fireplace from '@material-ui/icons/Fireplace';
+import Fireplace from '@material-ui/icons/Fireplace'
 
-import Edit from '@material-ui/icons/Edit';
-import Beenhere from '@material-ui/icons/Beenhere';
+import Edit from '@material-ui/icons/Edit'
+import Beenhere from '@material-ui/icons/Beenhere'
 import { Link } from 'react-router-dom'
-import Switch from '@material-ui/core/Switch';
+import Switch from '@material-ui/core/Switch'
 import { connect } from 'react-redux'
 import {
     handleUpdateJob,
     handleDeleteJob
- } from "../../Redux/Actions/jobs";
-import DataTableDetails from '../../Components/DataTable/DataTableDetails';
+ } from "../../Redux/Actions/jobs"
+import DataTableDetails from '../../Components/DataTable/DataTableDetails'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import DataTable  from '../../Components/DataTable/DataTable'
 
 
-
-const DataTable = React.lazy(() => import('../../Components/DataTable/DataTable'));
 export class Jobs extends Component {
     constructor(props) {
         super(props)
-        this.toggleColumn = this.toggleColumn.bind(this);
+        this.toggleColumn = this.toggleColumn.bind(this)
         this.state = {
             columns: [
 
@@ -83,7 +83,7 @@ export class Jobs extends Component {
 
     filterInactives(data) {
         if (this.state.showInactive) {
-            return data;
+            return data
         } else {
             return data.filter(job => job.inactive === "0")
         }
@@ -91,7 +91,7 @@ export class Jobs extends Component {
 
     toggleColumn(columnToggle) {
         let fields = this.state.columns.map((column) => column.field !== columnToggle ? column :
-        Object.assign({}, column, {hidden: !column.hidden, export: column.export}));
+        Object.assign({}, column, {hidden: !column.hidden, export: column.export}))
         this.setState((prevState, props) => ({
             columns: fields
         }))
@@ -175,21 +175,22 @@ export class Jobs extends Component {
             },
           ]
 
+          const showInactive = <FormControlLabel value="inactives" control={<Switch checked={this.state.showInactive} onChange={(e) => this.toggleInactives(e)} color="primary" name="checkedB" inputProps={{ 'aria-label': 'primary checkbox' }}/>} label="Show Inactives" labelPlacement="bottom" />
         return (
-            <React.Suspense fallback={<h1>Loading</h1>}>
-                    <DataTable
-                        buttons={[{color: 'primary', path: '/jobs/add'}]}
-                        filters={[]}
-                        detailPanel={detailPanel}
-                        toggleColumn={this.toggleColumn}
-                        style={{maxWidth: '100%', marginLeft: '0%', padding: 10}}
-                        columns={this.state.columns} table={"jobs"}
-                        title={"Jobs"}
-                        data={this.filterInactives(this.props.jobs)}
-                        handleDelete={this.handleDelete}
-                        isLoading={this.props.loading}
-                        />
-            </React.Suspense>
+            <DataTable
+                addPath={'/jobs/add'}
+                buttons={[{color: 'primary', path: '/jobs/add'}]}
+                filters={[]}
+                switch={showInactive}
+                detailPanel={detailPanel}
+                toggleColumn={this.toggleColumn}
+                style={{maxWidth: '100%', marginLeft: '0%', padding: 10}}
+                columns={this.state.columns} table={"jobs"}
+                title={"Jobs"}
+                data={this.filterInactives(this.props.jobs)}
+                handleDelete={this.handleDelete}
+                isLoading={this.props.loading}
+                />
         )
     }
 }

@@ -1,49 +1,60 @@
-import React, { Component } from 'react'
-
-
+import React, { useState, useEffect } from 'react'
 import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-
+import Avatar from '@material-ui/core/Avatar';
+import { makeStyles } from '@material-ui/core/styles';
+import { Paper } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import * as API from '../../Api';
 
-const classes = {
+const useStyles = makeStyles((theme) => ({
   root: {
-    height: '100vh'
-
+    flexGrow: 1,
   },
-  card: {
-     maxWidth: 645,
-     marginTop: 60
-   },
-   media: {
-      height: 130,
-    },
-    button: {
-        marginTop: 20,
-    },
-};
+  paper: {
+    padding: theme.spacing(5),
+    paddingTop: theme.spacing(2),
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center'
+  },
+  grid: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: '100vh'
+  },
+  large: {
+    width: theme.spacing(20),
+    height: theme.spacing(20),
+    fontSize: theme.spacing(20),
+  },
+}));
+
+function Login (props) {
 
 
-class Login extends Component {
+    const [email, setEmail] = useState('rafaellross@gmail.com')
+    const [password, setPassword] =  useState('123456')
+    const [error, setError] = useState(false)
 
-     constructor(props){
-        super(props);
-        this.state = {
-            email : 'rafaellross@gmail.com',
-            password: '123456',
-            err: false
-        }
-     }
 
-     onSubmit(e){
+    useEffect(() => {
+      if (localStorage.token) {
+        props.history.push("/home")
+      }
+    });
+
+
+     const onSubmit = (e) => {
         e.preventDefault();
 
-        const {email , password} = this.state ;
+
         API.login({
           email,
           password
@@ -53,94 +64,80 @@ class Login extends Component {
             localStorage.setItem('token', response.success.token);
             localStorage.setItem('user', JSON.stringify(response.user));
             console.log(response);
-            this.setState({err: false});
+            setError({err: false});
             window.location.replace("/");
 
           })
           .catch(error=> {
-            /*
-            this.setState(() => ({
-              email: '',
-              password: '',
-              err: true
-            }));
+            setError(error)
             console.log(error)
-            */
           });
      }
 
-     componentDidMount() {
-       if (localStorage.token) {
-         this.props.history.push("/home")
-       }
-     }
-
-    handleChange(event) {
-
-      const { target: { name, value } } = event
-      this.setState(() => ({
-              [name]: value
-          }));
+    const handleChange = (event) => {
+      const target = event.target
+      if(target.name === "email") {
+        setEmail(target.value)
+      } else {
+        setPassword(target.value)
+      }
     }
-
-	render() {
+    const classes = useStyles()
 
         //let error = this.state.err ;
         //let msg = (!error) ? 'Login Successful' : 'Wrong Credentials' ;
         //let name = (!error) ? 'alert alert-success' : 'alert alert-danger' ;
 	    return (
 
-        <form style={classes.root} onSubmit={this.onSubmit.bind(this)}>
-            <Grid container>
-              <Grid item xs={1} sm={1} md={4}>
-              </Grid>
-              <Grid item xs={10} sm={9} md={4}>
-                <Card style={classes.card}>
-                  <CardMedia
-                    style={{height: 120, backgroundSize: 'contain', marginTop: 25}}
-                    image="/img/logo.jpg"
-                    title="Contemplative Reptile"
-                    />
-                  <CardContent>
+        <form onSubmit={(e) => onSubmit(e)}>
 
-                    <Typography gutterBottom variant="h2" component="h2">
-                      Login
-                    </Typography>
-                    <TextField
-                      required
-                      onChange={this.handleChange.bind(this)}
 
-                      id="email"
-                      name="email"
-                      label="E-mail"
-                      type="text"
-                      margin="dense"
-                      fullWidth
-                      value={this.state.email}
-                    />
-                    <TextField
-                      required
-                      onChange={this.handleChange.bind(this)}
-                      id="password"
-                      name="password"
-                      label="Password"
-                      type="password"
-                      autoComplete="current-password"
-                      margin="dense"
-                      fullWidth
-                      value={this.state.password}
-                    />
 
-                  <Button variant="outlined" color="primary" style={classes.button} type="submit">
-                       Login
-                     </Button>
-                  </CardContent>
-                </Card>
-              </Grid>
-            </Grid>
+              <div className={classes.root}>
+                  <Grid container spacing={3} className={classes.grid}>
+                      <Grid item xs={12} sm={8} lg={5}>
+                          <Paper className={classes.paper} elevation="4" variant="outlined">
+                            <Avatar variant="square" className={classes.large} src={"/img/logo.jpg"}/>
+                            <Typography gutterBottom variant="h2" component="h2">
+                              Login
+                            </Typography>
+                            <TextField
+                              required
+                              onChange={handleChange}
+                              id="email"
+                              name="email"
+                              label="E-mail"
+                              type="text"
+                              margin="dense"
+                              size="medium"
+                              variant="outlined"
+                              fullWidth
+                              value={email}
+                            />
+                            <TextField
+                              required
+                              onChange={handleChange}
+                              id="password"
+                              name="password"
+                              label="Password"
+                              type="password"
+                              autoComplete="current-password"
+                              margin="dense"
+                              size="medium"
+                              variant="outlined"
+                              fullWidth
+                              value={password}
+                            />
+                            <Button variant="outlined" color="primary" style={classes.button} type="submit">
+                                Login
+                            </Button>
+                          </Paper>
+                      </Grid>
+                  </Grid>
+              </div>
           </form>
   	);
-  }
+
 }
 
 export default Login;

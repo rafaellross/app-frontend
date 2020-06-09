@@ -241,7 +241,7 @@ export class QaReport extends Component {
                     </Page>
                     {data.photos && (
                         data.photos.map(photo => (
-                            <Page>
+                        <Page key={photo.qa_photo}>
                             <Image style={{ position: 'absolute', right: '10%', left: '10%', top: '5%', width: '80%'}} src={photo.qa_photo}/>
                         </Page>
 

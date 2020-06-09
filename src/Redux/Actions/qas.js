@@ -1,5 +1,5 @@
 
-import * as API from '../../Api';
+import * as API from '../../Api'
 
 export const ADD_QA = 'ADD_QA'
 export const REMOVE_QA = 'REMOVE_QA'
@@ -45,16 +45,14 @@ export function handleDeleteQa (qas) {
       //Remove Qas from State
       qas.forEach(qa => {
         dispatch(removeQa(qa.id))
-      });
+      })
 
 
       return API.deleteQa(qas.map(qa => qa.id))
         .catch(() => {
           qas.forEach(qa => {
             dispatch(addQa(qa))
-          });
-
-
+          })
           alert('An error occurred. Try again.')
         })
     }

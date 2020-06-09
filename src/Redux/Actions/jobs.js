@@ -1,5 +1,4 @@
-
-import * as API from '../../Api';
+import * as API from '../../Api'
 
 export const ADD_JOB = 'ADD_JOB'
 export const REMOVE_JOB = 'REMOVE_JOB'
@@ -45,16 +44,14 @@ export function handleDeleteJob (jobs) {
       //Remove Jobs from State
       jobs.forEach(job => {
         dispatch(removeJob(job.id))
-      });
+      })
 
 
       return API.deleteJob(jobs.map(job => job.id))
         .catch(() => {
           jobs.forEach(job => {
             dispatch(addJob(job))
-          });
-
-
+          })
           alert('An error occurred. Try again.')
         })
     }
@@ -66,7 +63,6 @@ export function handleUpdateJob (job) {
 
       return API.updateJob(job)
         .catch(() => {
-
           alert('An error occurred. Try again.')
         })
     }

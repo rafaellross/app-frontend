@@ -3,10 +3,10 @@ import logger from './logger'
 import authInterceptor from './auth'
 import thunk from 'redux-thunk'
 import { applyMiddleware } from 'redux'
-
-export default applyMiddleware(
+import { composeWithDevTools } from 'redux-devtools-extension';
+export default composeWithDevTools(applyMiddleware(
   thunk,
   checker,
   logger,
   authInterceptor
-)
+))

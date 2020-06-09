@@ -179,9 +179,8 @@ export class Employees extends Component {
     render() {
         const showInactive = <FormControlLabel value="inactives" control={<Switch checked={this.state.showInactive} onChange={(e) => this.toggleInactives(e)} color="primary" name="checkedB" inputProps={{ 'aria-label': 'primary checkbox' }}/>} label="Show Inactives" labelPlacement="bottom" />;
         return (
-            <div>
                 <DataTable
-                    buttons={[{color: 'primary', path: '/employees/add'}]}
+                    addPath={'/employees/add'}
                     switch={showInactive}
                     filters={[
                         {
@@ -213,14 +212,13 @@ export class Employees extends Component {
                     ]}
                     toggleColumn={this.toggleColumn}
 
-                    style={{maxWidth: '90%', marginLeft: '5%'}}
+                    style={{maxWidth: '100%'}}
                     columns={this.state.columns}
                     title="Employees"
                     data={this.filterEmployees(this.props.employees)}
                     isLoading={this.props.loading}
                     handleDelete={this.handleDelete}
                     />
-            </div>
         )
     }
 }

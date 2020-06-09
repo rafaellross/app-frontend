@@ -1,98 +1,61 @@
-import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import { Paper } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import 'typeface-roboto';
-import { Redirect } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid';
 
-const styles = theme => ({
+
+const useStyles = makeStyles((theme) => ({
     root: {
+      flexGrow: 1,
+    },
+    paper: {
+      padding: theme.spacing(20),
+      paddingTop: theme.spacing(10),
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
+      alignItems: 'center'
+    },
+    grid: {
         display: 'flex',
-        '& > *': {
-            margin: theme.spacing(1),
-            width: theme.spacing(16),
-            height: theme.spacing(16),
-        },
-      },
-
-      large: {
-        width: theme.spacing(20),
-        height: theme.spacing(20),
-        fontSize: theme.spacing(20),
-
-
-      },
-      paper: {
-          height: theme.spacing(60),
-          paddingTop: theme.spacing(10),
-          marginTop: theme.spacing(5),
-          width: theme.spacing(80),
-          textAlign: 'center',
-          zIndex: 1
-
-      },
-
-      buttons: {
-        width: theme.spacing(40),
-        marginTop: theme.spacing(10),
-      }
-});
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh'
+    },
+    large: {
+      width: theme.spacing(20),
+      height: theme.spacing(20),
+      fontSize: theme.spacing(20),
+    },
+  }));
 
 
+function Home (props){
 
+        const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")))
 
-class Home extends Component {
-
-    constructor(props) {
-        super(props)
-
-        this.state = {
-             user: JSON.parse(localStorage.getItem("user"))
-        }
-    }
-
-    render() {
-
-        const { user } = this.state
-
-        if (!localStorage.token || !user) {
-            return (
-                <Redirect to={{
-                    pathname: '/login'
-
-                  }} />
-            )
-        }
-
-
+        const classes = useStyles()
         return (
-            <div>
-                <React.Fragment>
-
-                    <Grid container alignItems="center" justify="center" direction="column">
-                    <Paper className={this.props.classes.paper} elevation={3}>
-                        <Grid container alignItems="center" justify="center" direction="column">
-                            <Grid item xs={12}>
-                                <Avatar className={this.props.classes.large} src={user.user_photo !== undefined ? user.user_photo : null}/>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Typography variant="h3" component="h2">
-                                    Welcome
-                                </Typography>
-                                <Typography variant="h3" component="h2">
-                                    {user.name}!
-                                </Typography>
-                            </Grid>
-                           </Grid>
-                        </Paper>
-                    </Grid>
-
-                </React.Fragment>
-            </div>
+              <div className={classes.root}>
+                  <Grid container spacing={3} className={classes.grid}>
+                      <Grid item xs={12} sm={12} lg={6}>
+                          <Paper className={classes.paper}>
+                              <Avatar className={classes.large} src={user.user_photo !== undefined ? user.user_photo : null}/>
+                              <Typography variant="h3" component="h2">
+                                  Welcome
+                              </Typography>
+                              <Typography variant="h3" component="h2">
+                                  {user.name}!
+                              </Typography>
+                          </Paper>
+                      </Grid>
+                  </Grid>
+              </div>
         )
-    }
+
 }
 
-export default withStyles(styles)(Home)
+export default Home

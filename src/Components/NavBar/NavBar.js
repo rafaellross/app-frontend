@@ -224,16 +224,14 @@ class NavBar extends Component {
                           </List>
                         </div>
                         </Drawer>
-                      <Typography variant="h6">
-                        <Link to="/">
-                          <Avatar src="../../brand.ico"/>
-                        </Link>
-
-                      </Typography>
-                      <div style={{position: 'absolute', right: 0, top: 10}}>
-                        <UserInfo auth={this.state.auth} handleLogOut={this.handleLogOut.bind(this)}/>
+                      <div style={{display: 'flex', justifyContent: 'space-between', width: '-webkit-fill-available'}}>
+                        <Typography variant="h6">
+                          <Link to="/">
+                            <Avatar src="../../brand.ico"/>
+                          </Link>
+                        </Typography>
+                          <UserInfo auth={this.state.auth} handleLogOut={this.handleLogOut.bind(this)}/>
                       </div>
-
                     </Toolbar>
 
                 </AppBar>

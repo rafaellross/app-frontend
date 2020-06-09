@@ -155,7 +155,7 @@ export class TimeSheets extends Component {
                     ]}
                     handlePrint={this.handlePrint}
                     toggleColumn={this.toggleColumn}
-                    style={{maxWidth: '90%', marginLeft: '5%'}}
+                    style={{maxWidth: '100%', padding: 10}}
                     columns={this.state.columns}
                     title="Time Sheets"
                     data={this.filterTimeSheet(this.props.timesheets)}

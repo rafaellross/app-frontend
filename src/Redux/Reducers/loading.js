@@ -12,7 +12,7 @@ import {
       case RECEIVE_DATA :
         return false
       case RECEIVE_CHART :
-        return false
+        return true
       default :
         return state
     }
