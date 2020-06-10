@@ -4,7 +4,7 @@ import DataTable from '../../Components/DataTable/DataTable'
 import Edit from '@material-ui/icons/Edit';
 import { Link } from 'react-router-dom';
 import Switch from '@material-ui/core/Switch';
-
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { connect } from 'react-redux'
 import {
     handleUpdateUser,
@@ -21,7 +21,7 @@ export class Users extends Component {
             columns: [
 
                 { title: 'Name', field: 'name' },
-                { title: 'User', field: 'username' },
+                { title: 'E-mail', field: 'email' },
                 { title: 'Administrator', field: 'description', render: rowData => rowData.administrator ? 'Yes' : 'No'},
                 { title: 'Date Created', field: 'created_at', type: 'date'},
                 {
@@ -94,10 +94,11 @@ export class Users extends Component {
 
 
     render() {
-
+        const showInactive = <FormControlLabel value="inactives" control={<Switch checked={this.state.showInactive} onChange={(e) => this.toggleInactives(e)} color="primary" name="checkedB" inputProps={{ 'aria-label': 'primary checkbox' }}/>} label="Show Inactives" labelPlacement="bottom" />;
         return (
             <React.Fragment>
                 <DataTable
+                    switch={showInactive}
                     addPath={'/users/add'}
                     buttons={[{color: 'primary', path: '/users/add'}]}
                     filters={[]}

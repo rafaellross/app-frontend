@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { Link } from 'react-router-dom'
-
+import PublishIcon from '@material-ui/icons/Publish';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -69,6 +69,7 @@ class DataTable extends Component {
           actions={[
             {
               tooltip: 'Add New Record',
+              hidden: !this.props.addPath ? true : false,
               icon: () => <Link to={this.props.addPath}><AddIcon/></Link>,
               isFreeAction: true,
               onClick: (evt, data) => this.props.handleAdd
@@ -77,6 +78,7 @@ class DataTable extends Component {
             {
               tooltip: 'Remove All Selected Users',
               icon: 'delete',
+              hidden: !this.props.handleDelete ? true : false,
               onClick: (evt, data) => console.log('Disabled') //this.props.handleDelete(data)
             },
             {
@@ -89,8 +91,16 @@ class DataTable extends Component {
               icon: () => <ColumnFilter columns={this.props.columns} handleToggle={(e) => this.handleToggle(e)} />,
               tooltip: 'Hide/Show Columns',
               isFreeAction: true,
+              hidden: !this.props.toggleColumn ? true : false,
               onClick: () => null
             },
+            {
+              icon: 'publish',
+              tooltip: 'Import',
+              hidden: !this.props.import ? true : false,
+              onClick: (evt, data) => this.props.handleImport(data)
+            },
+
           ]}
           detailPanel={this.props.detailPanel}
           onRowClick={(event, rowData, togglePanel) => { try { togglePanel() } catch { console.log('no data') } }}
@@ -101,8 +111,6 @@ class DataTable extends Component {
 }
 
 DataTable.propTypes = {
-  toggleColumn: PropTypes.func.isRequired,
-  buttons: PropTypes.array.isRequired,
   filters: PropTypes.array.isRequired
 };
 

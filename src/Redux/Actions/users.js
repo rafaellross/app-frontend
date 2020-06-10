@@ -34,6 +34,7 @@ export function handleAddUser (user, cb) {
         .catch((error) => {
           console.log(error)
           alert('There was an error. Try again.')
+          console.log(error)
         })
     }
   }
@@ -48,11 +49,12 @@ export function handleDeleteUser (users) {
 
 
       return API.deleteUser(users.map(user => user.id))
-        .catch(() => {
+        .catch((error) => {
           users.forEach(user => {
             dispatch(addUser(user))
           })
           alert('An error occurred. Try again.')
+          console.log(error)
         })
     }
   }
@@ -62,9 +64,10 @@ export function handleUpdateUser (user) {
       dispatch(updateUser(user))
 
       return API.updateUser(user)
-        .catch(() => {
+        .catch((error) => {
 
           alert('An error occurred. Try again.')
+          console.log(error)
         })
     }
   }

@@ -51,12 +51,12 @@ class User extends Component {
             isLoading: true,
             id: null,
             name: '',
-            username: '',
+            email: '',
             administrator: false,
             password: '',
             password_confirmation: '',
             enabled: true,
-            user_photo: '',
+            user_photo: ''
         }
     }
 
@@ -66,7 +66,7 @@ class User extends Component {
             this.setState(() => ({
                 id: user.id,
                 name: user.name,
-                username: user.username,
+                email: user.email,
                 administrator: user.administrator,
                 password: user.password,
                 password_confirmation: user.password,
@@ -129,7 +129,7 @@ class User extends Component {
                     <form className={this.props.classes.root} noValidate autoComplete="off">
                     <div>
                         <TextField required label="Name" value={this.state.name} variant="outlined" InputLabelProps={{ shrink: true}} name="name" onChange={(e) => this.handleChange(e)}/>
-                        <TextField required label="User" value={this.state.username} variant="outlined" InputLabelProps={{ shrink: true}} name="username" onChange={(e) => this.handleChange(e)} disabled={this.props.user_id ? true : false}/>
+                        <TextField required label="E-mail" value={this.state.email} variant="outlined" InputLabelProps={{ shrink: true}} name="email" onChange={(e) => this.handleChange(e)} disabled={this.props.user_id ? true : false}/>
                         <TextField id="adminsitrator" select label="User Type" value={this.state.inactive? '1' : '0'}
                         variant="outlined" name="enabled" onChange={(e) => this.handleChange(e)}>
                             <option key={'1'} value={'1'}>Administrator</option>

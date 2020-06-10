@@ -1,4 +1,4 @@
-const api = "http://127.0.0.1:8000/api"
+const api = "http://smartplumbing.ddns.net:8000/api"
 
 
 // Get Token from localStorage

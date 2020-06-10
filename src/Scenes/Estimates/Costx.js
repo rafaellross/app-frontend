@@ -6,7 +6,7 @@ export default function Costx() {
 
     const columns = [
         {
-            title: '#', field: 'projkey'
+            title: 'Project Key', field: 'projkey'
         },
         {
             title: 'Project', field: 'name'
@@ -17,26 +17,42 @@ export default function Costx() {
     ]
 
     const [projects, setProjects] = useState([])
+    const [loaded, setLoaded] = useState(false)
     useEffect(() => {
-        API.getAll('projects')
-        .then((data) => {
-            setProjects(data)
-        })
-      });
+        loadProjects()
+    });
+
+    const loadProjects = () => {
+        if (!loaded) {
+            API.getAll('projects')
+            .then((data) => {
+                setProjects(data)
+            })
+            .catch(() => {
+                setProjects([])
+            })
+            setLoaded(true)
+        }
+
+    }
+
+    const handleImport = (data) => {
+        data.forEach(element => {
+            console.log(element.projkey)
+        });
+    }
 
     return (
         <DataTable
-        addPath={'/employees/add'}
-
         filters={[]}
-        toggleColumn={this.toggleColumn}
-
         style={{maxWidth: '100%'}}
-        columns={this.state.columns}
-        title="Employees"
-        data={this.filterEmployees(this.props.employees)}
-        isLoading={this.props.loading}
-        handleDelete={this.handleDelete}
+        columns={columns}
+        title="Estimates On CostX"
+        data={projects}
+        isLoading={false}
+        import={true}
+        handleImport={handleImport}
+
         />
     )
 }

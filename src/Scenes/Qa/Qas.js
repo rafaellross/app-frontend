@@ -6,11 +6,11 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Image from '@material-ui/icons/Image';
 import HighlightOff from '@material-ui/icons/HighlightOff';
 import { connect } from 'react-redux'
+import DataTable from '../../Components/DataTable/DataTable'
 import {
     handleDeleteQa
  } from "../../Redux/Actions/qas";
 
- const DataTable = React.lazy(() => import('../../Components/DataTable/DataTable'));
 
 export class Qas extends Component {
     constructor(props) {
@@ -66,19 +66,17 @@ export class Qas extends Component {
 
     render() {
         return (
-            <React.Suspense fallback={<h1>Loading</h1>}>
                 <DataTable
-                    buttons={[{color: 'primary', path: '/qas/add'}]}
+                    addPath={'/qas/add'}
                     filters={[]}
                     toggleColumn={this.toggleColumn}
-                    style={{maxWidth: '100%', padding: 10}}
+                    style={{maxWidth: '100%', padding: 20}}
                     columns={this.state.columns}
                     title="Q.A Sign Off "
                     data={this.props.qas}
                     isLoading={this.state.loading}
                     handleDelete={this.handleDelete}
                 />
-            </React.Suspense>
         )
     }
 }

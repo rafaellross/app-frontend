@@ -26,7 +26,7 @@ const styles = theme => ({
     paper: {
         width: '40%',
         marginLeft: '30%',
-        padding: 10
+        padding: 20
     },
     button: {
         display: 'flex',
