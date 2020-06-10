@@ -124,7 +124,7 @@ export class TimeSheets extends Component {
 
         return (
                 <DataTable
-                    buttons={[{color: 'primary', path: '/timesheets/add'}]}
+                    addPath={'/timesheets/add'}
                     filters={[
                         {
                             description: 'Select Company',

@@ -26,6 +26,7 @@ import AccountTree from '@material-ui/icons/AccountTree';
 import Settings from '@material-ui/icons/Settings';
 import Assignment from '@material-ui/icons/Assignment';
 import HowToReg from '@material-ui/icons/HowToReg';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -159,6 +160,12 @@ class NavBar extends Component {
                 title: "Charts",
                 path: "/charts",
                 icon: <EqualizerIcon />
+              },
+
+              {
+                title: "Estimates",
+                path: "/estimates",
+                icon: <AttachMoneyIcon />
               },
 
 
