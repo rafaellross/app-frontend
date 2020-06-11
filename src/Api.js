@@ -349,6 +349,39 @@ fetch(`${api}/timesheets/charts`, { headers })
 
 
 
+
+
+
+/**
+ * ESTIMATE'S API
+ *
+ *
+ */
+
+/**
+ *
+ * Add a Estimate to the API
+ */
+
+export const importEstimate = (estimate) =>
+fetch(`${api}/estimates/import`, {
+  method: 'POST',
+  headers: {
+    ...headers,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify( estimate )
+}).then(res => res.json())
+
+
+
+
+
+
+
+
+
+
   ////General
 
 export const get = (table, id) =>

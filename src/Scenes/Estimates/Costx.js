@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import DataTable from '../../Components/DataTable/DataTable'
-import * as API from './ApiCostX'
+import * as ApiCostX from './ApiCostX'
+import * as API from '../../Api'
 
 export default function Costx() {
 
     const columns = [
         {
-            title: 'Project Key', field: 'projkey'
+            title: 'Project Key', field: 'external_id'
         },
         {
             title: 'Project', field: 'name'
         },
         {
-            title: 'Date Added', field: 'dateadd', type: 'date'
+            title: 'Date Added', field: 'add_dt', type: 'date'
         }
     ]
 
@@ -24,7 +25,7 @@ export default function Costx() {
 
     const loadProjects = () => {
         if (!loaded) {
-            API.getAll('projects')
+            ApiCostX.getAll('projects')
             .then((data) => {
                 setProjects(data)
             })
@@ -38,8 +39,20 @@ export default function Costx() {
 
     const handleImport = (data) => {
         data.forEach(element => {
-            console.log(element.projkey)
+            API.importEstimate(element)
+            .then((estimate) =>{
+                getEstimateDetails(estimate.external_id)
+            })
+
         });
+    }
+
+    const getEstimateDetails = (external_id) => {
+        ApiCostX.getAll(`projects/${external_id}`)
+        .then((data) => {
+            console.log(data)
+        })
+
     }
 
     return (

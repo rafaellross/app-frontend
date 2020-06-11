@@ -30,7 +30,7 @@ import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-
+import PublishIcon from '@material-ui/icons/Publish';
 import deepPurple from '@material-ui/core/colors/deepPurple';
 import orange from '@material-ui/core/colors/orange';
 
@@ -160,15 +160,14 @@ class NavBar extends Component {
                 title: "Charts",
                 path: "/charts",
                 icon: <EqualizerIcon />
-              },
-
+              }
+            ],
+            drawerEstimateItems: [
               {
-                title: "Estimates",
-                path: "/estimates",
-                icon: <AttachMoneyIcon />
+                title: "Import",
+                path: "/estimates/import",
+                icon: <PublishIcon />
               },
-
-
             ]
         }
         this.handleLogOut = this.handleLogOut.bind(this);
@@ -215,18 +214,24 @@ class NavBar extends Component {
                               <Link key={item.title} onClick={this.toggleDrawer} to={item.path} style={{color: 'inherit', textDecoration: 'inherit', fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif'}}>
                               <ListItem button>
                                 <ListItemIcon>{item.icon}</ListItemIcon>
-                                {item.title}
+                                <ListItemText primary={item.title} />
+
                               </ListItem>
                               </Link>
                             ))}
                           </List>
                           <Divider />
+                          <Typography variant="h6" align="center">Estimating</Typography>
+
                           <List>
-                            {[].map((text, index) => (
-                              <ListItem button key={text}>
-                                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                                <ListItemText primary={text} />
+                          {this.state.drawerEstimateItems.map((item) => (
+                              <Link key={item.title} onClick={this.toggleDrawer} to={item.path} style={{color: 'inherit', textDecoration: 'inherit', fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif'}}>
+                              <ListItem button>
+                                <ListItemIcon>{item.icon}</ListItemIcon>
+                                <ListItemText primary={item.title} />
+
                               </ListItem>
+                              </Link>
                             ))}
                           </List>
                         </div>

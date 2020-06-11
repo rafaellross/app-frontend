@@ -41,6 +41,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import Estimates from './Scenes/Estimates/Estimates';
+import Costx from './Scenes/Estimates/Costx';
 
 export const PrivateRoute = ({ component: Component, ...rest }) => (
 
@@ -103,7 +104,7 @@ function App (props) {
           <PrivateRoute exact path={`/timesheets/print/:id`} component={TimeSheetReport}/>
           <PrivateRoute exact path={`/charts`} component={Charts}/>
 
-          <PrivateRoute exact path={`/estimates`} component={Estimates}/>
+          <PrivateRoute exact path={`/estimates/import`} component={Costx}/>
 
     </React.Fragment>
   );
