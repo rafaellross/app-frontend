@@ -168,6 +168,12 @@ class NavBar extends Component {
                 path: "/estimates/import",
                 icon: <PublishIcon />
               },
+              {
+                title: 'Estimates',
+                path: '/estimates',
+                icon: <AttachMoneyIcon/>
+
+              }
             ]
         }
         this.handleLogOut = this.handleLogOut.bind(this);

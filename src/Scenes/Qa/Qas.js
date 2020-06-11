@@ -8,7 +8,8 @@ import HighlightOff from '@material-ui/icons/HighlightOff';
 import { connect } from 'react-redux'
 import DataTable from '../../Components/DataTable/DataTable'
 import {
-    handleDeleteQa
+    handleDeleteQa,
+    handleReceiveQas
  } from "../../Redux/Actions/qas";
 
 
@@ -63,6 +64,13 @@ export class Qas extends Component {
     handleDelete = (selecteds) => {
         this.props.dispatch(handleDeleteQa(selecteds))
     }
+
+    componentDidMount() {
+        const { dispatch } = this.props
+        dispatch(handleReceiveQas())
+
+    }
+
 
     render() {
         return (

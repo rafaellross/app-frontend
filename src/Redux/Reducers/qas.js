@@ -1,12 +1,9 @@
 import {
     ADD_QA,
     REMOVE_QA,
-    UPDATE_QA
+    UPDATE_QA,
+    RECEIVE_QAS
   } from '../Actions/qas'
-
-  import {
-    RECEIVE_DATA
-  } from '../Actions/shared'
 
   export default function qas (state = [], action) {
      switch(action.type) {
@@ -17,7 +14,7 @@ import {
        case UPDATE_QA :
          return state.map((qa) => qa.id !== action.qa.id ? qa :
            action.qa)
-       case RECEIVE_DATA :
+       case RECEIVE_QAS :
          return action.qas
        default :
          return state

@@ -4,6 +4,7 @@ import * as API from '../../Api'
 export const ADD_TIMESHEET = 'ADD_TIMESHEET'
 export const REMOVE_TIMESHEET = 'REMOVE_TIMESHEET'
 export const UPDATE_TIMESHEET = 'UPDATE_TIMESHEET'
+export const RECEIVE_TIMESHEETS = 'RECEIVE_TIMESHEETS'
 
 function addTimesheet (timesheet) {
     return {
@@ -71,3 +72,24 @@ export function handleUpdateTimesheet (timesheet) {
         })
     }
   }
+
+
+
+  function receiveTimeSheets (timesheets) {
+    return {
+      type: RECEIVE_TIMESHEETS,
+      timesheets,
+    }
+  }
+
+  export function handleReceiveTimeSheets () {
+
+      return (dispatch) => {
+       if(localStorage.token)
+        return Promise.all([
+          API.fetchTimesheets()
+        ]).then(([ timesheets ]) => {
+          dispatch(receiveTimeSheets(timesheets))
+        })
+      }
+    }

@@ -4,6 +4,7 @@ import * as API from '../../Api'
 export const ADD_QA = 'ADD_QA'
 export const REMOVE_QA = 'REMOVE_QA'
 export const UPDATE_QA = 'UPDATE_QA'
+export const RECEIVE_QAS = 'RECEIVE_QAS'
 
 function addQa (qa) {
     return {
@@ -69,3 +70,21 @@ export function handleUpdateQa (qa) {
         })
     }
   }
+
+  function receiveQas (qas) {
+    return {
+      type: RECEIVE_QAS,
+      qas,
+    }
+  }
+
+  export function handleReceiveQas () {
+      return (dispatch) => {
+       if(localStorage.token)
+        return Promise.all([
+          API.fetchQas()
+        ]).then(([ qas ]) => {
+          dispatch(receiveQas(qas))
+        })
+      }
+    }

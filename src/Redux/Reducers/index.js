@@ -6,6 +6,7 @@ import users from './users'
 import timesheets from './timesheets'
 import qas from './qas'
 import charts from './charts'
+import estimates from './estimates'
 import loading from './loading'
 
 
@@ -16,5 +17,6 @@ export default combineReducers({
   timesheets,
   loading,
   qas,
-  charts
+  charts,
+  estimates
 })

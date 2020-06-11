@@ -1,13 +1,11 @@
 import {
     ADD_TIMESHEET,
     REMOVE_TIMESHEET,
-    UPDATE_TIMESHEET
+    UPDATE_TIMESHEET,
+    RECEIVE_TIMESHEETS
 
   } from '../Actions/timesheets'
 
-  import {
-    RECEIVE_DATA
-  } from '../Actions/shared'
 
 
   export default function timesheets (state = [], action) {
@@ -19,7 +17,7 @@ import {
        case UPDATE_TIMESHEET :
          return state.map((timesheet) => timesheet.id !== action.timesheet.id ? timesheet :
            action.timesheet)
-       case RECEIVE_DATA :
+       case RECEIVE_TIMESHEETS :
          return action.timesheets
        default :
          return state

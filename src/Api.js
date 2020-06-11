@@ -375,6 +375,70 @@ fetch(`${api}/estimates/import`, {
 
 
 
+/**
+ * ESTIMATE'S API
+ *
+ *
+ */
+
+export const fetchEstimates = () =>
+fetch(`${api}/estimates`, { headers })
+   .then(res => res.json())
+   .then(data => data)
+
+
+
+/**
+ *
+ * Add a Estimate to the API
+ */
+
+export const addEstimate = (estimate) =>
+fetch(`${api}/estimates`, {
+  method: 'POST',
+  headers: {
+    ...headers,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify( estimate )
+}).then(res => res.json())
+
+
+/**
+ *
+ * Update Estimate
+ *
+ */
+export const updateEstimate = (estimate) =>
+  fetch(`${api}/estimates/${estimate.id}`, {
+    method: 'PUT',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify( estimate )
+  }).then(res => res.json())
+
+
+/**
+ *
+ * Delete Estimate
+ *
+ */
+
+export const deleteEstimate = (estimates) =>
+  fetch(`${api}/estimates/delete`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify( {"estimates": estimates} )
+  }).then(res => res.json())
+
+
+
+
 
 
 
