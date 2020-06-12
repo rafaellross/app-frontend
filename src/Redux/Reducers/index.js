@@ -8,6 +8,7 @@ import qas from './qas'
 import charts from './charts'
 import estimates from './estimates'
 import loading from './loading'
+import login from './login'
 
 
 export default combineReducers({
@@ -18,5 +19,6 @@ export default combineReducers({
   loading,
   qas,
   charts,
-  estimates
+  estimates,
+  login
 })

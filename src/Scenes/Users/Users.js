@@ -8,9 +8,10 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { connect } from 'react-redux'
 import {
     handleUpdateUser,
-    handleDeleteUser
+    handleDeleteUser,
+    handleReceiveUsers
  } from "../../Redux/Actions/users";
-
+import { setLoading } from "../../Redux/Actions/shared";
 
 export class Users extends Component {
     constructor(props) {
@@ -90,6 +91,13 @@ export class Users extends Component {
 
     handleDelete = (selecteds) => {
         this.props.dispatch(handleDeleteUser(selecteds))
+    }
+
+    componentDidMount() {
+        const { dispatch } = this.props
+        if (!this.props.users || this.props.users.length === 0)
+        dispatch(setLoading())
+        dispatch(handleReceiveUsers())
     }
 
 

@@ -3,6 +3,8 @@ import * as API from '../../Api'
 export const ADD_USER = 'ADD_USER'
 export const REMOVE_USER = 'REMOVE_USER'
 export const UPDATE_USER = 'UPDATE_USER'
+export const RECEIVE_USERS = 'RECEIVE_USERS'
+
 
 function addUser (user) {
     return {
@@ -71,3 +73,25 @@ export function handleUpdateUser (user) {
         })
     }
   }
+
+
+
+
+  function receiveUsers (users) {
+    return {
+      type: RECEIVE_USERS,
+      users,
+    }
+  }
+
+  export function handleReceiveUsers () {
+
+      return (dispatch) => {
+       if(localStorage.token)
+        return Promise.all([
+          API.fetchUsers()
+        ]).then(([ users ]) => {
+          dispatch(receiveUsers(users))
+        })
+      }
+    }

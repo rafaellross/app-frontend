@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import DataTable from '../../Components/DataTable/DataTable'
-import * as API from '../../Api'
 import { Link } from 'react-router-dom'
 import Edit from '@material-ui/icons/Edit'
 import { connect } from 'react-redux'

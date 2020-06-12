@@ -1,12 +1,9 @@
 import {
     ADD_USER,
     REMOVE_USER,
-    UPDATE_USER
+    UPDATE_USER,
+    RECEIVE_USERS
   } from '../Actions/users'
-
-  import {
-    RECEIVE_DATA
-  } from '../Actions/shared'
 
 
   export default function users (state = [], action) {
@@ -18,7 +15,7 @@ import {
        case UPDATE_USER :
          return state.map((user) => user.id !== action.user.id ? user :
            action.user)
-       case RECEIVE_DATA :
+       case RECEIVE_USERS :
          return action.users
        default :
          return state

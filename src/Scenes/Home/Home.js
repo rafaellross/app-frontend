@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Home (props){
 
-        const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")))
+        const user = useState(JSON.parse(localStorage.getItem("user")))
 
         const classes = useStyles()
         return (

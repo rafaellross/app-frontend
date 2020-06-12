@@ -18,6 +18,7 @@ export default function Costx() {
     ]
 
     const [projects, setProjects] = useState([])
+    const [details, setDetails] = useState([])
     const [loaded, setLoaded] = useState(false)
     useEffect(() => {
         loadProjects()
@@ -37,7 +38,20 @@ export default function Costx() {
 
     }
 
+    const refresh = () => {
+        ApiCostX.getAll('projects')
+        .then((data) => {
+            setProjects(data)
+        })
+        .catch(() => {
+            setProjects([])
+        })
+        setLoaded(true)
+    }
+
     const handleImport = (data) => {
+        console.log(getEstimateDetails("123"))
+        /*
         data.forEach(element => {
             API.importEstimate(element)
             .then((estimate) =>{
@@ -45,14 +59,17 @@ export default function Costx() {
             })
 
         });
+        */
     }
 
     const getEstimateDetails = (external_id) => {
-        ApiCostX.getAll(`projects/${external_id}`)
+        let measurements = []
+        ApiCostX.getAll('projects', external_id)
         .then((data) => {
-            console.log(data)
+            setDetails(data)
         })
 
+        return measurements
     }
 
     return (
@@ -65,6 +82,7 @@ export default function Costx() {
         isLoading={false}
         import={true}
         handleImport={handleImport}
+        handleRefresh={refresh}
 
         />
     )

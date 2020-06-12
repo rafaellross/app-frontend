@@ -100,6 +100,14 @@ class DataTable extends Component {
               hidden: !this.props.import ? true : false,
               onClick: (evt, data) => this.props.handleImport(data)
             },
+            {
+              tooltip: 'Refresh',
+              hidden: !this.props.handleRefresh ? true : false,
+              icon: 'refresh',
+              isFreeAction: true,
+              onClick: (evt, data) => this.props.handleRefresh
+            },
+
 
           ]}
           detailPanel={this.props.detailPanel}

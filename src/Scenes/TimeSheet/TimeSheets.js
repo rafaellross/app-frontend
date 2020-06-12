@@ -6,6 +6,8 @@ import {
     withRouter
   } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { handleReceiveTimeSheets } from '../../Redux/Actions/timesheets'
+import { setLoading } from '../../Redux/Actions/shared'
 
 export class TimeSheets extends Component {
 
@@ -53,9 +55,15 @@ export class TimeSheets extends Component {
     }
 
     componentDidMount(){
-        this.setState(() => ({
-            jobs: this.getJobs(this.props.timesheets)
-      }))
+        const { dispatch } = this.props
+        if (!this.props.timesheets || this.props.timesheets.length === 0)
+        dispatch(setLoading())
+        dispatch(handleReceiveTimeSheets())
+        .then(() => {
+            this.setState(() => ({
+                jobs: this.getJobs(this.props.timesheets)
+            }))
+        })
     }
 
     getJobs(data) {

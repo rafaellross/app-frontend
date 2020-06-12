@@ -7,7 +7,7 @@ let token = localStorage.token
 const headers = {
   'Accept': 'application/json',
   'Authorization': `Bearer ${token}`,
-  'mode': 'no-cors'
+  'mode': 'cors'
 }
 
 /**

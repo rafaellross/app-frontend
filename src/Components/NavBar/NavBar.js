@@ -17,8 +17,6 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import Home from '@material-ui/icons/Home';
 import Divider from '@material-ui/core/Divider';
 import People from '@material-ui/icons/People';
@@ -33,8 +31,9 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import PublishIcon from '@material-ui/icons/Publish';
 import deepPurple from '@material-ui/core/colors/deepPurple';
 import orange from '@material-ui/core/colors/orange';
+import { connect } from 'react-redux'
 
-
+import { logoutAction } from "../../Redux/Actions/login";
 
 
 const theme = createMuiTheme({
@@ -195,17 +194,16 @@ class NavBar extends Component {
           user: JSON.parse(localStorage.getItem('user'))
         });
       }
-
     }
 
     handleLogOut() {
       localStorage.removeItem('user');
       localStorage.removeItem('token');
+      this.props.dispatch(logoutAction())
       window.location.replace("/login");
     }
 
     render() {
-
         return (
           <ThemeProvider theme={theme}>
                 <AppBar position="static">
@@ -217,18 +215,16 @@ class NavBar extends Component {
                         <div>
                           <List>
                             {this.state.drawerItems.map((item) => (
-                              <Link key={item.title} onClick={this.toggleDrawer} to={item.path} style={{color: 'inherit', textDecoration: 'inherit', fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif'}}>
+                              <Link className={null} key={item.title} onClick={this.toggleDrawer} to={item.path} style={{color: 'inherit', textDecoration: 'inherit', fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif'}}>
                               <ListItem button>
                                 <ListItemIcon>{item.icon}</ListItemIcon>
                                 <ListItemText primary={item.title} />
-
                               </ListItem>
                               </Link>
                             ))}
                           </List>
                           <Divider />
                           <Typography variant="h6" align="center">Estimating</Typography>
-
                           <List>
                           {this.state.drawerEstimateItems.map((item) => (
                               <Link key={item.title} onClick={this.toggleDrawer} to={item.path} style={{color: 'inherit', textDecoration: 'inherit', fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif'}}>
@@ -248,14 +244,16 @@ class NavBar extends Component {
                             <Avatar src="../../brand.ico"/>
                           </Link>
                         </Typography>
-                          <UserInfo auth={this.state.auth} handleLogOut={this.handleLogOut.bind(this)}/>
+                          <UserInfo auth={this.props.user} handleLogOut={this.handleLogOut.bind(this)}/>
                       </div>
                     </Toolbar>
-
                 </AppBar>
           </ThemeProvider>
         )
     }
 }
 
-export default NavBar
+export default connect((state) => ({
+  user: state.login.user
+}))(NavBar)
+

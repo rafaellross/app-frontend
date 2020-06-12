@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react'
-import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import * as API from '../../Api';
+import { connect } from 'react-redux'
+import {
+    loginAction,
+    logoutAction,
+    handleLogin
+} from "../../Redux/Actions/login";
+import { setLoading } from '../../Redux/Actions/shared';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,7 +50,8 @@ function Login (props) {
 
 
     useEffect(() => {
-      if (localStorage.token) {
+
+      if (localStorage.token && localStorage.token !== "null") {
         props.history.push("/home")
       }
     });
@@ -54,24 +60,21 @@ function Login (props) {
      const onSubmit = (e) => {
         e.preventDefault();
 
+        const { dispatch } = props
+        dispatch(setLoading())
+        dispatch(handleLogin({email, password}))
 
-        API.login({
-          email,
-          password
+        .then((login) => {
+          localStorage.setItem('token', login.token);
+          localStorage.setItem('user', JSON.stringify(login.user));
+          window.location.replace("/");
         })
-        .then(response=> {
 
-            localStorage.setItem('token', response.success.token);
-            localStorage.setItem('user', JSON.stringify(response.user));
-            console.log(response);
-            setError({err: false});
-            window.location.replace("/");
+        //console.log(response);
+        //setError({err: false});
+        //
 
-          })
-          .catch(error=> {
-            setError(error)
-            console.log(error)
-          });
+
      }
 
     const handleChange = (event) => {
@@ -96,7 +99,7 @@ function Login (props) {
               <div className={classes.root}>
                   <Grid container spacing={3} className={classes.grid}>
                       <Grid item xs={12} sm={8} lg={5}>
-                          <Paper className={classes.paper} elevation="4" variant="outlined">
+                          <Paper className={classes.paper} elevation={4} variant="outlined">
                             <Avatar variant="square" className={classes.large} src={"/img/logo.jpg"}/>
                             <Typography gutterBottom variant="h2" component="h2">
                               Login
@@ -140,4 +143,7 @@ function Login (props) {
 
 }
 
-export default Login;
+export default connect((state) => ({
+  user: state.login.user,
+  token: state.login.token
+}))(Login)

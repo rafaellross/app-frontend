@@ -29,6 +29,7 @@
     "react-resizable": "^1.10.1",
     "react-resizable-box": "^2.1.0",
     "react-router-dom": "^5.2.0",
+    "react-router-transition": "^2.0.0",
     "react-scripts": "^3.4.1",
     "react-signature-canvas": "^1.0.3",
     "react-window": "^1.8.5",

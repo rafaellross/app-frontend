@@ -1,7 +1,6 @@
-import React, { useEffect  } from 'react'
+import React, { useEffect, useState  } from 'react'
 
-import { Route } from 'react-router-dom'
-import { withRouter, Redirect } from 'react-router-dom'
+import { withRouter, Redirect, Route } from 'react-router-dom'
 import NavBar from './Components/NavBar/NavBar';
 import  Home from './Scenes/Home/Home'
 import Jobs from './Scenes/Jobs/Jobs';
@@ -35,18 +34,27 @@ import {
 import AddTimeSheet from './Scenes/TimeSheet/AddTimeSheet';
 import Charts from './Components/Charts/Charts';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
-
-import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import Estimates from './Scenes/Estimates/Estimates';
 import Costx from './Scenes/Estimates/Costx';
 import EditEstimate from './Scenes/Estimates/EditEstimate';
+import { setLoading } from "./Redux/Actions/shared";
+import { AnimatedRoute } from 'react-router-transition';
+
 
 export const PrivateRoute = ({ component: Component, ...rest }) => (
 
-  <Route {...rest} render={(props) => (
+  <AnimatedRoute
+  atEnter={{ offset: -100 }}
+  atLeave={{ offset: -100 }}
+  atActive={{ offset: 0 }}
+  mapStyles={(styles) => ({
+    transform: `translateX(${styles.offset}%)`,
+  })}
+
+    {...rest}
+    render={(props) => (
     !localStorage.token
     ? <Redirect to={{
       pathname: '/login',
@@ -66,8 +74,16 @@ const useStyles = makeStyles((theme) => ({
 function App (props) {
   useEffect(() => {
     const { dispatch } = props
-    dispatch(handleInitialData())
+    if (localStorage.token && !loadedInitialData) {
+      dispatch(handleInitialData())
+      .then(() => {
+        setLoadedInitialData(true)
+        dispatch(setLoading(false))
+      })
+    }
   });
+
+  const [loadedInitialData, setLoadedInitialData] = useState(false)
 
   const classes = useStyles()
 
