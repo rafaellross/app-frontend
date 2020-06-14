@@ -2,11 +2,10 @@ import React from 'react';
 import Paper from '@material-ui/core/Paper'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
-
-import { Typography } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
-
-
+import Project from './Project';
+import EstimateDetails from './EstimateDetails';
+import EstimateSummary from "./EstimateSummary";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -45,19 +44,18 @@ export default function Estimate() {
           onChange={handleChange}
           aria-label="disabled tabs example"
         >
-            <Tab label="CostX"/>
-
-          <Tab label="Disabled"/>
-          <Tab label="Active" />
+          <Tab label="Project"/>
+          <Tab label="Estimate Details"/>
+          <Tab label="Summary" />
         </Tabs>
         <TabPanel value={value} index={0}>
-
+          <Project project={{}}/>
         </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+        <EstimateDetails/>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Item Three
+        <EstimateSummary/>
       </TabPanel>
 
       </Paper>

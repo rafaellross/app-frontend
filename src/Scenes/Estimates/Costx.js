@@ -50,16 +50,15 @@ export default function Costx() {
     }
 
     const handleImport = (data) => {
-        console.log(getEstimateDetails("123"))
-        /*
+
         data.forEach(element => {
             API.importEstimate(element)
             .then((estimate) =>{
-                getEstimateDetails(estimate.external_id)
+                console.log(getEstimateDetails(estimate.external_id))
             })
 
         });
-        */
+
     }
 
     const getEstimateDetails = (external_id) => {

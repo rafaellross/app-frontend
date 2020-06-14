@@ -13,9 +13,9 @@ function EditEstimate(props) {
                 <h1>Loading...</h1>
             )
         }
-        const employee = props.employees.find(employee => employee.id === id)
+
         return (
-            <Estimate action="Edit Employee" employee={employee} type="edit"/>
+            <Estimate action="Edit Estimate" estimate={id} type="edit"/>
         )
     }
 
