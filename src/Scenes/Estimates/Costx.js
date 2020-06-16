@@ -51,21 +51,28 @@ export default function Costx() {
 
     const handleImport = (data) => {
 
-        data.forEach(element => {
-            API.importEstimate(element)
+        data.forEach(project => {
+            //Import Estimate to API
+            API.importEstimate(project)
             .then((estimate) =>{
-                console.log(getEstimateDetails(estimate.external_id))
+                //Get Estimate Details from costx
+                ApiCostX.getAll('projects', estimate.external_id)
+                .then((details) => {
+                    //Put details into API
+                    API.importEstimateDetails({estimate: estimate.id, details: details})
+                    .then((estimate_details) =>{
+                        console.log(estimate_details)
+                    })
+                })
             })
-
         });
-
     }
 
     const getEstimateDetails = (external_id) => {
         let measurements = []
         ApiCostX.getAll('projects', external_id)
         .then((data) => {
-            setDetails(data)
+            measurements = data
         })
 
         return measurements

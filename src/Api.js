@@ -374,6 +374,17 @@ fetch(`${api}/estimates/import`, {
 }).then(res => res.json())
 
 
+export const importEstimateDetails = (estimateDetails) =>
+fetch(`${api}/estimates/import/details`, {
+  method: 'POST',
+  headers: {
+    ...headers,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify( estimateDetails )
+}).then(res => res.json())
+
+
 
 /**
  * ESTIMATE'S API
